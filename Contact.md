@@ -8,3 +8,8 @@ Frances Yu   | 647-233-1773| FrancesYu| yfz111@hotmail.com
 Gabriel Luong | 647-677-7488| gabrielluong| gabriel.luong@gmail.com | gabrielluong
 Felix Lu | 647-708-1278 | fdlv| dingyilv@gmail.com | felixdlv
 Ou Ye   | 416-829-6098| MapleWorld| lonely550442072@hotmail.com | Yolo
+
+# Contact preferences
+Name | Notes
+-----|------
+Russell Self | Email or phone, I don't get alerts for skype or facebook
