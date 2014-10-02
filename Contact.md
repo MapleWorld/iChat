@@ -1,9 +1,10 @@
 # Contact Information
 
-Name	|	Phone	|	Github	|	Email
-------|-------|---------|------
-Russell Self      | 6472074878  | g3rs-cdf   | r.self@utoronto.ca
-Guohao Yan   | 6478898081  | sccdmaomao | guohao.yan@mail.utoronto.ca
-Frances Yu   | 6472331773| FrancesYu| yfz111@hotmail.com
-Gabriel Luong, Skype: gabrielluong, Email: gabriel.luong@gmail.com, Mobile: 647-677-7488  
-Felix Lu, Skype: felixdlv, Email: dingyilv@gmail.com, Cell: 647-708-1278
+Name	|	Phone	|	Github	|	Email | Skype
+------|-------|---------|-------|-------
+Russell Self  | 647-207-4878  | g3rs-cdf   | r.self@utoronto.ca
+Guohao Yan   | 647-889-8081  | sccdmaomao | guohao.yan@mail.utoronto.ca
+Frances Yu   | 647-233-1773| FrancesYu| yfz111@hotmail.com
+Gabriel Luong | 647-677-7488| gabrielluong| gabriel.luong@gmail.com | gabrielluong
+Felix Lu | 647-708-1278 | fdlv| dingyilv@gmail.com | felixdlv
+Ou Ye   | 416-829-6098| MapleWorld| lonely550442072@hotmail.com | Yolo
