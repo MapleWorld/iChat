@@ -29,3 +29,58 @@ Users can browse threads within a category, filter by topic
 User can register an account and save preferences about favourite topics
 Users can view a list of favourite topics and view threads from them
 This product will organize discussion threads into categories. The categories are broad, and are not configurable by users. Threads may be posted in a single category, and may be tagged with topic attributes. These topic tags can be used to filter posts within a category. Users can create accounts, and post new threads within a category; while posting the thread, the user may choose one or several topics to tag the thread with. The user can choose from exisitng topics, or create new tags at the time of posting. Users can save lists of topics that they are interested in, and view posts from within those topic areas.
+
+
+Server component - The server will provide data via HTTP to the android client. It will also accept updates.
+
+Server URLs -
+    /categories
+        List of category IDs and names
+    /category/{category_id}/topics
+        For a given category ID, the topics in this category. IDs and names
+    /threads/{thread_id}/{page number}
+        The thread which has the given ID (all data), replies on the given page number
+    /theads_by_topic/{topic_id}/{page number}
+        All thread headings that match a given topic, on the given page number (sorted)
+    /threads_by_category/{category_id}/{page_number}
+        All thread headings associated with the given category, on the given page number (sorted)
+    /register
+        Register an account (client sends POST to server)
+    /login
+        Log in to an existing account (client sends POST to server)
+    /logout
+        Log off from session
+    /new_thread
+        Create a new thread (paramenters in POST payload)
+    /reply
+        Reply to an existing thread
+    /subscribe
+        Add topic to list of favorites
+    /subscriptions/{category}
+        List of topics subscribed to, in a given category
+    /contacts
+        Get list of contacts
+    /addcontact
+        Add user to contacts list
+    /messages/{page number}
+        View all private message by page
+    /messages_user/{userID}/{page number}
+        View private messages from a specific user
+    /messages/sent/{page number}
+        View sent messages
+    /message/{message_id}
+        View private message
+    /sendmsg
+        Send private message
+    /admin/ban_user
+        Ban a user
+    /admin/delete_thread
+        Delete a thread
+    /admin/delete_reply
+        Delete a reply
+    /admin/create_category
+        Create a category
+    /admin/delete_category
+        Delete a category
+    /admin/modify_user
+        Modify an existing user
