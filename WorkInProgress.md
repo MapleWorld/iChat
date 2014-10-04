@@ -36,7 +36,7 @@ Server component - The server will provide data via HTTP to the android client. 
 Server URLs -
     /categories
         List of category IDs and names
-    /category/{category_id}/topics
+    /category_topics/{category_id}
         For a given category ID, the topics in this category. IDs and names
     /threads/{thread_id}/{page number}
         The thread which has the given ID (all data), replies on the given page number
@@ -62,6 +62,8 @@ Server URLs -
         Get list of contacts
     /addcontact
         Add user to contacts list
+    /deletecontact
+        Delect a contact from the list
     /messages/{page number}
         View all private message by page
     /messages_user/{userID}/{page number}
