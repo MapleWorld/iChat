@@ -1,6 +1,6 @@
 TEAM BIOS
 
-Russell Self - to be completed
+Russell Self - I am a student of the computer science program working towards an undergraduate degree. I also work full-time as a network and systems administrator. I used to have other interests but now I am a shell of a person that does nothing but sit at a desk and push buttons.
 
 
 Why did we choose the project?
