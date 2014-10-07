@@ -1,3 +1,8 @@
+TEAM BIOS
+
+Russell Self - to be completed
+
+
 Why did we choose the project?
 This topic presented an opportunity to produce the highest quality final product considering the amount of time required. We felt that the other options would have taken more effort to deliver lesser results.
 The decision to choose this project was unanimous. We all started the discussion with the same topic in mind.
