@@ -3,7 +3,9 @@ TEAM BIOS
 Russell Self - I am a student of the computer science program working towards an undergraduate degree. I also work full-time as a network and systems administrator. I used to have other interests but now I am a shell of a person that does nothing but sit at a desk and push buttons.  
 
 Felix Lu - I am a third year computer science student. I hope to find a PEY job to pay off my student loans. I want to finish school as soon as possible and go into the industry.
- 
+
+Guohao Yan - I am a third year student specializing in computer science at uoft. I work part time after school at Transport Canada. I enjoy playing chess, competitive games. I envy those who can draw very well, because my drawings are terrible.
+
 Why did we choose the project?
 This topic presented an opportunity to produce the highest quality final product considering the amount of time required. We felt that the other options would have taken more effort to deliver lesser results.
 The decision to choose this project was unanimous. We all started the discussion with the same topic in mind.
