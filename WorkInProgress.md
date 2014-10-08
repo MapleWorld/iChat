@@ -7,7 +7,10 @@ Felix Lu - I am a third year computer science student. I hope to find a PEY job 
 Guohao Yan - I am a third year student specializing in computer science at uoft. I work part time after school at Transport Canada. I enjoy playing chess, competitive games. I envy those who can draw very well, because my drawings are terrible.
 
 Frances(Fangzhou) Yu - I am a third year computer science student. I like travelling and photography. Desert is the most amazing place that I went.
-  
+
+Vince(Xie Yu) - I am a third year computer science student. I like playing video games and reading. And i like watching 
+Tv series when i am free.
+
 Why did we choose the project?
 This topic presented an opportunity to produce the highest quality final product considering the amount of time required. We felt that the other options would have taken more effort to deliver lesser results.
 The decision to choose this project was unanimous. We all started the discussion with the same topic in mind.
