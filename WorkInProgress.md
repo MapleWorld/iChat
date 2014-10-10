@@ -71,6 +71,11 @@ User can register an account and save preferences about favourite topics
 Users can view a list of favourite topics and view threads from them
 This product will organize discussion threads into categories. The categories are broad, and are not configurable by users. Threads may be posted in a single category, and may be tagged with topic attributes. These topic tags can be used to filter posts within a category. Users can create accounts, and post new threads within a category; while posting the thread, the user may choose one or several topics to tag the thread with. The user can choose from exisitng topics, or create new tags at the time of posting. Users can save lists of topics that they are interested in, and view posts from within those topic areas.
 
+-MVP-
+Our goal for MVP is to get this messaging tool running on andorid platform with user-friendly brwosing features. It will be like a mobile forum with multi-level filter to search for threads that interest the user. We will allow users to post their own threads at MVP stage, and allowing them to tag their posts with tags they think is appropriate. So it would help other users find similar posts whthin a few clicks. Also, logged in users can save their preference on their area of interests, that means users are more connected to posts that are insteresting to them.
+
+
+
 ## Release & Iteration Planning ##
 User stories that we are planning to implement for our first release:
  * As a Consumer, I want to create an account and log in.
