@@ -41,30 +41,26 @@ Philip the Producer likes to share his opinions. He likes getting involved in de
 The Administrator: Alex is an instructor at a university. He wants to be able to start discussions with his students about topics related to the courses that he teaches. He also would like the ability to moderate the discussions so that they don't become an impediment to the learning process.
 
 ## User Stories ##
-As a Consumer, I would like to create an account and log in.
-As a Consumer, I would like to specify topics that interest me, and see threads that match those topics.
-As a Consumer, I would like to browse all threads within a broad category.
-As a Consumer, I would like to receive notifications when new threads are posted in the topics I like.
-As a Consumer, I would like to save my preferences about topics that I like, and have them available when I log in.
-As a Consumer, I would like to be able to keep track of whether I have already viewed a thread, and whether there have been updates since I last viewed it.
-As a Consumer, I would like to be able to browse the content without creating an account.
-
-As a Producer, I would like to create threads and have them associated with topics of my choosing.
-As a Producer, I would like to respond to threads which have been started by other users.
-As a Producer, I would like to create new topics if necessary to match the content of my threads.
-As a Producer, I would like to be notified when replies are contributed to the threads I create.
-As a Producer, I would like to be able to edit posts which I have made to threads.
-
-As an Administrator, I would like to post administrative bulletins which are automatically visible to all users, regardless of topic preference.
-As an Administrator, I would like to remove topics, threads and users which violate the rules.
-As an Administrator, I would like to be able to create new categories for organizing threads (distinct from topics).
-As an Administrator, I would like to be able to edit user accounts.
-
-As The Social One, I would like to send private messages directly to other users.
-As The Social One, I would like to maintain a list of contacts.
-As The Social One, I would like to have a PM inbox that I can sort based on which user contacted me.
-As The Social One, I would like to review messages which I have sent to other users.
-
+ * As a Consumer, I would like to create an account and log in.
+ * As a Consumer, I would like to specify topics that interest me, and see threads that match those topics.
+ * As a Consumer, I would like to browse all threads within a broad category.
+ * As a Consumer, I would like to receive notifications when new threads are posted in the topics I like.
+ * As a Consumer, I would like to save my preferences about topics that I like, and have them available when I log in.
+ * As a Consumer, I would like to be able to keep track of whether I have already viewed a thread, and whether there have been updates since I last viewed it.
+ * As a Consumer, I would like to be able to browse the content without creating an account.
+ * As a Producer, I would like to create threads and have them associated with topics of my choosing.
+ * As a Producer, I would like to respond to threads which have been started by other users.
+ * As a Producer, I would like to create new topics if necessary to match the content of my threads.
+ * As a Producer, I would like to be notified when replies are contributed to the threads I create.
+ * As a Producer, I would like to be able to edit posts which I have made to threads.
+ * As an Administrator, I would like to post administrative bulletins which are automatically visible to all users, regardless of topic preference.
+ * As an Administrator, I would like to remove topics, threads and users which violate the rules.
+ * As an Administrator, I would like to be able to create new categories for organizing threads (distinct from topics).
+ * As an Administrator, I would like to be able to edit user accounts.
+ * As The Social One, I would like to send private messages directly to other users.
+ * As The Social One, I would like to maintain a list of contacts.
+ * As The Social One, I would like to have a PM inbox that I can sort based on which user contacted me.
+ * As The Social One, I would like to review messages which I have sent to other users.
 
 ## MVP ##
 Categories - Set by administrator, a thread may only be in one category
@@ -92,10 +88,6 @@ The User Stories  that we are planning to implement in the first iteration are:
   * As a Consumer, I would like to save my preferences about topics that I like, and have them available when I log in.
 
 All these components and user stories would requires additional tables in the database, and logic to maintain the features. Furthermore, these features would go beyond the features required for the MVP.
-
-
-
-Server component - The server will provide data via HTTP to the android client. It will also accept updates.
 
 Personas
     Administrative users can post bulletins that are visible to all users
