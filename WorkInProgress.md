@@ -60,7 +60,7 @@ The Administrator: Alex is an instructor at a university. He wants to be able to
  * As The Social One, I would like to send private messages directly to other users.
  * As The Social One, I would like to maintain a list of contacts.
  * As The Social One, I would like to have a PM inbox that I can sort based on which user contacted me.
- * As The Social One, I would like to review messages which I have sent to other users.
+ * As The Social One, I would like to review messages which I have sent to other users
 
 ## MVP ##
 Categories - Set by administrator, a thread may only be in one category
@@ -88,6 +88,8 @@ The User Stories  that we are planning to implement in the first iteration are:
   * As a Consumer, I would like to save my preferences about topics that I like, and have them available when I log in.
 
 All these components and user stories would requires additional tables in the database, and logic to maintain the features. Furthermore, these features would go beyond the features required for the MVP.
+
+## CRC Cards ##
 
 Personas
     Administrative users can post bulletins that are visible to all users
