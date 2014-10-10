@@ -45,7 +45,8 @@ The Administrator: Alex is an instructor at a university. He wants to be able to
 Guide to numbers: (priority/effort)
 Priority: 1 = high, 2 = medium, 3 = low
 Effort: 1 = high, 2 = medium, 3 = low
- * As a Consumer, I want to create an account and log in. (1/2)
+ * As a Consumer, I want to create an account (1/2)
+ * As a Consumer, I want to be able to log in with my account (1/2)
  * As a Consumer, I want to specify topics that interest me, and see threads that match those topics. (1/1)
  * As a Consumer, I want to browse all threads within a broad category. (1/2)
  * As a Consumer, I want to receive notifications when new threads are posted in the topics I like. (3/2)
