@@ -48,15 +48,21 @@ The Administrator: Alex is an instructor at a university. He wants to be able to
  * As a Consumer, I want to save my preferences about topics that I like, and have them available when I log in.
  * As a Consumer, I want to be able to keep track of whether I have already viewed a thread, and whether there have been updates since I last viewed it.
  * As a Consumer, I want to be able to browse the content without creating an account.
- * As a Producer, I want to create threads and have them associated with topics of my choosing.
- * As a Producer, I want to respond to threads which have been started by other users.
- * As a Producer, I want to create new topics if necessary to match the content of my threads.
- * As a Producer, I want to be notified when replies are contributed to the threads I create.
- * As a Producer, I want to be able to edit posts which I have made to threads.
- * As an Administrator, I want to post administrative bulletins which are automatically visible to all users, regardless of topic preference.
- * As an Administrator, I want to remove topics, threads and users which violate the rules.
- * As an Administrator, I want to be able to create new categories for organizing threads (distinct from topics).
- * As an Administrator, I want to be able to edit user accounts.
+ * As a Producer, I want to create threads and have them associated with topics of my choosing.So my threads will be found with
+  appropriate topics easily by other Consumers.
+ * As a Producer, I want to respond to threads which have been started by other users.So i can involve in the discussion and 
+   communicate with other Users.
+ * As a Producer, I want to create new topics if necessary to match the content of my threads.So the threads can be found by 
+   searching the new topics.
+ * As a Producer, I want to be notified when replies are contributed to the threads I create.So i can see the new replies and 
+   respond to new replies on time.
+ * As a Producer, I want to be able to edit posts which I have made to threads.So i can update my threads  
+ * As an Administrator, I want to post administrative bulletins which are automatically visible to all users, regardless of       topic preference.So all users can get important information on time.
+ * As an Administrator, I want to remove topics, threads and users which violate the rules.So i can make sure that there is no
+   improper posts and replies.
+ * As an Administrator, I want to be able to create new categories for organizing threads (distinct from topics).So i can 
+   administrate all threads by using appropriate categories.
+ * As an Administrator, I want to be able to edit user accounts.So i can administrate all users.
  * As The Social One, I want to send private messages directly to other users.
  * As The Social One, I want to maintain a list of contacts.
  * As The Social One, I want to have a PM inbox that I can sort based on which user contacted me.
