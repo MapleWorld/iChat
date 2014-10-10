@@ -5,7 +5,7 @@
  * [Personas](#personas)
  * [User Stories](#user-stories)
  * [MVP](#mvp)
- * [Release & Iteration Planning](#release-&-iteration-planning)
+ * [Release & Iteration Planning](#release--iteration-planning)
  * [CRC cards](#crc-cards)
 
 ## Introducing the team ##
@@ -34,9 +34,9 @@ For the upcoming project, we plan on implementing an Android version of the mess
 
 ## Personas ##
 
-The Consumer: Craig the Consumer: Craig is 18 years old, and has not yet developed opinions which are worth sharing. Therefore, he only wants to read the topics posted by other people. Craig gets annoyed by websites which force him to create an account in order to read content. He just wants to browse topics about the latest dope parties that are happening in the hood.
+Craig the Consumer: Craig is 18 years old, and has not yet developed opinions which are worth sharing. Therefore, he only wants to read the topics posted by other people. Craig gets annoyed by websites which force him to create an account in order to read content. He just wants to browse topics about the latest dope parties that are happening in the hood.
 
-The Producer: Philip the Producer likes to share his opinions. He likes getting involved in deep discussions with others who share the same interests with him. He likes arguing with people on Facebook about politics and talking to people he doesn't know while riding the bus.
+Philip the Producer likes to share his opinions. He likes getting involved in deep discussions with others who share the same interests with him. He likes arguing with people on Facebook about politics and talking to people he doesn't know while riding the bus.
 
 The Administrator: Alex is an instructor at a university. He wants to be able to start discussions with his students about topics related to the courses that he teaches. He also would like the ability to moderate the discussions so that they don't become an impediment to the learning process.
 
@@ -77,20 +77,21 @@ This product will organize discussion threads into categories. The categories ar
 
 ## Release & Iteration Planning ##
 User stories that we are planning to implement for our first release:
-    * As a Consumer, I would like to create an account and log in.
-    * As a Consumer, I would like to browse all topics within a broad category.
-    * As a Producer, I would like to create threads and have them associated with topics of my choosing.
-    * As a Producer, I would like to create new topics if necessary to match the content of my threads.
+ * As a Consumer, I would like to create an account and log in.
+ * As a Consumer, I would like to browse all topics within a broad category.
+ * As a Producer, I would like to create threads and have them associated with topics of my choosing.
+ * As a Producer, I would like to create new topics if necessary to match the content of my threads.
 
 The User Stories  that we are planning to implement in the first iteration are:
-    * As a Consumer, I would like to create an account and log in.
-    * As a Producer, I would like to create threads and have them associated with topics of my choosing.
+ * As a Consumer, I would like to create an account and log in.
+ * As a Producer, I would like to create threads and have them associated with topics of my choosing.
 
-3 User Stories that we decided to exclude from our first release:
-    * Social One component
-    * Administrator component
-    * As a Consumer, I would like to save my preferences about topics that I like, and have them available when I log in.
-        ** All these components and user stories would requires additional tables in the database, and logic to maintain the features. Furthermore, these features would go beyond the features required for the MVP.
+3 user stories that we decided to exclude from our first release:
+  * Social One component
+  * Administrator component
+  * As a Consumer, I would like to save my preferences about topics that I like, and have them available when I log in.
+
+All these components and user stories would requires additional tables in the database, and logic to maintain the features. Furthermore, these features would go beyond the features required for the MVP.
 
 
 
