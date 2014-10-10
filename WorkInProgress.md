@@ -8,7 +8,7 @@ Guohao Yan - I am a third year student specializing in computer science at uoft.
 
 Frances(Fangzhou) Yu - I am a third year computer science student. I like travelling and photography. Desert is the most amazing place that I went.
 
-Vince(Xie Yu) - I am a third year computer science student. I like playing video games and reading. And i like watching 
+Vince(Xie Yu) - I am a third year computer science student. I like playing video games and reading. And i like watching
 Tv series when i am free.
 
 Why did we choose the project?
@@ -92,57 +92,3 @@ The User Stories  that we are planning to implement in the first iteration are:
         ** All these components and user stories would requires additional tables in the database, and logic to maintain the features. Furthermore, these features would go beyond the features required for the MVP.
 
 Server component - The server will provide data via HTTP to the android client. It will also accept updates.
-
-Server URLs -
-    /categories
-        List of category IDs and names
-    /category_topics/{category_id}
-        For a given category ID, the topics in this category. IDs and names
-    /threads/{thread_id}/{page number}
-        The thread which has the given ID (all data), replies on the given page number
-    /theads_by_topic/{topic_id}/{page number}
-        All thread headings that match a given topic, on the given page number (sorted)
-    /threads_by_category/{category_id}/{page_number}
-        All thread headings associated with the given category, on the given page number (sorted)
-    /register
-        Register an account (client sends POST to server)
-    /login
-        Log in to an existing account (client sends POST to server)
-    /logout
-        Log off from session
-    /new_thread
-        Create a new thread (paramenters in POST payload)
-    /reply
-        Reply to an existing thread
-    /subscribe
-        Add topic to list of favorites
-    /subscriptions/{category}
-        List of topics subscribed to, in a given category
-    /contacts
-        Get list of contacts
-    /addcontact
-        Add user to contacts list
-    /deletecontact
-        Delect a contact from the list
-    /messages/{page number}
-        View all private message by page
-    /messages_user/{userID}/{page number}
-        View private messages from a specific user
-    /messages/sent/{page number}
-        View sent messages
-    /message/{message_id}
-        View private message
-    /sendmsg
-        Send private message
-    /admin/ban_user
-        Ban a user
-    /admin/delete_thread
-        Delete a thread
-    /admin/delete_reply
-        Delete a reply
-    /admin/create_category
-        Create a category
-    /admin/delete_category
-        Delete a category
-    /admin/modify_user
-        Modify an existing user
