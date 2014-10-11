@@ -38,7 +38,7 @@ For the upcoming project, we plan on implementing an Android version of the mess
 ## Personas ##
 
 #### Christine the Consumer ####
-Craig Campbell is a 18 year old University of Toronto student in his first year of Computer Science. Craig has not yet developed opinions which are worth sharing. Therefore, he only wants to read the topics posted by other people. Craig gets annoyed by websites which force him to create an account in order to read content. He just wants to browse topics about the latest dope parties that are happening in the hood.
+Christine Campbell is a 18 year old University of Toronto student in her first year of Computer Science. Chirstine has not yet developed opinions which are worth sharing. Therefore, she only wants to read the topics posted by other people. Christine gets annoyed by websites which force her to create an account in order to read content.
 
 #### Phil the Producer ####
 Phil McRoy likes to share his opinions. He likes getting involved in deep discussions with others who share the same interests with him. He likes arguing with people on Facebook about politics and talking to people he doesn't know while riding the bus.
