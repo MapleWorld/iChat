@@ -41,18 +41,21 @@ For the upcoming project, we plan on implementing an Android version of the mess
 
 #### Christine the Consumer ####
 ![Christine the Consumer](http://christianeducatorsacademy.com/wp-content/uploads/2014/03/image010.jpg)
+
 __Christine Campbell__ 18 years old from Toronto
 
 Christine Campbell is a 18 year old University of Toronto student in her first year of Computer Science. She lives on residence so she has a lot of time to socialize with others on campus. Christine spends a lot of time on her phone everyday. She likes to keep up with the latest events happening on campus. Christine has not yet developed opinions which are worth sharing. Therefore, she only wants to read the topics posted by other people. Christine gets annoyed by websites which force her to create an account in order to read content.
 
 #### Phil the Producer ####
 ![Phil The Producer](http://lototees.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/2/7/279-lototees-do-you-even-lift-bro-cool-story-mens-tank-top-t-shirt-tanktop-tshirt-sleeveless-beach-tee-500.jpg)
+
 __Phil McRoy__ 21 years old from Toronto
 
 Phil McRoy likes to share his opinions. Phil is a 4th year political science student. He likes getting involved in deep discussions with others who share the same interests with him. Phil loves bodybuilding. He goes to the gym every single day of the week in hopes of becomming a professional bodybuilder. He likes arguing with people on Facebook about politics and talking to people he doesn't know while riding the bus.
 
 #### Alex The Administrator ####
 ![Alex The Administrator](http://i2.cdn.turner.com/money/dam/assets/130614125251-professor-retire-620xa.jpg)
+
 __Alex Smith__ 47 years old Married with 2 children from Toronto
 
 Alex Smith is a Bioinformatics instructor at the University of Toronto. He is happily married, and commutes daily to the St. George campus. He wants to be able to start discussions with his students about topics related to the courses that he teaches. He also would like the ability to moderate the discussions so that they don't become an impediment to the learning process. During the weekends, Alex likes to go hikings in the woods and fishing.
