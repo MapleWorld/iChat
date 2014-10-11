@@ -24,7 +24,7 @@ I am a third year student specializing in Computer Science at the University of 
 #### Frances (Fangzhou) Yu ####
 I am a third year Computer Science student. I like travelling and photography. Visiting the desert was one of the most amazing experience I had.
 
-#### Vince (Xie Yu) ####
+#### Vince (Xie) Yu ####
 I am a third year Computer Science student. I like playing video games, reading, and watching TV series whenever I have a chance.
 
 #### Gabriel Luong ####
@@ -42,7 +42,7 @@ For the upcoming project, we plan on implementing an Android version of the mess
 #### Christine the Consumer ####
 ![Christine the Consumer](http://christianeducatorsacademy.com/wp-content/uploads/2014/03/image010.jpg)
 
-Christine Campbell is a 18 year old University of Toronto student in her first year of Computer Science. She lives on residence so she has a lot of time to socialize with others on campus. Christine spends a lot of time on her phone everyday. She likes to keep up with the latest events happening on campus. Chirstine has not yet developed opinions which are worth sharing. Therefore, she only wants to read the topics posted by other people. Christine gets annoyed by websites which force her to create an account in order to read content.
+Christine Campbell is a 18 year old University of Toronto student in her first year of Computer Science. She lives on residence so she has a lot of time to socialize with others on campus. Christine spends a lot of time on her phone everyday. She likes to keep up with the latest events happening on campus. Christine has not yet developed opinions which are worth sharing. Therefore, she only wants to read the topics posted by other people. Christine gets annoyed by websites which force her to create an account in order to read content.
 
 #### Phil the Producer ####
 ![Phil The Producer](http://lototees.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/2/7/279-lototees-do-you-even-lift-bro-cool-story-mens-tank-top-t-shirt-tanktop-tshirt-sleeveless-beach-tee-500.jpg)
@@ -96,7 +96,7 @@ __Guide to numbers:__ (Priority/Effort)
 
 ## MVP ##
 
-The MVP of our messaging application for universities will organize discussion threads into categories. The categories are broad topics, and are not configurable by users. Threads may be posted in a single category, and may be tagged with topic attributes. These topic tags can be used to filter posts within a category. Users can create accounts, and post new threads within a category. While posting the thread, the user may choose one or several topics to associate with the thread. The user can choose from exisitng topics, or create new topic tags at the time of posting. Users can save lists of topics that they are interested in, and view posts from within those topic areas. Tagging threads with topics will help users find similar threads with the same topic easily and provide better organizations of the list of threads visible to the users at any given time. Furthermore, we plan to integrate a social platform later to allow users to communicate more easily with eachother.
+The MVP of our messaging application for universities will present threads where users can go into and discuss the subject of the thread. Discussion threads are organized into categories. These categories are broad topics, and are not configurable by users. Threads may be posted in a single category, and may be tagged with topic attributes. These topic tags can be used to filter threads within a category. Users can create accounts, and post new threads within a category. While posting the thread, the user may choose one or several topics to associate with the thread. The user can choose from exisitng topics, or create new topic tags at the time of posting. Users can save lists of topics that they are interested in, and view threads from within those topic areas. Tagging threads with topics will help users find similar threads with the same topic easily and provide better organizations of the list of threads visible to the users at any given time. Furthermore, we plan to integrate a social platform later to allow users to communicate more easily with eachother.
 
 ## Release & Iteration Planning ##
 User stories that we are planning to implement for our first release:
