@@ -42,17 +42,17 @@ For the upcoming project, we plan on implementing an Android version of the mess
 #### Christine the Consumer ####
 ![Christine the Consumer](http://christianeducatorsacademy.com/wp-content/uploads/2014/03/image010.jpg)
 
-Christine Campbell is a 18 year old University of Toronto student in her first year of Computer Science. Chirstine has not yet developed opinions which are worth sharing. Therefore, she only wants to read the topics posted by other people. Christine gets annoyed by websites which force her to create an account in order to read content.
+Christine Campbell is a 18 year old University of Toronto student in her first year of Computer Science. She lives on residence so she has a lot of time to socialize with others on campus. Christine spends a lot of time on her phone everyday. She likes to keep up with the latest events happening on campus. Chirstine has not yet developed opinions which are worth sharing. Therefore, she only wants to read the topics posted by other people. Christine gets annoyed by websites which force her to create an account in order to read content.
 
 #### Phil the Producer ####
 ![Phil The Producer](http://lototees.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/2/7/279-lototees-do-you-even-lift-bro-cool-story-mens-tank-top-t-shirt-tanktop-tshirt-sleeveless-beach-tee-500.jpg)
 
-Phil McRoy likes to share his opinions. He likes getting involved in deep discussions with others who share the same interests with him. He likes arguing with people on Facebook about politics and talking to people he doesn't know while riding the bus.
+Phil McRoy likes to share his opinions. Phil is a 4th year political science student. He likes getting involved in deep discussions with others who share the same interests with him. Phil loves bodybuilding. He goes to the gym every single day of the week in hopes of becomming a professional bodybuilder. He likes arguing with people on Facebook about politics and talking to people he doesn't know while riding the bus.
 
 #### Alex The Administrator ####
 ![Alex The Administrator](http://i2.cdn.turner.com/money/dam/assets/130614125251-professor-retire-620xa.jpg)
 
-Alex Smith is a Bioinformatics instructor at the University of Toronto. He is happily married, and commutes daily to the St. George campus. He wants to be able to start discussions with his students about topics related to the courses that he teaches. He also would like the ability to moderate the discussions so that they don't become an impediment to the learning process.
+Alex Smith is a Bioinformatics instructor at the University of Toronto. He is happily married, and commutes daily to the St. George campus. He wants to be able to start discussions with his students about topics related to the courses that he teaches. He also would like the ability to moderate the discussions so that they don't become an impediment to the learning process. During the weekends, Alex likes to go hikings in the woods and fishing.
 
 ## User Stories ##
 
@@ -124,9 +124,3 @@ All these components and user stories would requires additional tables in the da
 ## CRC Cards ##
 
 Go to [CRC Cards](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase1/CRC%20cards.pdf?raw=true)
-
-## Terminology ##
-
- * Category - A category that organizes the thread into logical groups set by the adminstrator.
- * Topic - A subject label for a thread created by an user.
- * Thread - A collection of posts about a particular subject originally started by an user.
