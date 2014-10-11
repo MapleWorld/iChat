@@ -96,13 +96,7 @@ __Guide to numbers:__ (Priority/Effort)
 
 ## MVP ##
 
-Users can browse threads within a category, filter by topic
-User can register an account and save preferences about favourite topics
-Users can view a list of favourite topics and view threads from them
-This product will organize discussion threads into categories. The categories are broad, and are not configurable by users. Threads may be posted in a single category, and may be tagged with topic attributes. These topic tags can be used to filter posts within a category. Users can create accounts, and post new threads within a category; while posting the thread, the user may choose one or several topics to tag the thread with. The user can choose from exisitng topics, or create new tags at the time of posting. Users can save lists of topics that they are interested in, and view posts from within those topic areas.
-
--MVP-
-Our goal for the MVP is to implement this messaging tool on the Android platform with user-friendly features. It will be like a mobile forum with a multi-level filter to search for threads that interest the user. We will allow users to post their own threads at the MVP stage, and allowing them to tag their posts with topics they think are appropriate. It will help other users find similar posts within a few clicks. Also, logged in users can save their preferences on their area of interests, that means users can more easily find posts which are interesting to them.
+The MVP of our messaging application for universities will organize discussion threads into categories. The categories are broad topics, and are not configurable by users. Threads may be posted in a single category, and may be tagged with topic attributes. These topic tags can be used to filter posts within a category. Users can create accounts, and post new threads within a category. While posting the thread, the user may choose one or several topics to associate with the thread. The user can choose from exisitng topics, or create new topic tags at the time of posting. Users can save lists of topics that they are interested in, and view posts from within those topic areas. Tagging threads with topics will help users find similar threads with the same topic easily and provide better organizations of the list of threads visible to the users at any given time. Furthermore, we plan to integrate a social platform later to allow users to communicate more easily with eachother.
 
 ## Release & Iteration Planning ##
 User stories that we are planning to implement for our first release:
