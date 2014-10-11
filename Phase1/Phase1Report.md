@@ -56,7 +56,7 @@ Phil McRoy likes to share his opinions. Phil is a 4th year political science stu
 #### Alex The Administrator ####
 ![Alex The Administrator](http://i2.cdn.turner.com/money/dam/assets/130614125251-professor-retire-620xa.jpg)
 
-__Alex Smith__ 47 years old Married with 2 children from Toronto
+__Alex Smith__ 47 years old, married with 2 children from Toronto
 
 Alex Smith is a Bioinformatics instructor at the University of Toronto. He is happily married, and commutes daily to the St. George campus. He wants to be able to start discussions with his students about topics related to the courses that he teaches. He also would like the ability to moderate the discussions so that they don't become an impediment to the learning process. During the weekends, Alex likes to go hikings in the woods and fishing.
 
