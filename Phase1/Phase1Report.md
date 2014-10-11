@@ -95,9 +95,7 @@ __Guide to numbers:__ (Priority/Effort)
  * As The Social One, I want to review messages which I have sent to other users, so that I can have a history of my conversation with other users. (3/1)
 
 ## MVP ##
-Categories - Set by administrator, a thread may only be in one category
-Topics - created by users, a thread may be in several topics
-Threads - created by users, replied to by users. Category/topics set by original poster
+
 Users can browse threads within a category, filter by topic
 User can register an account and save preferences about favourite topics
 Users can view a list of favourite topics and view threads from them
@@ -132,3 +130,9 @@ All these components and user stories would requires additional tables in the da
 ## CRC Cards ##
 
 Go to [CRC Cards](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase1/CRC%20cards.pdf?raw=true)
+
+## Terminology ##
+
+ * Category - A category that organizes the thread into logical groups set by the adminstrator.
+ * Topic - A subject label for a thread created by an user.
+ * Thread - A collection of posts about a particular subject originally started by an user.
