@@ -10,8 +10,10 @@
 
 ## Introducing the team ##
 
+![Group Picture](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase1/groupPicture.jpg)
+
 #### Russell Self ####
-I am a Computer Science student working towards an undergraduate degree. I am also working full time as a network and systems administrator. I used to have other interests but now I am a shell of a person that does nothing but sit at a desk and push buttons.  
+I am a Computer Science student working towards an undergraduate degree. I am also working full time as a network and systems administrator. I used to have other interests but now I am a shell of a person that does nothing but sit at a desk and push buttons.
 
 #### Felix Lu ####
 I am a third year Computer Science student. I hope to find a PEY job to pay off my student loans. I want to finish school as soon as possible and go into the industry.
