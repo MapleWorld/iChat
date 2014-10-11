@@ -31,7 +31,7 @@ I am a third year Computer Science student. I like playing video games, reading,
 I am in my final year of study as a Computer Science and Human Biology student. Previously, I interned at Mozilla and IBM, and contributed a lot to open source projects.
 
 #### Ou Ye ####
-I am a third year Computer Science student. I am looking to go to PEY next year, and currently work at a small startup. I like to play boardgames during my free time.
+I am a third year Computer Science student. I am looking to go to PEY next year, but I previously worked at a small startup. I like to play boardgames during my free time.
 
 ## Choosing the project ##
 
