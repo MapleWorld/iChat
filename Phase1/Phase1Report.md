@@ -125,4 +125,4 @@ All these components and user stories would requires additional tables in the da
 
 ## CRC Cards ##
 
-Go to [CRC Cards](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase1/CRC%20cards.pdf)
+Go to [CRC Cards](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase1/CRC%20cards.pdf?raw=true)
