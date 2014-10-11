@@ -124,3 +124,5 @@ The user stories that we are planning to implement in the first iteration are:
 All these components and user stories would requires additional tables in the database, and logic to maintain the features. Furthermore, these features would go beyond the features required for the MVP.
 
 ## CRC Cards ##
+
+Go to [CRC Cards](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase1/CRC%20cards.pdf)
