@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 public class LoginActivity extends Activity {
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,7 +34,6 @@ public class LoginActivity extends Activity {
 		String userPassword = userPasswordText.getText().toString();
 
 		// Need to check the user account with the server
-
 		boolean checkUserAccount = true;
 
 		if (checkUserAccount) {
@@ -46,6 +46,7 @@ public class LoginActivity extends Activity {
 					Toast.LENGTH_LONG);
 			msg.show();
 		}
+		
 	}
 
 	public void register(View v) {

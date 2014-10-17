@@ -1,4 +1,5 @@
 -- Tested with MySQL v5.1.73
+create database android_api /** Creating Database **/
 
 create table user (
 	id int AUTO_INCREMENT PRIMARY KEY,
