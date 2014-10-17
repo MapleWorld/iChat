@@ -8,9 +8,46 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RegisterActivity" >
 
-    <TextView
+    <EditText
+        android:id="@+id/user_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_below="@+id/user_name"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="@string/user_password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="@string/user_name"
+        android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/user_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/user_password"
+        android:layout_below="@+id/user_password"
+        android:ems="10"
+        android:hint="@string/user_email"
+        android:inputType="textEmailAddress" />
+
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/user_email"
+        android:layout_below="@+id/user_email"
+        android:text="@string/register_button" 
+		android:onClick="register"/>
 
 </RelativeLayout>

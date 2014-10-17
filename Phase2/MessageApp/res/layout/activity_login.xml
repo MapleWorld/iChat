@@ -34,14 +34,23 @@
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/user_password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:onClick="loginPerson"
-        android:text="@string/login_button" />
+	<Button
+	    android:id="@+id/button1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@+id/button2"
+	    android:layout_alignBottom="@+id/button2"
+	    android:layout_alignLeft="@+id/user_password"
+	    android:onClick="login"
+	    android:text="@string/login_button" />
+
+	<Button
+	    android:id="@+id/button2"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignRight="@+id/user_name"
+	    android:layout_below="@+id/user_password"
+	    android:onClick="register"
+	    android:text="@string/register_button" />
 
 </RelativeLayout>

@@ -24,23 +24,22 @@ public class LoginActivity extends Activity {
 		return true;
 	}
 
-	public void loginPerson(View v) {
+	public void login(View v) {
 
 		EditText userNameText = (EditText) findViewById(R.id.user_name);
 		EditText userPasswordText = (EditText) findViewById(R.id.user_password);
 
 		String userName = userNameText.getText().toString();
 		String userPassword = userPasswordText.getText().toString();
-		
-		// What do we do with user name and password?
-		// Need to check with the server
-		
+
+		// Need to check the user account with the server
+
 		boolean checkUserAccount = true;
-		
+
 		if (checkUserAccount) {
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
-		} else { //Send out a notification 
+		} else { // Send out a notification
 			userNameText.setText("");
 			userPasswordText.setText("");
 			Toast msg = Toast.makeText(this, "Incorrect Username or Password",
