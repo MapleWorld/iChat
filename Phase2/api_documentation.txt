@@ -1,0 +1,336 @@
+/login/
+	- Start a session and retrieve the ID
+	- Only accepts a POST with credentials provided
+	- Parameters are "username" and "password"
+	Example:
+
+		POST /login
+		
+		{"username":"myname","password":"mypass"}
+
+	Example of successful login response:
+		HTTP 200 OK
+		{"success":true, "SESSIONID":"ABCDEF123456"}
+
+	Unsuccessful login:
+		HTTP 401 unauthorized
+		{"success":false, "SESSIONID":null}
+
+/register/
+	- Register a new account
+	- Only accepts a POST request
+
+	Example:
+	POST /register
+	
+	{"username":"myname", "password":"mypass"}
+
+	Example of successful registration:
+	HTTP 200 OK
+	
+	{"success":true,"SESSIONID":"ABCDEF123456"}
+
+	Example of failed registration:
+	HTTP 400 bad request
+	
+	{"success":false, "SESSIONID":null}
+
+/logout/
+	- Invalidate an active session
+	- A valid session ID is required for this to work
+	- Session ID must be provided as an HTTP header
+
+	Example request:
+	GET /logout
+	SESSIONID: ABCDEF123456
+
+	Example successful response:
+	HTTP 200 OK
+
+	{"success":true}
+
+/categories/
+	- Get a list of all categories
+	- No authentication required
+	- Categories are listed in alphabetical order by name
+
+	GET /categories
+
+	Example of category reponse from server:
+		HTTP 200 OK
+
+		{"categories":[{"name":"name1","id":1},
+				{"name":"name2","id":2},
+				{"name":"name3","id":3}]}
+
+/topics/{category_id}/
+
+	- Get a list of all topics within a given category
+	- No authentication required
+	- Topics are listed in alphabetical order by name
+
+	Example request:
+		GET /topics/1
+
+	Example successful response:
+
+		HTTP 200 OK
+		
+		{"topics":[{"name":"name1", "id":1},
+				{"name":"name2", "id":2},
+				{"name":"name3", "id":3}]}
+
+	Example response if category ID is invalid:
+		HTTP 400 bad request
+
+	Example response if no threads in topic:
+		{"topics":null}
+
+/topics/create/
+	- Create a new topic within a category
+	- Must be a POST request
+	- Must have a valid session
+
+	Example POST to create a new topic:
+
+		POST /topics/create/
+		SESSIONID: ABCDEF123456
+
+		{"category":1, "name":"NameOfTopic"}
+
+	Example success response:
+		HTTP 200 OK
+
+		{"success":true,"message":"Message from server"}
+
+	Example failure message:
+		HTTP 400 bad request
+
+		{"success":false, "message":"Message from server"}
+
+	Example unauthorized response (no response body sent):
+		HTTP 401 unauthorized
+
+/topics/subscribe/
+	- Subscribe to a topic
+	- Must be a POST
+	- Must have a valid session
+
+	Example POST to subscribe:
+
+		POST /topics/subscribe/
+		SESSIONID: ABCDEF123456
+	
+		{"topic_id":1}
+
+	Example of successful subscription response:
+		HTTP 200 OK
+
+		{"success":true, "message":"Message from server"}
+
+	Example of failure to subscribe:
+		HTTP 400 bad request
+
+		{"success":false, "message":"Message from server"}
+
+	Example unauthorized response (no response body sent):
+		HTTP 401 unauthorized
+
+/topics/unsubscribe/
+	- Unsubscribe from a topic
+	- Must be a POST
+	- Must have a valid session
+
+	Example POST to unsubscribe:
+
+		POST /topics/unsubscribe/
+		SESSIONID: ABCDEF123456
+	
+		{"topic_id":1}
+
+	Example of successful response:
+		HTTP 200 OK
+
+		{"success":true, "message":"Message from server"}
+
+	Example of failure to subscribe:
+		HTTP 400 bad request
+
+		{"success":false, "message":"Message from server"}
+
+	Example unauthorized response (no response body sent):
+		HTTP 401 unauthorized
+
+/topics/subscriptions/
+	- List topics that this user is subscribed to
+	- Must have a valid session
+	- List of topics are displayed in alphabetical order by name
+
+	Example request:
+		GET /topics/subscriptions/
+		SESSIONID: ABCDEF123456
+
+	Example successful response:
+		HTTP 200 OK
+		
+		{"topics":[
+			{"name":"topic1", "id":50},
+			{"name":"topic3", "id":15},
+			{"name":"topic4", "id":30}
+			]
+		}
+/threads/by_category/{category_id}/{page_number}/
+
+	- Get a list of all threads within a given category
+	- No authentication required
+
+	Example request:
+		GET /threads/by_category/1/1
+
+	Example successful response (threads are returned in order by update timestamp):
+		HTTP 200 OK
+
+		{"pages":10,
+		"this_page":1,
+		"threads":[
+			{"id":3,"title":"This is a title","update_timestamp":"2014-10-10 17:22:15"},
+			{"id":1,"title":"This title 2","update_timestamp":"2014-10-10 01:21:15"},
+			{"id":2,"title":"Title 3","update_timestamp":"2014-04-23 17:42:10"}]}
+
+	Example response for bad category ID
+		HTTP 400 bad request
+
+	Example response for empty page (no threads in category):
+
+		{"pages":0, "this_page":0, "threads":null}
+
+/threads/by_topic/{topic_id}/{page_number}/
+
+	- Get a list of all threads tagged with a given topic ID
+	- Get a page worth at a time (page size to be determined later)
+	- No authentication required
+
+	Example request:
+		GET /threads/by_topic/1/1
+
+	Example successful response (threads are returned in order by update timestamp):
+
+	{"threads":[
+			{"id":3,"title":"This is a title","update_timestamp":"2014-10-10 17:22:15"},
+			{"id":1,"title":"This title 2","update_timestamp":"2014-10-10 01:21:15"},
+			{"id":2,"title":"Title 3","update_timestamp":"2014-04-23 17:42:10"}]}
+
+	Example response for bad/invalid topic ID
+		HTTP 400 bad request
+
+	Example response for empty page (no threads tagged with topic):
+
+		{"pages":0, "this_page":0, "threads":null}
+		
+/threads/view/{thread_id}/{page_number}/
+
+	- Get the contents of a single thread, original post plus replies on the page
+	- Replies are sorted in order of timestamp, oldest first
+	- No authentication required
+	
+	Example request:
+		GET /threads/view/1/1
+
+	Example response for first page:
+		HTTP 200 OK
+
+		{"pages":5,
+		"this_page":1,
+		"title":"This is a title", 
+		"username":"user1", 
+		"body":"Body of original post", 
+		"timestamp":"2014-01-01 00:00:00",
+		"topics": [
+			{"name":"topicName", "id":1},
+			{"name":"topic2", "id":64}
+			],
+		"replies":[
+			{"username":"user_r1", "body":"body of a reply", "timestamp":"2014-01-02 00:01:01"},
+			{"username":"user_r2", "body":"body of a reply", "timestamp":"2014-01-03 00:01:01"},
+			{"username":"user_r1", "body":"body of a reply", "timestamp":"2014-01-03 00:13:01"}
+			]
+		}
+
+
+	Example response for a later page:
+
+		{"pages":5,
+		"this_page":3,
+		"title":"This is a title", 
+		"username":null, 
+		"body":null, 
+		"timestamp":null,
+		"topics": [
+			{"name":"topicName", "id":1},
+			{"name":"topic2", "id":64}
+			],
+		"replies": [
+			{"username":"user_r1", "body":"body of a reply", "timestamp":"2014-01-02 00:01:01"},
+			{"username":"user_r2", "body":"body of a reply", "timestamp":"2014-01-03 00:01:01"},
+			{"username":"user_r1", "body":"body of a reply", "timestamp":"2014-01-03 00:13:01"}
+			]
+		}
+
+
+
+/threads/new/
+	- Creates a new thread
+	- Only POST requests are allowed
+	- A valid session is required
+
+	Example request to create a new thread:
+
+		POST /threads/new/
+		SESSIONID: ABCDEF123456
+
+		{"category":1,
+		"title":"thread title", 
+		"body":"thread body",
+		"topic_ids":[1,2,6,5]
+		}
+
+	Example success response:
+		HTTP 200 OK
+		
+		{"success":true,"message":"Message from server"}
+
+	Example failure response:
+		HTTP 400 bad request
+
+		{"success":false, "message": "Message from server"}
+
+	Example unauthorized response (no response body sent):
+		HTTP 401 unauthorized
+	
+
+/threads/reply/
+	- Replies to an existing thread
+	- Only POST requests are allowed
+	- A valid session is required
+
+	Example request to create a reply:
+
+		POST /threads/reply/
+		SESSIONID: ABCDEF123456
+
+		{"thread_id":1,"body":"body of reply"}
+
+	Example success response:
+		HTTP 200 OK
+		
+		{"success":true,"message":"Message from server"}
+
+	Example failure response:
+		HTTP 400 bad request
+
+		{"success":false, "message": "Message from server"}
+
+	Example unauthorized response (no response body sent):
+		HTTP 401 unauthorized
+
+
