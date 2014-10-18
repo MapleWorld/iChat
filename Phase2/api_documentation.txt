@@ -63,7 +63,7 @@
 				{"name":"name2","id":2},
 				{"name":"name3","id":3}]}
 
-/topics/{category_id}/
+/topics/list/{category_id}/
 
 	- Get a list of all topics within a given category
 	- No authentication required
