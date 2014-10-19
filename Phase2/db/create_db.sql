@@ -16,7 +16,9 @@ create table category (
 create table topic (
 	id int AUTO_INCREMENT PRIMARY KEY,
 	cat_id int references category(id),
-	name varchar(100)
+	name varchar(100),
+	user_id int references user(id),
+	created_at datetime
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table thread (
@@ -31,7 +33,8 @@ create table reply (
 	id int AUTO_INCREMENT PRIMARY KEY,
 	user_id int references user(id),
 	thread_id int references thread(id),
-	body varchar(6000)
+	body varchar(6000),
+	created_at datetime
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table thread_topics (
