@@ -46,5 +46,5 @@ create table thread_topics (
 create table sessions (
 	sessionid varchar(100) PRIMARY KEY,
 	userid int,
-	datetime expires
+	expires datetime
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
