@@ -38,6 +38,7 @@ public class ServerMain extends AbstractHandler {
     	context.setContextPath("/");
     	server.setHandler(context);
     	context.addServlet(new ServletHolder(new CategoryServlet()),"/categories");
+    	context.addServlet(new ServletHolder(new RegisterServlet()),"/register");
         server.start();
         server.join();
     }
