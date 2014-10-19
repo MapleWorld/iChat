@@ -41,7 +41,7 @@
 	- Session ID must be provided as an HTTP header
 
 	Example request:
-	GET /logout
+	POST /logout
 	SESSIONID: ABCDEF123456
 
 	Example successful response:
