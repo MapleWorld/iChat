@@ -6,13 +6,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class CategoryDTO {
-	private static ConfigManager mgr;
 	
 	private CategoryDTO() {
 	}
 	
 	public static String getAllCategoriesAsJSON(){
-		mgr = ConfigManager.getInstance();
+		ConfigManager mgr = ConfigManager.getInstance();
 		String categories_json = "{\"categories\":[]}";
 		Connection conn = null;
 		PreparedStatement ps;
