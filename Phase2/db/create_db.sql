@@ -40,3 +40,8 @@ create table thread_topics (
 	PRIMARY KEY(thread_id, topic_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+create table sessions (
+	sessionid varchar(100) PRIMARY KEY,
+	userid int,
+	datetime expires
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
