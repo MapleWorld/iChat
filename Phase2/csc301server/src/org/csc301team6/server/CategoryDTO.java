@@ -44,9 +44,7 @@ public class CategoryDTO {
 		} catch (JSONException je) {
 			categories_json = "{\"categories\":[]}";
 			je.printStackTrace();
-		}
-	
-		if(conn != null){
+		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
