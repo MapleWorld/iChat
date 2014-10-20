@@ -49,7 +49,7 @@ public class RegisterServlet extends HttpServlet {
     		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     		jResp.put("success", false);
     		jResp.put("SESSIONID", JSONObject.NULL);
-    		jResp.put("message", e.getMessage());
+    		jResp.put("message", "Error parsing request");
     		response.getWriter().println(jResp.toString());
     		return;
     	}
