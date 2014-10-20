@@ -158,21 +158,21 @@ public class SessionDTO {
 	
 
 	/* Destroy a specific session */
-	public static void destroySession(String sessionID){
+	public static boolean destroySession(String sessionID){
 		ConfigManager mgr = ConfigManager.getInstance();
 		Connection conn = null;
 		PreparedStatement ps;
-		ResultSet rs;
+		int destroyed = 0;
 	
 		try {
 			conn = DriverManager.getConnection(mgr.getJDBCURL());
 			ps = conn.prepareStatement("delete from sessions where sessionid = ?");
 			ps.setString(1, sessionID);
-			ps.executeUpdate();
+			destroyed = ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			sessionID = null;
+			destroyed = 0;
 		} finally {
 			try {
 				conn.close();
@@ -180,6 +180,8 @@ public class SessionDTO {
 				e.printStackTrace();
 			}
 		}
+		
+		return destroyed > 0? true : false;
 		
 	}
 	
