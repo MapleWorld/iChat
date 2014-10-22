@@ -6,6 +6,5 @@ Server side:
     
 Android side:  
     1. Log in function as well as GUI 
-    
     2. Display Categories and its GUI -> (after finishing this will make Display Topics easy, because they are basically the same)
 
