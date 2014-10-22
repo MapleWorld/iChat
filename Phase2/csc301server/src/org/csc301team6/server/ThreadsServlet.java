@@ -2,6 +2,7 @@ package org.csc301team6.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
@@ -19,31 +20,55 @@ public class ThreadsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         JSONObject jResp;
         
-        jResp = new JSONObject();
-        jResp.put("message", "Method not allowed");
+        long thread_id;
+        long page_num;
         
-		response.setContentType("application/json");
-        response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+		Pattern viewThreadPattern = Pattern.compile("^\\/threads\\/view\\/(\\d+)\\/(\\d+)$");
+		Pattern listByCatPattern = Pattern.compile("^\\/threads\\/by_category\\/(\\d+)\\/(\\d+)");
+		Pattern listByTopicPattern = Pattern.compile("^\\/threads\\/by_topic\\/(\\d+)\\/(\\d+)");
+		
+		Matcher viewThreadMatcher = viewThreadPattern.matcher(request.getRequestURI());
+		Matcher listByCatMatcher = listByCatPattern.matcher(request.getRequestURI());
+		Matcher listByTopicMatcher = listByTopicPattern.matcher(request.getRequestURI());
+		if (viewThreadMatcher.find()) {
+			try {
+				thread_id = Long.parseLong(viewThreadMatcher.group(1));
+				page_num = Long.parseLong(viewThreadMatcher.group(2));
+				
+			} catch (Exception e) {
+				//Unable to parse thread_id/page_num params
+				e.printStackTrace();
+				jResp = new JSONObject();
+				jResp.put("success", false);
+				jResp.put("message", "Error parsing input parameters");
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().println(jResp.toString());	
+				return;
+			}
+			
+			doViewThread(request, response, thread_id, page_num);
+			
+		} else if (listByCatMatcher.find()) {
+			 //TODO: implement thread list by category
+		} else if(listByTopicMatcher.find()) {
+			//TODO: implement thread list by topic
+		} else {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+	        jResp = new JSONObject();
+	        jResp.put("message", "Illegal request");
+	        response.getWriter().println(jResp.toString());
+		}
         
-        response.getWriter().println(jResp.toString());
     }
 	
 	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		Pattern newThreadPattern = Pattern.compile("^\\/threads\\/new$");
-		Pattern viewThreadPattern = Pattern.compile("^\\/threads\\/view\\/(\\d+)\\/(\\d+)$");
-		Pattern listByCatPattern = Pattern.compile("^\\/threads\\/by_category\\/(\\d+)\\/(\\d+)");
-		Pattern listByTopicPattern = Pattern.compile("^\\/threads\\/by_topic\\/(\\d+)\\/(\\d+)");
-        JSONObject jResp;
-		
-		if(newThreadPattern.matcher(request.getRequestURI()).find()){
+		Matcher newThreadMatcher = newThreadPattern.matcher(request.getRequestURI());
+		JSONObject jResp;
+
+		if(newThreadMatcher.find()){
 			doNewThread(request, response);
-		} else if (viewThreadPattern.matcher(request.getRequestURI()).find()) {
-			
-		} else if (listByCatPattern.matcher(request.getRequestURI()).find()) {
-			 
-		} else if(listByTopicPattern.matcher(request.getRequestURI()).find()) {
-			
 		} else {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	        jResp = new JSONObject();
@@ -128,8 +153,27 @@ public class ThreadsServlet extends HttpServlet {
 		return response;
 	}
 	
-	private HttpServletResponse doViewThread(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
+	private HttpServletResponse doViewThread(HttpServletRequest request, 
+												HttpServletResponse response,
+												long thread_id,
+												long page_num) throws IOException {
+		
+		String jsonResp;
+		JSONObject jsonError;
+		
+		jsonResp = ThreadsDTO.getThreadPageAsJSONString(thread_id, page_num);
+		
+		if(jsonResp != null) {
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.getWriter().println(jsonResp);
+		} else {
+			//For some reason, no result was returned for this thread id/page
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			jsonError = new JSONObject();
+			jsonError.put("success", false);
+			jsonError.put("message", "Invalid thread id or page number");
+		}
+		
 		return response;
 	}
 	
