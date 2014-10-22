@@ -6,5 +6,6 @@ Server side: <br>
     
 Android side:  
     * Log in function as well as GUI <br>
+    * Register account
+    * Ability to create thread with topics within Category
     * Display Categories and its GUI -> (after finishing this will make Display Topics easy, because they are basically the same)
-
