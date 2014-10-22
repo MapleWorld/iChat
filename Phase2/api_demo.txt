@@ -1,0 +1,17 @@
+API demo
+
+Server is https://csc301.rs-ns.net:27487/
+
+The CA cert is located in Phase2/ssl/rs-ns.net+CA.crt
+
+Demo URIs:
+
+/categories
+/topics/list/1
+/topics/list/2
+/threads/by_topic/1/1
+/threads/by_topic/1/2
+/threads/by_category/1/1
+/threads/by_category/1/2
+/threads/view/1/1
+/threads/view/1/2
