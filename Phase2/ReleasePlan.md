@@ -1,7 +1,7 @@
 Plan/Idea for release features.
 For first release:
 
-Server side:
+Server side: <br>
     features already implmented and additions.
     
 Android side:  
