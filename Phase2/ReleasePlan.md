@@ -2,7 +2,16 @@ Plan/Idea for release features.
 For first release:
 
 Server side: <br>
-    features already implmented and additions.
+    * Register a user
+    * Log in
+    * Log out
+    * Create a thread
+    * View a thread
+    * List categories
+    * List threads in a category
+    * List threads in a topic
+    * Create a topic
+    * List topics in a category
     
 Android side:  
     * Log in function as well as GUI <br>
