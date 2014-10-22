@@ -26,6 +26,7 @@ create table thread (
 	cat_id int references category(id),
 	title varchar(250),
 	body varchar(6000),
+	user_id int references user(id),
 	created_at datetime
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
