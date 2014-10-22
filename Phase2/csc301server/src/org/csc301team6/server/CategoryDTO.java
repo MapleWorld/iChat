@@ -12,13 +12,14 @@ public class CategoryDTO {
 	
 	public static String getAllCategoriesAsJSON(){
 		ConfigManager mgr = ConfigManager.getInstance();
-		String categories_json = "{\"categories\":[]}";
 		Connection conn = null;
 		PreparedStatement ps;
 		ResultSet rs;
 		JSONArray category_array;
 		JSONObject category;
 		JSONObject category_obj;
+		
+		category_obj = new JSONObject();
 		
 		try{
 			conn = DriverManager.getConnection(mgr.getJDBCURL());
@@ -28,21 +29,22 @@ public class CategoryDTO {
 			category_array = new JSONArray();
 			
 			while(rs.next()){
-				category = new JSONObject("{}");
+				category = new JSONObject();
 				category.put("id", rs.getInt("id"));
 				category.put("name", rs.getString("name"));
 				category_array.put(category);
 			}
 			
-			category_obj = new JSONObject("{}");
+			category_obj = new JSONObject();
 			category_obj.put("categories", category_array);
-			categories_json = category_obj.toString();
 			
 		} catch (SQLException e) {
-			categories_json = "{\"categories\":[]}";
+			category_obj = new JSONObject();
+			category_obj.put("categories", new JSONArray());
 			e.printStackTrace();
 		} catch (JSONException je) {
-			categories_json = "{\"categories\":[]}";
+			category_obj = new JSONObject();
+			category_obj.put("categories", new JSONArray());
 			je.printStackTrace();
 		} finally{
 			try {
@@ -52,6 +54,6 @@ public class CategoryDTO {
 			}
 		}
 	
-		return categories_json;
+		return category_obj.toString();
 	}
 }
