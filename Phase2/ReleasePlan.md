@@ -1,1 +1,3 @@
-Ideas of features
+Plan/Idea for release features.
+
+
