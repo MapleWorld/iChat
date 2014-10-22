@@ -40,9 +40,10 @@ public class SessionDTO {
 				
 				sessionRNG.nextBytes(sessionBytes);
 				sessionID = getSHA256FromBytes(sessionBytes);
-				ps = conn.prepareStatement("insert into sessions (sessionid, userid, expires) values (?, ?, NOW())");
+				ps = conn.prepareStatement("insert into sessions (sessionid, userid, expires) values (?, ?, DATE_ADD(NOW(), INTERVAL ? MINUTE))");
 				ps.setString(1, sessionID);
 				ps.setLong(2, userid);
+				ps.setInt(3, mgr.getSessionDurationMinutes());
 				
 				ps.executeUpdate();
 				ps.close();
@@ -81,13 +82,13 @@ public class SessionDTO {
 				userid = rs.getLong("userid");
 				
 			} else {
-				throw new UnauthorizedException();
+				throw new UnauthorizedException("Session is not valid");
 			}
 			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UnauthorizedException();
+			throw new UnauthorizedException("Database error");
 		} finally {
 			try {
 				conn.close();
@@ -111,13 +112,13 @@ public class SessionDTO {
 		
 		try {
 			conn = DriverManager.getConnection(mgr.getJDBCURL());
-			ps = conn.prepareStatement("update sessions set expires = DATE_ADD(NOW(), INTERVAL ? MINUTES)" 
+			ps = conn.prepareStatement("update sessions set expires = DATE_ADD(NOW(), INTERVAL ? MINUTE)" 
 										+" where sessionid = ?");
 			ps.setInt(1, mgr.getSessionDurationMinutes());
 			ps.setString(2, sessionID);
 			
 			if(ps.executeUpdate() < 1){
-				throw new UnauthorizedException();
+				throw new UnauthorizedException("Session not created");
 			}
 
 		} catch (SQLException e) {
