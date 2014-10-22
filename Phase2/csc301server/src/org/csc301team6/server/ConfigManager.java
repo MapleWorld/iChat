@@ -14,6 +14,7 @@ public class ConfigManager {
 	private static ConfigManager mgr = null;
 	private static String dbURL;
 	private static final int SESSION_DURATION_MINUTES = 180;
+	private static final int REPLIES_PER_PAGE = 20;
 	
 	private ConfigManager(){
 		InputStream in = ClassLoader.getSystemResourceAsStream("db.json");
@@ -49,6 +50,10 @@ public class ConfigManager {
 	
 	public int getSessionDurationMinutes(){
 		return SESSION_DURATION_MINUTES;
+	}
+	
+	public int getRepliesPerPage(){
+		return REPLIES_PER_PAGE;
 	}
 	
 	public static ConfigManager getInstance() {
