@@ -9,10 +9,20 @@
     * Create a thread
     * View a thread
     * List categories
+    * Create topic
+    * Create a thread with topics associated
+    * View threads by topic
+    * View threads by category
 
     
 # Android side:  
-    * Log in function as well as GUI
+    * Log in
+    * Log out
     * Register account
-    * Ability to view categories
- 
+    * List categories
+    * Create topic
+    * Create a thread with topics associated
+    * View threads by topic
+    * View threads by category
+    * Create a thread
+    * View a thread
