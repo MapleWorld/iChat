@@ -1,6 +1,8 @@
 # Plan/Idea for first release features.
 
 # Server side: 
+    * External MySQL connectivity
+    * Embedded servlet container (Jetty)
     * Register a user
     * Log in
     * Log out
