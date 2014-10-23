@@ -13,6 +13,7 @@
     * Create a thread with topics associated
     * View threads by topic
     * View threads by category
+    * List topics
 
     
 # Android side:  
@@ -26,3 +27,4 @@
     * View threads by category
     * Create a thread
     * View a thread
+    * List topics
