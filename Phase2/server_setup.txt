@@ -1,0 +1,41 @@
+Server setup steps
+
+git clone https://github.com/csc301-fall2014/Proj-Evening-Team6-repo.git
+
+cd Proj-Evening-Team6-repo.git
+
+git checkout server_base
+
+Start up Eclipse
+
+File -> New Java Project
+
+Project name: csc301server
+
+Uncheck "use default location"
+
+Set location to the "csc301server" folder inside of Phase2
+
+Do not copy files into workspace
+
+Finish project creation
+
+Open Project -> Properties
+
+If there are 3 jars listed, then we don't need to add them.
+Otherwise, use "Add External JARs" to add the 3 jars in the
+csc301server/lib folder to the project.
+
+Click Add Class Folder, and point it at the csc301server/config
+directory.
+
+Click OK. 
+
+Create the file csc301server/config/db.json and configure it
+with the parameters for your local MySQL instance.
+
+In Eclipse, select the org.csc301team6.server package.
+
+Click Run, then run it as a Java Application
+
+You can test it by visiting localhost:8080 with a web browser.
