@@ -2,11 +2,14 @@ package org.csc301team6.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +34,10 @@ public class RegisterServlet extends HttpServlet {
     	String password;
     	String sessionID;
     	JSONObject jResp;
+    	boolean pass = true;
+    	String failMessage = null;
+    	Pattern usernamePattern;
+    	Matcher usernameMatcher;
     	
     	jResp = new JSONObject();
     	
@@ -54,29 +61,48 @@ public class RegisterServlet extends HttpServlet {
     		return;
     	}
     	
-    	try {
-    		UserDTO.createUser(username, password);
-    	} catch (UserCreationException e) {
+    	//Input validation
+    	
+    	//Enforce username length of 2+ chars, alphanumeric only
+    	usernamePattern = Pattern.compile("^\\w\\w+$");
+    	usernameMatcher = usernamePattern.matcher(username);
+    	
+    	if(!usernameMatcher.find()){
+    		failMessage = "Invalid username";
+    	} else if(password.length() < 8) {
+    		failMessage = "Password not long enough";
+    	} 
+    	
+    	if(failMessage != null){
+    		//Reject this request due to invalid input
     		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     		jResp.put("success", false);
     		jResp.put("SESSIONID", JSONObject.NULL);
-    		jResp.put("message", e.getMessage());
-    		response.getWriter().println(jResp.toString());
-    		return;
-    	}
-    	
-
-    	sessionID = SessionDTO.createSession(username, password);
-  
-    	if(sessionID == null){
-    		response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-    		jResp.put("success", false);
-    		jResp.put("SESSIONID", JSONObject.NULL);
-    		jResp.put("message", "Error creating session for new user");
+    		jResp.put("message", failMessage);
     	} else {
-    		jResp.put("success", true);
-    		jResp.put("SESSIONID", sessionID);
-    		jResp.put("message", "User created successfully");
+        	try {
+        		UserDTO.createUser(username, password);
+        	} catch (UserCreationException e) {
+        		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        		jResp.put("success", false);
+        		jResp.put("SESSIONID", JSONObject.NULL);
+        		jResp.put("message", e.getMessage());
+        		response.getWriter().println(jResp.toString());
+        		return;
+        	}
+
+        	sessionID = SessionDTO.createSession(username, password);
+      
+        	if(sessionID == null){
+        		response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        		jResp.put("success", false);
+        		jResp.put("SESSIONID", JSONObject.NULL);
+        		jResp.put("message", "Error creating session for new user");
+        	} else {
+        		jResp.put("success", true);
+        		jResp.put("SESSIONID", sessionID);
+        		jResp.put("message", "User created successfully");
+        	}
     	}
     	
     	response.getWriter().println(jResp.toString());
