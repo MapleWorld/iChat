@@ -203,7 +203,21 @@ public class ThreadsServlet extends HttpServlet {
 												HttpServletResponse response,
 												long topic_id,
 												long page_num) throws IOException {
-		response.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
+		String jsonResp;
+		JSONObject jsonError;
+		
+		jsonResp = ThreadsDTO.listThreadsByTopicAsJSONString(topic_id, page_num);
+		
+		if(jsonResp != null) {
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.getWriter().println(jsonResp);
+		} else {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			jsonError = new JSONObject();
+			jsonError.put("success", false);
+			jsonError.put("message", "An error has occurred");
+			response.getWriter().println(jsonError);
+		}
 		return response;
 	}
 }
