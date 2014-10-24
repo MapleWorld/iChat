@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import appControl.DAO;
 
 public class LoginActivity extends Activity {
 
@@ -34,7 +35,8 @@ public class LoginActivity extends Activity {
 		String userPassword = userPasswordText.getText().toString();
 
 		// Need to check the user account with the server
-		boolean checkUserAccount = true;
+		DAO login = new DAO();
+		boolean checkUserAccount = login.loginAccount(userName,userPassword);
 
 		if (checkUserAccount) {
 			Intent intent = new Intent(this, MainActivity.class);

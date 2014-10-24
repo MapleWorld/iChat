@@ -5,5 +5,8 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="A:/Proj-Evening-Team6-repo/Phase2/csc301server/lib/javax.servlet-3.0.0.v201112011016.jar"/>
+	<classpathentry kind="lib" path="A:/Proj-Evening-Team6-repo/Phase2/csc301server/lib/jetty-all-9.0.4.v20130625.jar"/>
+	<classpathentry kind="lib" path="A:/Proj-Evening-Team6-repo/Phase2/csc301server/lib/mysql-connector-java-5.1.33-bin.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -1,7 +1,6 @@
 {"hostname":"localhost",
  "port":3306,
  "schema": "csc301",
- "user": "user",
- "pass": "password"
+ "user": "root",
+ "pass": "root"
 }
-

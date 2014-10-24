@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import appControl.DAO;
 
 public class RegisterActivity extends Activity {
 
@@ -27,23 +28,22 @@ public class RegisterActivity extends Activity {
 
 		EditText userNameText = (EditText) findViewById(R.id.user_name);
 		EditText userPasswordText = (EditText) findViewById(R.id.user_password);
-		EditText userEmailText = (EditText) findViewById(R.id.user_email);
 
 		String userName = userNameText.getText().toString();
 		String userPassword = userPasswordText.getText().toString();
-		String userEmail = userEmailText.getText().toString();
 
 		// Validate the inputs
 		// Store the inputs into database
-		boolean ValideInputs = true;
 
+		DAO createAccount = new DAO();
+		boolean ValideInputs = createAccount.createUser(userName,userPassword);
+		
 		if (ValideInputs) {
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		} else {
 			userNameText.setText("");
 			userPasswordText.setText("");
-			userEmailText.setText("");
 			Toast msg = Toast
 					.makeText(this, "Invalide Username or Password or Email",
 							Toast.LENGTH_LONG);

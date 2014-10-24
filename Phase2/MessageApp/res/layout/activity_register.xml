@@ -31,23 +31,13 @@
         <requestFocus />
     </EditText>
 
-    <EditText
-        android:id="@+id/user_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/user_password"
-        android:layout_below="@+id/user_password"
-        android:ems="10"
-        android:hint="@string/user_email"
-        android:inputType="textEmailAddress" />
-
     <Button
         android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/user_email"
-        android:layout_below="@+id/user_email"
-        android:text="@string/register_button" 
-		android:onClick="register"/>
+        android:layout_below="@+id/user_password"
+        android:layout_centerHorizontal="true"
+        android:onClick="register"
+        android:text="@string/register_button" />
 
 </RelativeLayout>
