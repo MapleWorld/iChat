@@ -20,7 +20,7 @@ public class ThreadsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         JSONObject jResp;
         
-        long thread_id;
+        long param_id;
         long page_num;
         
 		Pattern viewThreadPattern = Pattern.compile("^\\/threads\\/view\\/(\\d+)\\/(\\d+)$");
@@ -32,7 +32,7 @@ public class ThreadsServlet extends HttpServlet {
 		Matcher listByTopicMatcher = listByTopicPattern.matcher(request.getRequestURI());
 		if (viewThreadMatcher.find()) {
 			try {
-				thread_id = Long.parseLong(viewThreadMatcher.group(1));
+				param_id = Long.parseLong(viewThreadMatcher.group(1));
 				page_num = Long.parseLong(viewThreadMatcher.group(2));
 				
 			} catch (Exception e) {
@@ -46,12 +46,28 @@ public class ThreadsServlet extends HttpServlet {
 				return;
 			}
 			
-			doViewThread(request, response, thread_id, page_num);
+			doViewThread(request, response, param_id, page_num);
 			
 		} else if (listByCatMatcher.find()) {
 			 //TODO: implement thread list by category
 		} else if(listByTopicMatcher.find()) {
-			//TODO: implement thread list by topic
+			try {
+				param_id = Long.parseLong(listByTopicMatcher.group(1));
+				page_num = Long.parseLong(listByTopicMatcher.group(2));
+				
+			} catch (Exception e) {
+				//Unable to parse thread_id/page_num params
+				e.printStackTrace();
+				jResp = new JSONObject();
+				jResp.put("success", false);
+				jResp.put("message", "Error parsing input parameters");
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().println(jResp.toString());	
+				return;
+			}
+			
+			doListByTopic(request, response, param_id, page_num);
+			
 		} else {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	        jResp = new JSONObject();
@@ -172,6 +188,7 @@ public class ThreadsServlet extends HttpServlet {
 			jsonError = new JSONObject();
 			jsonError.put("success", false);
 			jsonError.put("message", "Invalid thread id or page number");
+			response.getWriter().println(jsonError);
 		}
 		
 		return response;
@@ -182,7 +199,10 @@ public class ThreadsServlet extends HttpServlet {
 		return response;
 	}
 	
-	private HttpServletResponse doListByTopic(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private HttpServletResponse doListByTopic(HttpServletRequest request, 
+												HttpServletResponse response,
+												long topic_id,
+												long page_num) throws IOException {
 		response.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
 		return response;
 	}

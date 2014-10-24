@@ -75,13 +75,13 @@ public class ThreadsDTO {
 		Connection conn = null;
 		PreparedStatement ps;
 		ResultSet rs;
-		long RPP = mgr.getRepliesPerPage();
-		long maxReply = page * mgr.getRepliesPerPage();
-		long idx;
+		long pages;
 		JSONObject jThread;
 		JSONArray jReplies;
 		JSONArray jTopics;
 		JSONObject jReply;
+		
+		if(page < 1) page = 1;
 
 		jThread = new JSONObject();
 
@@ -107,27 +107,45 @@ public class ThreadsDTO {
 				
 				ps = conn.prepareStatement("select r.*, u.username from reply r "+
 											" inner join user u on r.user_id = u.id "+
-											" where thread_id = ? order by created_at asc;");
+											" where thread_id = ? order by created_at asc " +
+											" limit ? offset ?");
 				ps.setLong(1, thread_id);
+				ps.setLong(2, mgr.getRepliesPerPage());
+				ps.setLong(3, mgr.getRepliesPerPage() * (page - 1));
 				
 				rs = ps.executeQuery();
 				
 				jReplies = new JSONArray();
 				
-				for(idx = 0; rs.next(); idx++){
-					if(idx >= ((page - 1) * RPP) && idx < maxReply) {
-						//This reply is on the target page
-						jReply = new JSONObject();
-						jReply.put("username", rs.getString("username"));
-						jReply.put("body", rs.getString("body"));
-						jReply.put("timestamp", rs.getTimestamp("created_at").toString());
-						jReplies.put(jReply);
-					}
+				while(rs.next()){
+					jReply = new JSONObject();
+					jReply.put("username", rs.getString("username"));
+					jReply.put("body", rs.getString("body"));
+					jReply.put("timestamp", rs.getTimestamp("created_at").toString());
+					jReplies.put(jReply);
 				}
 				
-				//Now we can use the value of idx to find out how many pages there are
-				jThread.put("pages", (idx / RPP) + 1);
+				rs.close();
+				ps.close();
+				
+				
+				//Determine how many pages there are
+				ps = conn.prepareStatement("select count(*) numReplies from reply where thread_id = ?");
+				ps.setLong(1, thread_id);
+				
+				rs = ps.executeQuery();
+				
+				if(rs.next()) {
+					pages = rs.getLong("numReplies");
+				} else {
+					pages = 0;
+				}
+
+				rs.close();
+				ps.close();
+				
 				jThread.put("this_page", page);
+				jThread.put("pages", pages / mgr.getRepliesPerPage() + 1);
 				
 				//If no replies are found, jReplies will be an empty array.
 				//Otherwise it will contain the replies within the page range
@@ -154,4 +172,5 @@ public class ThreadsDTO {
 		
 		return jThread == null? null : jThread.toString();
 	}
+	
 }
