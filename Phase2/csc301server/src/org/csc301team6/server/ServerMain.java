@@ -30,9 +30,9 @@ public class ServerMain extends AbstractHandler {
     }
  
     public static void main(String[] args) throws Exception {
+    	ConfigManager mgr = ConfigManager.getInstance();
     	
-        Server server = new Server(8080);
-        //server.setHandler(new TestServer());
+        Server server = new Server(mgr.getHTTPPort());
         
     	ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     	context.setContextPath("/");
