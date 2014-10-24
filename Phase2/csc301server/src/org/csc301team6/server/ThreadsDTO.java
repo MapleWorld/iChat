@@ -33,11 +33,12 @@ public class ThreadsDTO {
 			
 			conn = DriverManager.getConnection(mgr.getJDBCURL());
 			
-			ps = conn.prepareStatement("insert into thread (cat_id, title, body, created_at) "+
-										"values (?, ?, ?, NOW())", Statement.RETURN_GENERATED_KEYS);
+			ps = conn.prepareStatement("insert into thread (cat_id, title, body, user_id, created_at, updated_at) "+
+										"values (?, ?, ?, ?, NOW(), NOW())", Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, cat_id);
 			ps.setString(2, title);
 			ps.setString(3, body);
+			ps.setLong(4, user.getID());
 			
 			ps.executeUpdate();
 			
