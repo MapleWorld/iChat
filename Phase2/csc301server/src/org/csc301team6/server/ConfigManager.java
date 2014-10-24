@@ -18,6 +18,8 @@ public class ConfigManager {
 	private static int REPLIES_PER_PAGE;
 	private static int THREADS_PER_PAGE;
 	private static int CSC301_HTTP_PORT;
+	private static int MAX_REPLY_LENGTH;
+	private static int MAX_THREAD_BODY_LENGTH;
 	
 	private ConfigManager(){
 		loadDBConfig();
@@ -87,6 +89,8 @@ public class ConfigManager {
 				REPLIES_PER_PAGE = json.getInt("REPLIES_PER_PAGE");
 				THREADS_PER_PAGE = json.getInt("THREADS_PER_PAGE");
 				SESSION_DURATION_MINUTES = json.getInt("SESSION_DURATION_MINUTES");
+				MAX_REPLY_LENGTH = json.getInt("MAX_REPLY_LENGTH");
+				MAX_THREAD_BODY_LENGTH = json.getInt("MAX_THREAD_BODY_LENGTH");
 			} catch (JSONException e) {
 				System.err.println("WARNING: unable to parse general configuration, using defaults");
 				setDefaultConfig();
@@ -100,6 +104,8 @@ public class ConfigManager {
 		REPLIES_PER_PAGE = 20;
 		THREADS_PER_PAGE = 20;
 		CSC301_HTTP_PORT = 8080;
+		MAX_REPLY_LENGTH = 5000;
+		MAX_THREAD_BODY_LENGTH = 5000;
 	}
 	
 	public String getJDBCURL(){
@@ -119,6 +125,14 @@ public class ConfigManager {
 	
 	public int getThreadsPerPage() {
 		return THREADS_PER_PAGE;
+	}
+	
+	public int getMaxReplyLength() {
+		return MAX_REPLY_LENGTH;
+	}
+	
+	public int getMaxThreadBodyLength() {
+		return MAX_THREAD_BODY_LENGTH;
 	}
 	
 	public static ConfigManager getInstance() {
