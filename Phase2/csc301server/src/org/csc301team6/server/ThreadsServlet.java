@@ -80,11 +80,15 @@ public class ThreadsServlet extends HttpServlet {
 	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		Pattern newThreadPattern = Pattern.compile("^\\/threads\\/new$");
+		Pattern replyThreadPattern = Pattern.compile("^\\/threads\\/reply$");
 		Matcher newThreadMatcher = newThreadPattern.matcher(request.getRequestURI());
+		Matcher replyThreadMatcher = replyThreadPattern.matcher(request.getRequestURI());
 		JSONObject jResp;
 
 		if(newThreadMatcher.find()){
 			doNewThread(request, response);
+		} else if(replyThreadMatcher.find()) {
+			doReplyThread(request, response);
 		} else {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	        jResp = new JSONObject();
@@ -92,6 +96,71 @@ public class ThreadsServlet extends HttpServlet {
 	        response.getWriter().println(jResp.toString());
 		}
     }
+	
+	private void doReplyThread(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ConfigManager mgr = ConfigManager.getInstance();
+		String line;
+		String jsonInput = "";
+		JSONObject jo;
+		BufferedReader br = request.getReader();
+		long thread_id;
+		String reply_body;
+		String sessionID;
+		JSONObject jResp;
+		long reply_id;
+        
+		jResp = new JSONObject();
+		
+		response.setContentType("application/json");
+        
+        sessionID = request.getHeader("SESSIONID");
+        
+    	if(sessionID == null){
+    		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    		jResp.put("success", false);
+    		jResp.put("message", "No session token provided");
+    	} else {
+    		
+    		while((line = br.readLine()) != null){
+        		jsonInput += line;
+        	}
+        	
+        	try {
+        		jo = new JSONObject(jsonInput);
+        		thread_id = jo.getLong("thread_id");
+        		reply_body = jo.getString("body");
+        		
+        		if(reply_body.length() > mgr.getMaxReplyLength()) {
+            		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            		jResp.put("success", false);
+            		jResp.put("message", "Reply exeeds maximum permitted length");
+        		} else {
+	        		reply_id = ThreadsDTO.addReply(sessionID, thread_id, reply_body);
+	        		
+	            	if(reply_id < 0) {
+	            		response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	            		jResp.put("success", false);
+	            		jResp.put("message", "Error adding reply");
+	            	} else {
+	            		response.setStatus(HttpServletResponse.SC_OK);
+	            		jResp.put("success", true);
+	            		jResp.put("message", "Reply added successfully");
+	            		jResp.put("thread_id", thread_id);
+	            	}
+        		}
+        	} catch (JSONException e) {
+        		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        		jResp.put("success", false);
+        		jResp.put("message", "Error parsing request");
+        	} catch (UnauthorizedException ue) {
+        		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        		jResp.put("success", false);
+        		jResp.put("message", ue.getMessage());
+        	}
+    	}
+    	
+    	response.getWriter().println(jResp.toString());
+	}
 	
 	private HttpServletResponse doNewThread(HttpServletRequest request, HttpServletResponse response) throws IOException{
     	String line;

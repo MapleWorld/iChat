@@ -173,6 +173,68 @@ public class ThreadsDTO {
 		return jThread == null? null : jThread.toString();
 	}
 	
+	public static long addReply(String sessionID, long thread_id, String body)
+		throws UnauthorizedException {
+		
+
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		ResultSet rs;
+		long userid;
+		CSC301User user;
+		long reply_id = -1;
+		
+		try {
+			userid = SessionDTO.getUserIDFromSessionID(sessionID);
+			user = UserDTO.fetchUserByID(userid);
+			if(user.getBanned()){
+				throw new UnauthorizedException("User is banned and cannot post.");
+			}
+			
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+			
+			ps = conn.prepareStatement("insert into reply (user_id, thread_id, body, created_at) "+
+										"values (?, ?, ?, NOW())", Statement.RETURN_GENERATED_KEYS);
+			ps.setLong(1, userid);
+			ps.setLong(2, thread_id);
+			ps.setString(3, body);
+			
+			ps.executeUpdate();
+			
+			rs = ps.getGeneratedKeys();
+			
+			if(rs.next()){
+				reply_id = rs.getInt(1);
+			} else {
+				reply_id = -1;
+			}
+			
+			rs.close();
+			ps.close();
+			
+		} catch (UnauthorizedException e) {
+			e.printStackTrace();
+			throw e;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			if(se.getSQLState().equals("23000")){
+				//This is likely a foreign key integrity violation due to
+				//an invalid thread_id provided
+				throw new UnauthorizedException("Invalid thread ID");
+			} else {
+				throw new UnauthorizedException("An error has occurred");
+			}
+		} finally {
+			try {
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		return reply_id;
+	}
+	
 	public static String listThreadsByTopicAsJSONString(long topic_id, long page) {
 		ConfigManager mgr = ConfigManager.getInstance();
 		Connection conn = null;
