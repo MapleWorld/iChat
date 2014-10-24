@@ -20,7 +20,7 @@ public class ThreadsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         JSONObject jResp;
         
-        long thread_id;
+        long param_id;
         long page_num;
         
 		Pattern viewThreadPattern = Pattern.compile("^\\/threads\\/view\\/(\\d+)\\/(\\d+)$");
@@ -32,7 +32,7 @@ public class ThreadsServlet extends HttpServlet {
 		Matcher listByTopicMatcher = listByTopicPattern.matcher(request.getRequestURI());
 		if (viewThreadMatcher.find()) {
 			try {
-				thread_id = Long.parseLong(viewThreadMatcher.group(1));
+				param_id = Long.parseLong(viewThreadMatcher.group(1));
 				page_num = Long.parseLong(viewThreadMatcher.group(2));
 				
 			} catch (Exception e) {
@@ -46,12 +46,28 @@ public class ThreadsServlet extends HttpServlet {
 				return;
 			}
 			
-			doViewThread(request, response, thread_id, page_num);
+			doViewThread(request, response, param_id, page_num);
 			
 		} else if (listByCatMatcher.find()) {
 			 //TODO: implement thread list by category
 		} else if(listByTopicMatcher.find()) {
-			//TODO: implement thread list by topic
+			try {
+				param_id = Long.parseLong(listByTopicMatcher.group(1));
+				page_num = Long.parseLong(listByTopicMatcher.group(2));
+				
+			} catch (Exception e) {
+				//Unable to parse thread_id/page_num params
+				e.printStackTrace();
+				jResp = new JSONObject();
+				jResp.put("success", false);
+				jResp.put("message", "Error parsing input parameters");
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().println(jResp.toString());	
+				return;
+			}
+			
+			doListByTopic(request, response, param_id, page_num);
+			
 		} else {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	        jResp = new JSONObject();
@@ -64,11 +80,15 @@ public class ThreadsServlet extends HttpServlet {
 	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		Pattern newThreadPattern = Pattern.compile("^\\/threads\\/new$");
+		Pattern replyThreadPattern = Pattern.compile("^\\/threads\\/reply$");
 		Matcher newThreadMatcher = newThreadPattern.matcher(request.getRequestURI());
+		Matcher replyThreadMatcher = replyThreadPattern.matcher(request.getRequestURI());
 		JSONObject jResp;
 
 		if(newThreadMatcher.find()){
 			doNewThread(request, response);
+		} else if(replyThreadMatcher.find()) {
+			doReplyThread(request, response);
 		} else {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	        jResp = new JSONObject();
@@ -76,6 +96,71 @@ public class ThreadsServlet extends HttpServlet {
 	        response.getWriter().println(jResp.toString());
 		}
     }
+	
+	private void doReplyThread(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ConfigManager mgr = ConfigManager.getInstance();
+		String line;
+		String jsonInput = "";
+		JSONObject jo;
+		BufferedReader br = request.getReader();
+		long thread_id;
+		String reply_body;
+		String sessionID;
+		JSONObject jResp;
+		long reply_id;
+        
+		jResp = new JSONObject();
+		
+		response.setContentType("application/json");
+        
+        sessionID = request.getHeader("SESSIONID");
+        
+    	if(sessionID == null){
+    		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    		jResp.put("success", false);
+    		jResp.put("message", "No session token provided");
+    	} else {
+    		
+    		while((line = br.readLine()) != null){
+        		jsonInput += line;
+        	}
+        	
+        	try {
+        		jo = new JSONObject(jsonInput);
+        		thread_id = jo.getLong("thread_id");
+        		reply_body = jo.getString("body");
+        		
+        		if(reply_body.length() > mgr.getMaxReplyLength()) {
+            		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            		jResp.put("success", false);
+            		jResp.put("message", "Reply exeeds maximum permitted length");
+        		} else {
+	        		reply_id = ThreadsDTO.addReply(sessionID, thread_id, reply_body);
+	        		
+	            	if(reply_id < 0) {
+	            		response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	            		jResp.put("success", false);
+	            		jResp.put("message", "Error adding reply");
+	            	} else {
+	            		response.setStatus(HttpServletResponse.SC_OK);
+	            		jResp.put("success", true);
+	            		jResp.put("message", "Reply added successfully");
+	            		jResp.put("thread_id", thread_id);
+	            	}
+        		}
+        	} catch (JSONException e) {
+        		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        		jResp.put("success", false);
+        		jResp.put("message", "Error parsing request");
+        	} catch (UnauthorizedException ue) {
+        		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        		jResp.put("success", false);
+        		jResp.put("message", ue.getMessage());
+        	}
+    	}
+    	
+    	response.getWriter().println(jResp.toString());
+	}
 	
 	private HttpServletResponse doNewThread(HttpServletRequest request, HttpServletResponse response) throws IOException{
     	String line;
@@ -172,6 +257,7 @@ public class ThreadsServlet extends HttpServlet {
 			jsonError = new JSONObject();
 			jsonError.put("success", false);
 			jsonError.put("message", "Invalid thread id or page number");
+			response.getWriter().println(jsonError);
 		}
 		
 		return response;
@@ -182,8 +268,25 @@ public class ThreadsServlet extends HttpServlet {
 		return response;
 	}
 	
-	private HttpServletResponse doListByTopic(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
+	private HttpServletResponse doListByTopic(HttpServletRequest request, 
+												HttpServletResponse response,
+												long topic_id,
+												long page_num) throws IOException {
+		String jsonResp;
+		JSONObject jsonError;
+		
+		jsonResp = ThreadsDTO.listThreadsByTopicAsJSONString(topic_id, page_num);
+		
+		if(jsonResp != null) {
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.getWriter().println(jsonResp);
+		} else {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			jsonError = new JSONObject();
+			jsonError.put("success", false);
+			jsonError.put("message", "An error has occurred");
+			response.getWriter().println(jsonError);
+		}
 		return response;
 	}
 }
