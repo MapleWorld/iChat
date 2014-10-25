@@ -1,5 +1,7 @@
 package appControl;
 
+import java.util.concurrent.ExecutionException;
+
 import org.json.JSONObject;
 
 /*
@@ -39,6 +41,19 @@ public class DAO {
 				account.toString()).get();
 		return result;
 
+	}
+	
+	public JSONObject getServerResponseContent(String url) throws InterruptedException, ExecutionException{
+		
+		//String url = "http://10.0.2.2:8080/categories";
+		
+		Server server = new Server();
+
+		JSONObject result = server.new downloadUrl().execute(url).get();
+		
+		System.out.println(result.toString());
+		return result;
+		
 	}
 
 }

@@ -17,6 +17,7 @@
     <string name="list">List</string>
     <string name="save">Save</string>
     <string name="back">Back</string>
+    <string name="get_response">Get Response</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_main">MainActivity</string>

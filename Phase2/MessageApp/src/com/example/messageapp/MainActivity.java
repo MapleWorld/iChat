@@ -1,8 +1,13 @@
 package com.example.messageapp;
 
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Toast;
+import appControl.DAO;
 
 public class MainActivity extends Activity {
 
@@ -17,6 +22,15 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	public void getResponse(View v) throws Exception {
+		DAO response = new DAO();
+		JSONObject result = response.getServerResponseContent("http://10.0.2.2:8080/categories");
+		
+		String message = result.toString();
+		Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
+		msg.show();
 	}
 
 }
