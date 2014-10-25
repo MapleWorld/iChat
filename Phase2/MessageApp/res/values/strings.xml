@@ -24,6 +24,8 @@
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="title_activity_view_thread">ViewThreadActivity</string>
-	<string name="title_activity_create_thread">CreateTopicActivity</string>
-	<string name="title_activity_create_topic">CreateThreadActivity</string>
+    <string name="title_activity_create_thread">CreateTopicActivity</string>
+    <string name="title_activity_create_topic">CreateThreadActivity</string>
+    <string name="title_activity_view_categories">ViewCategoriesActivity</string>
+
 </resources>

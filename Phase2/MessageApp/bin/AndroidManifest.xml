@@ -44,6 +44,10 @@
             android:name=".CreateTopicActivity"
             android:label="@string/title_activity_create_topic" >
         </activity>
+        <activity
+            android:name=".ViewCategoriesActivity"
+            android:label="@string/title_activity_view_categories" >
+        </activity>
     </application>
 
 </manifest>

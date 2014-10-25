@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -24,13 +25,9 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-	public void getResponse(View v) throws Exception {
-		DAO response = new DAO();
-		JSONObject result = response.getServerResponseContent("http://10.0.2.2:8080/categories");
-		
-		String message = result.toString();
-		Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
-		msg.show();
+	public void viewCategories(View v) {
+		Intent intent = new Intent(this, ViewCategoriesActivity.class);
+		startActivity(intent);
 	}
 
 }
