@@ -23,6 +23,7 @@ public class ThreadsDTO {
 		ResultSet rs;
 		long userid;
 		CSC301User user;
+		String topics_values = "";
 		
 		try {
 			userid = SessionDTO.getUserIDFromSessionID(sessionID);
@@ -32,6 +33,9 @@ public class ThreadsDTO {
 			}
 			
 			conn = DriverManager.getConnection(mgr.getJDBCURL());
+			
+			//We have multiple inserts taking place that must be atomic
+			conn.setAutoCommit(false);
 			
 			ps = conn.prepareStatement("insert into thread (cat_id, title, body, user_id, created_at, updated_at) "+
 										"values (?, ?, ?, ?, NOW(), NOW())", Statement.RETURN_GENERATED_KEYS);
@@ -53,12 +57,54 @@ public class ThreadsDTO {
 			rs.close();
 			ps.close();
 			
+			//Now we must set up the topic <-> thread relationships
+			//For now, we will silently ignore topics that are from the
+			//wrong category. Should we throw an error instead? Up for debate.
+			if(topics.length > 0 && thread_id > 0) {
+				for(int idx = 0; idx < topics.length; idx++){
+					topics_values += ("(?, ?)");
+					if(idx + 1 < topics.length){
+						topics_values += ", ";
+					} else {
+						topics_values += " ";
+					}
+				}
+				
+				ps = conn.prepareStatement("insert into thread_topics (thread_id, topic_id) values " + topics_values);
+
+				for(int idx = 0; idx < topics.length * 2; idx += 2) {
+					ps.setLong(idx + 1, thread_id);
+					ps.setLong(idx + 2, topics[idx / 2]);
+				}
+				
+				ps.executeUpdate();
+				
+				ps.close();
+					
+				//Get rid of topic associations where provided topic was
+				//from the wrong category.
+				
+				ps = conn.prepareStatement("delete tt from thread_topics tt " +
+											" inner join topic top on tt.topic_id = top.id " +
+											" inner join thread tr on tt.thread_id = tr.id " +
+											" where top.cat_id <> tr.cat_id ");
+				ps.executeUpdate();
+			}
+			
+			conn.commit();
+			
 		} catch (UnauthorizedException e) {
 			e.printStackTrace();
 			throw e;
 		} catch (SQLException se) {
 			se.printStackTrace();
-			throw new UnauthorizedException("Database connection error");
+			try {
+				//Revert what we did if there is a failure
+				conn.rollback();
+			} catch (SQLException se2) {
+				se.printStackTrace();
+			}
+			throw new UnauthorizedException("An error has occurred");
 		} finally {
 			try {
 				if(conn != null) conn.close();
