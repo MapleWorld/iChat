@@ -1,5 +1,7 @@
 package appControl;
 
+import org.json.JSONObject;
+
 /*
  Creates a User instance
  Validates a User by username and password
@@ -18,72 +20,25 @@ public class DAO {
 	// Check user name and password with the server database
 	// Login the user if they match with the database
 	public boolean loginAccount(String username, String password) {
-		if (checkUsername(username)) {
-			if (checkPassword(password)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
-
-	public boolean checkUsername(String username) {
-		return true;
-	}
-
-	public boolean checkPassword(String password) {
+		// Do shit here
 		return true;
 	}
 
 	// Check user name and password and create user
 	// Connect to the server, check for duplicate user name
 	// Create user and update server database
-	public boolean createUser(String username, String password) {
-		if (validateUsername(username)) {
-			if (validatePassword(password)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
+	public JSONObject createUser(String username, String password)
+			throws Exception {
+
+		String url = "http://10.0.2.2:8080/register";
+		Server server = new Server();
+		JSONObject account = new JSONObject("{\"username\":\"" + username
+				+ "\",\"password\":\"" + password + "\"}");
+
+		JSONObject result = server.new createUser().execute(url,
+				account.toString()).get();
+		return result;
+
 	}
 
-	public boolean validateUsername(String username) {
-		return true;
-	}
-
-	public boolean validatePassword(String password) {
-		return true;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

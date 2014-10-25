@@ -1,5 +1,7 @@
 package com.example.messageapp;
 
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -24,7 +26,7 @@ public class RegisterActivity extends Activity {
 		return true;
 	}
 
-	public void register(View v) {
+	public void register(View v) throws Exception {
 
 		EditText userNameText = (EditText) findViewById(R.id.user_name);
 		EditText userPasswordText = (EditText) findViewById(R.id.user_password);
@@ -34,19 +36,17 @@ public class RegisterActivity extends Activity {
 
 		// Validate the inputs
 		// Store the inputs into database
-
 		DAO createAccount = new DAO();
-		boolean ValideInputs = createAccount.createUser(userName,userPassword);
-		
-		if (ValideInputs) {
+		JSONObject result = createAccount.createUser(userName, userPassword);
+
+		if (result.get("success").equals(true)) {
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		} else {
 			userNameText.setText("");
 			userPasswordText.setText("");
-			Toast msg = Toast
-					.makeText(this, "Invalide Username or Password or Email",
-							Toast.LENGTH_LONG);
+			String message = (String) result.get("message");
+			Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
 			msg.show();
 		}
 	}
