@@ -16,7 +16,7 @@ import org.json.JSONObject;
 public class TopicServlet extends HttpServlet{
 	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		Pattern newTopicPattern = Pattern.compile("^\\/topics\\/new$");
+		Pattern newTopicPattern = Pattern.compile("^\\/topics\\/create$");
 		Matcher newThreadMatcher = newTopicPattern.matcher(request.getRequestURI());
 		JSONObject jResp;
 
@@ -59,7 +59,7 @@ public class TopicServlet extends HttpServlet{
         	
         	try {
         		jo = new JSONObject(jsonInput);
-        		cat_id = jo.getInt("topic");
+        		cat_id = jo.getInt("category");
         		topic_name = jo.getString("name");   		
         		topic_id = TopicDTO.createTopic(sessionID, topic_name, cat_id);
         		
