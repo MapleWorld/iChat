@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class TopicDTO {
 	
 	private TopicDTO(){
@@ -69,6 +72,71 @@ public class TopicDTO {
 		
 		return thread_id;
 	}
-
-
-}
+	
+	
+	
+	
+	public static String listtopicsbyCategoryAsJsonString(long category_id){
+		  ConfigManager mgr = ConfigManager.getInstance();
+		  Connection conn = null;
+          PreparedStatement ps;
+          ResultSet rs;
+          JSONObject jResp;
+          JSONArray  jTopics;
+          JSONObject jTopicHeading;
+          
+          
+          
+          jResp = new JSONObject();
+          
+          try {
+        	  conn = DriverManager.getConnection(mgr.getJDBCURL());
+        	  ps =conn.prepareStatement("select * from topic where cat_id = ? ");
+        	  ps.setLong(1, category_id);
+ 
+        	  
+        	  
+        	  rs=ps.executeQuery();
+        	  
+        	  jTopics = new JSONArray();
+        	  
+        	  while(rs.next()){
+        		  jTopicHeading = new JSONObject();
+        		  jTopicHeading.put("id", rs.getLong("id"));
+        		  jTopicHeading.put("name",rs.getString("name"));
+        		  jTopicHeading.put("create_timestamp", rs.getTimestamp("created_at").toString());
+        		  
+        		  jTopics.put(jTopicHeading);
+        		  
+        	  }
+        	  
+        	  rs.close();
+        	  ps.close();
+        	  
+        	 // ps = conn.prepareStatement("select count(*) numTopics from topic"  +
+        	   //                                          "where cat_id = ?");
+        	  
+        	  
+        	  //ps.setLong(1, category_id);
+        	  
+        	  
+        	  //jResp.put("topics", jTopics);
+        	  
+        	  
+        	  //rs.close();
+        	  
+        	 // ps.close();
+          }catch (SQLException e){
+        	  jResp = null;
+        	  e.printStackTrace();
+          }finally {
+        	  try {
+        		   conn.close();
+        	  } catch (SQLException e) {
+        		  e.printStackTrace();
+        	  }	  
+        	  
+          }
+	return jResp == null? null: jResp.toString();
+ }
+}	
