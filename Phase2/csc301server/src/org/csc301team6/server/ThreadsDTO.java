@@ -235,6 +235,79 @@ public class ThreadsDTO {
 		return reply_id;
 	}
 	
+	public static String listThreadsByCategoryAsJsonString(long category_id, long page) {
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		ResultSet rs;
+		JSONObject jResp;
+		JSONArray jThreads;
+		JSONObject jThreadHeading;
+		long pages;
+		
+		if(page < 1) page = 1;
+		
+		jResp = new JSONObject();
+		
+		try {
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+			ps = conn.prepareStatement("select * from thread where cat_id = ? " +
+										"order by created_at desc limit ? offset ?");
+			
+			ps.setLong(1, category_id);
+			ps.setLong(2, mgr.getThreadsPerPage());
+			ps.setLong(3, mgr.getThreadsPerPage() * (page - 1));
+			
+			rs = ps.executeQuery();
+			
+			jThreads = new JSONArray();
+			
+			while(rs.next()){
+				jThreadHeading = new JSONObject();
+				jThreadHeading.put("id", rs.getLong("id"));
+				jThreadHeading.put("title", rs.getString("title"));
+				jThreadHeading.put("update_timestamp", rs.getTimestamp("updated_at").toString());
+				
+				jThreads.put(jThreadHeading);
+			}
+				
+			rs.close();
+			ps.close();
+			
+			ps = conn.prepareStatement("select count(*) numThreads from thread " +
+										"where cat_id = ?");
+			
+			ps.setLong(1, category_id);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				pages = (rs.getLong("numThreads") / mgr.getThreadsPerPage()) + 1;
+			} else {
+				pages = 0;
+			}
+			
+			jResp.put("pages", pages);
+			jResp.put("this_page", page);
+			
+			jResp.put("threads", jThreads);
+					
+			rs.close();
+			ps.close();				
+		} catch (SQLException e) {
+			jResp = null;
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return jResp == null? null : jResp.toString();
+	}
+	
 	public static String listThreadsByTopicAsJSONString(long topic_id, long page) {
 		ConfigManager mgr = ConfigManager.getInstance();
 		Connection conn = null;

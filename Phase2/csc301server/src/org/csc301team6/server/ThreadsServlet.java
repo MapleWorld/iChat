@@ -30,11 +30,11 @@ public class ThreadsServlet extends HttpServlet {
 		Matcher viewThreadMatcher = viewThreadPattern.matcher(request.getRequestURI());
 		Matcher listByCatMatcher = listByCatPattern.matcher(request.getRequestURI());
 		Matcher listByTopicMatcher = listByTopicPattern.matcher(request.getRequestURI());
+		
 		if (viewThreadMatcher.find()) {
 			try {
 				param_id = Long.parseLong(viewThreadMatcher.group(1));
 				page_num = Long.parseLong(viewThreadMatcher.group(2));
-				
 			} catch (Exception e) {
 				//Unable to parse thread_id/page_num params
 				e.printStackTrace();
@@ -49,12 +49,26 @@ public class ThreadsServlet extends HttpServlet {
 			doViewThread(request, response, param_id, page_num);
 			
 		} else if (listByCatMatcher.find()) {
-			 //TODO: implement thread list by category
+			try {
+				param_id = Long.parseLong(listByCatMatcher.group(1));
+				page_num = Long.parseLong(listByCatMatcher.group(2));
+			} catch (Exception e) {
+				//Unable to parse thread_category/page_num params
+				e.printStackTrace();
+				jResp = new JSONObject();
+				jResp.put("success", false);
+				jResp.put("message", "Error parsing input parameters");
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().println(jResp.toString());	
+				return;
+			}
+			
+			doListByCategory(request, response, param_id, page_num);
+			
 		} else if(listByTopicMatcher.find()) {
 			try {
 				param_id = Long.parseLong(listByTopicMatcher.group(1));
 				page_num = Long.parseLong(listByTopicMatcher.group(2));
-				
 			} catch (Exception e) {
 				//Unable to parse thread_id/page_num params
 				e.printStackTrace();
@@ -263,8 +277,25 @@ public class ThreadsServlet extends HttpServlet {
 		return response;
 	}
 	
-	private HttpServletResponse doListByCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
+	private HttpServletResponse doListByCategory(HttpServletRequest request,
+												HttpServletResponse response,
+												long category_id,
+												long page_num) throws IOException {
+		String jsonResp;
+		JSONObject jsonError;
+		
+		jsonResp = ThreadsDTO.listThreadsByCategoryAsJsonString(category_id, page_num);
+		
+		if(jsonResp != null) {
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.getWriter().println(jsonResp);
+		} else {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			jsonError = new JSONObject();
+			jsonError.put("success", false);
+			jsonError.put("message", "An error has occurred");
+			response.getWriter().println(jsonError);
+		}
 		return response;
 	}
 	
