@@ -125,6 +125,7 @@ public class ThreadsDTO {
 		JSONObject jThread;
 		JSONArray jReplies;
 		JSONArray jTopics;
+		JSONObject jTopic;
 		JSONObject jReply;
 		
 		if(page < 1) page = 1;
@@ -147,7 +148,25 @@ public class ThreadsDTO {
 				//TODO: Get list of topics (need to implement TopicDTO first)
 				//For now we will default to an empty array
 				
+				rs.close();
+				ps.close();
+				
 				jTopics = new JSONArray();
+				
+				ps = conn.prepareStatement("select top.id, top.name from thread tr "+
+											" inner join thread_topics tt on tr.id = tt.thread_id " +
+											" inner join topic top on top.id = tt.topic_id " +
+											" where tr.id = ?");
+				ps.setLong(1, thread_id);
+				
+				rs = ps.executeQuery();
+				
+				while(rs.next()){
+					jTopic = new JSONObject();
+					jTopic.put("id", rs.getLong("id"));
+					jTopic.put("name", rs.getString("name"));
+					jTopics.put(jTopic);
+				}
 				
 				//Get list of replies
 				
