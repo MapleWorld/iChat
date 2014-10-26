@@ -35,15 +35,13 @@ public class CreateTopicActivity extends Activity {
 		String topicName = topicText.getText().toString();
 		String categoryID = null;
 
-		// Validate the inputs
-		// Store the inputs into database
 		DAO response = new DAO();
 		JSONObject result = response.getServerResponseContent("http://10.0.2.2:8080/categories");
 		JSONArray results = result.getJSONArray("categories");
 		for (int i=0; i < results.length(); i++) {
 			JSONObject o = results.getJSONObject(i);
 			if(o.getString("name") == categoryName){
-				categoryID = o.getString("name");
+				categoryID = o.getString("id");
 				break;
 			}
 		}
