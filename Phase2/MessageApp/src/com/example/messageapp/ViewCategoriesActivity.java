@@ -1,55 +1,47 @@
 package com.example.messageapp;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
 import appControl.DAO;
 
 public class ViewCategoriesActivity extends Activity {
 
 	private ListView listview;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_categories);
-		
+
 		listview = (ListView) findViewById(R.id.listView1);
-		
+
 		try {
 			getResponse();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void getResponse() throws Exception {
 		DAO response = new DAO();
-		JSONObject result = response.getServerResponseContent("http://10.0.2.2:8080/categories");
+		JSONObject result = response
+				.getServerResponseContent("http://10.0.2.2:8080/categories");
 		JSONArray results = result.getJSONArray("categories");
 		ArrayList<String> list = new ArrayList<String>();
-		
-		for (int i=0; i < results.length(); i++) {
+
+		for (int i = 0; i < results.length(); i++) {
 			JSONObject o = results.getJSONObject(i);
 			list.add(o.getString("name"));
 		}
-		
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-				this, android.R.layout.simple_list_item_1, list);
-		
+
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, list);
+
 		listview.setAdapter(arrayAdapter);
 	}
 }

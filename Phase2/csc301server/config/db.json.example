@@ -2,5 +2,5 @@
  "port":3306,
  "schema": "csc301",
  "user": "root",
- "pass": "root"
+ "pass": "12345"
 }

@@ -29,14 +29,17 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f090007;
-        public static final int button1=0x7f090002;
-        public static final int button2=0x7f090003;
-        public static final int listView1=0x7f090006;
-        public static final int register_button=0x7f090005;
-        public static final int textView1=0x7f090004;
-        public static final int user_name=0x7f090001;
-        public static final int user_password=0x7f090000;
+        public static final int action_settings=0x7f09000a;
+        public static final int button1=0x7f090005;
+        public static final int button2=0x7f090006;
+        public static final int button3=0x7f090007;
+        public static final int category_name=0x7f090000;
+        public static final int create_button=0x7f090002;
+        public static final int listView1=0x7f090009;
+        public static final int new_topic=0x7f090001;
+        public static final int register_button=0x7f090008;
+        public static final int user_name=0x7f090004;
+        public static final int user_password=0x7f090003;
     }
     public static final class layout {
         public static final int activity_create_thread=0x7f030000;
@@ -58,33 +61,37 @@ public final class R {
         public static final int view_thread=0x7f080006;
     }
     public static final class string {
-        public static final int action_settings=0x7f06000a;
+        public static final int action_settings=0x7f06000e;
         public static final int app_name=0x7f060000;
-        public static final int back=0x7f06000f;
-        public static final int create_thread=0x7f060007;
-        public static final int create_topic=0x7f060009;
-        public static final int day=0x7f06000c;
-        public static final int get_response=0x7f060010;
-        public static final int hello_world=0x7f060012;
-        public static final int list=0x7f06000d;
+        public static final int back=0x7f060013;
+        public static final int category_name=0x7f060009;
+        public static final int create_button=0x7f060004;
+        public static final int create_thread=0x7f060008;
+        public static final int create_topic=0x7f06000d;
+        public static final int day=0x7f060010;
+        public static final int get_response=0x7f060014;
+        public static final int hello_world=0x7f060016;
+        public static final int list=0x7f060011;
         public static final int login_button=0x7f060002;
         public static final int patient_name=0x7f060001;
         public static final int register_button=0x7f060003;
-        public static final int save=0x7f06000e;
-        public static final int submitNewPatientData=0x7f06000b;
-        public static final int title_activity_create_thread=0x7f060017;
-        public static final int title_activity_create_topic=0x7f060018;
-        public static final int title_activity_main=0x7f060013;
-        public static final int title_activity_register=0x7f060011;
-        public static final int title_activity_settings=0x7f06001a;
-        public static final int title_activity_view_categories=0x7f060019;
-        public static final int title_activity_view_thread=0x7f060016;
-        public static final int title_item_detail=0x7f060015;
-        public static final int title_item_list=0x7f060014;
-        public static final int user_logout=0x7f060006;
-        public static final int user_name=0x7f060004;
-        public static final int user_password=0x7f060005;
-        public static final int view_thread=0x7f060008;
+        public static final int save=0x7f060012;
+        public static final int submitNewPatientData=0x7f06000f;
+        public static final int title_activity_create_thread=0x7f06001b;
+        public static final int title_activity_create_topic=0x7f06001c;
+        public static final int title_activity_main=0x7f060017;
+        public static final int title_activity_register=0x7f060015;
+        public static final int title_activity_settings=0x7f06001e;
+        public static final int title_activity_view_categories=0x7f06001d;
+        public static final int title_activity_view_thread=0x7f06001a;
+        public static final int title_item_detail=0x7f060019;
+        public static final int title_item_list=0x7f060018;
+        public static final int topic_name=0x7f06000a;
+        public static final int user_logout=0x7f060007;
+        public static final int user_name=0x7f060005;
+        public static final int user_password=0x7f060006;
+        public static final int view_categories=0x7f06000c;
+        public static final int view_thread=0x7f06000b;
     }
     public static final class style {
         /** 
