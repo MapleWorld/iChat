@@ -1,3 +1,4 @@
+
 package appControl;
 
 import java.io.DataOutputStream;
@@ -23,6 +24,58 @@ public class Server {
 		reader.read(buffer);
 		return new String(buffer);
 	}
+
+	// Given a URL, establishes an HttpUrlConnection and retrieves
+	// the web page content as a InputStream, which it returns as
+	// a string.
+	class downloadUrl extends AsyncTask<String, String, JSONObject> {
+
+		@Override
+		protected JSONObject doInBackground(String... params) {
+			InputStream is = null;
+			int len = 500;
+
+			try {
+				URL url = new URL(params[0]);
+				HttpURLConnection conn = (HttpURLConnection) url
+						.openConnection();
+				conn.setReadTimeout(10000 /* milliseconds */);
+				conn.setConnectTimeout(15000 /* milliseconds */);
+				conn.setRequestMethod("GET");
+				conn.setDoInput(true);
+				// Starts the query
+				conn.connect();
+				int response = conn.getResponseCode();
+				is = conn.getInputStream();
+
+				// Convert the InputStream into a string
+				String contentAsString = readIt(is, len);
+				JSONObject jObject = new JSONObject(contentAsString);
+
+				return jObject;
+
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if (is != null) {
+					try {
+						is.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+
+			return null;
+		}
+
+	}
+
 
 	class sendUser extends AsyncTask<String, String, JSONObject> {
 
@@ -78,55 +131,7 @@ public class Server {
 
 	}
 
-	// Given a URL, establishes an HttpUrlConnection and retrieves
-	// the web page content as a InputStream, which it returns as
-	// a string.
-	class downloadUrl extends AsyncTask<String, String, JSONObject> {
 
-		@Override
-		protected JSONObject doInBackground(String... params) {
-			InputStream is = null;
-			int len = 500;
-
-			try {
-				URL url = new URL(params[0]);
-				HttpURLConnection conn = (HttpURLConnection) url
-						.openConnection();
-				conn.setReadTimeout(10000 /* milliseconds */);
-				conn.setConnectTimeout(15000 /* milliseconds */);
-				conn.setRequestMethod("GET");
-				conn.setDoInput(true);
-				// Starts the query
-				conn.connect();
-				int response = conn.getResponseCode();
-				is = conn.getInputStream();
-
-				// Convert the InputStream into a string
-				String contentAsString = readIt(is, len);
-				JSONObject jObject = new JSONObject(contentAsString);
-
-				return jObject;
-
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (is != null) {
-					try {
-						is.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-
-			return null;
-		}
-
-	}
 
 }
+

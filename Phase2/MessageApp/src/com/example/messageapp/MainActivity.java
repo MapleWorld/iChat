@@ -1,7 +1,6 @@
 package com.example.messageapp;
 
 import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -27,6 +26,11 @@ public class MainActivity extends Activity {
 	
 	public void viewCategories(View v) {
 		Intent intent = new Intent(this, ViewCategoriesActivity.class);
+		startActivity(intent);
+	}
+	
+	public void createTopic(View v) {
+		Intent intent = new Intent(this, CreateTopicActivity.class);
 		startActivity(intent);
 	}
 
