@@ -39,8 +39,8 @@ public class MainActivity extends Activity {
 	}
 
 	public void logoutUser(View v) {
-		Intent intent = new Intent(this, MainActivity.class);
 		session.logoutUser();
+		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 	}
 
