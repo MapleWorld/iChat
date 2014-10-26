@@ -11,6 +11,7 @@ import java.net.URL;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class Server {
 	
@@ -29,18 +30,19 @@ public class Server {
 		@Override
 		protected JSONObject doInBackground(String... params) {
 			InputStream is = null;
+			CSC301ConnectionManager connMgr = CSC301ConnectionManager.getInstance();
+			
 			try {
-				// Establish Connection
-				URL url = new URL(params[0]);
-				HttpURLConnection con = (HttpURLConnection) url
-						.openConnection();
+				
+				HttpURLConnection con = (HttpURLConnection)connMgr.getServerConnection("/register");
+				
 				con.setRequestMethod("POST");
 				con.setDoOutput(true);
-
+				
 				// Send post request
 				DataOutputStream wr = new DataOutputStream(
 						con.getOutputStream());
-				wr.writeBytes(params[1]);
+				wr.writeBytes(params[0]);
 				wr.flush();
 				wr.close();
 
@@ -62,10 +64,12 @@ public class Server {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				System.out.println("failed wtf man");
+				Log.e("com.example.messageapp", "IOException in createUser");
 				e.printStackTrace();
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				System.out.println("failed wtf man");
+				Log.e("com.example.messageapp", "JSONException in createUser");
 				e.printStackTrace();
 			}
 			return null;

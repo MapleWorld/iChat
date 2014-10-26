@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,6 +26,11 @@ public class RegisterActivity extends Activity {
 		getMenuInflater().inflate(R.menu.register, menu);
 		return true;
 	}
+	
+	public void openSettings(MenuItem item) {
+		Intent intent = new Intent(this, SettingsActivity.class);
+		startActivity(intent);
+	}
 
 	public void register(View v) throws Exception {
 
@@ -37,17 +43,24 @@ public class RegisterActivity extends Activity {
 		// Validate the inputs
 		// Store the inputs into database
 		DAO createAccount = new DAO();
+		
 		JSONObject result = createAccount.createUser(userName, userPassword);
 
-		if (result.get("success").equals(true)) {
-			Intent intent = new Intent(this, LoginActivity.class);
-			startActivity(intent);
+		if(result != null) {
+			if (result.get("success").equals(true)) {
+				Intent intent = new Intent(this, LoginActivity.class);
+				startActivity(intent);
+			} else {
+				userNameText.setText("");
+				userPasswordText.setText("");
+				String message = (String) result.get("message");
+				Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
+				msg.show();
+			}
 		} else {
-			userNameText.setText("");
-			userPasswordText.setText("");
-			String message = (String) result.get("message");
-			Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
+			Toast msg = Toast.makeText(this, "Error communicating with server", Toast.LENGTH_LONG);
 			msg.show();
 		}
+		
 	}
 }

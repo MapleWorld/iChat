@@ -2,13 +2,16 @@ package com.example.messageapp;
 
 import com.example.messageapp.RegisterActivity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import appControl.DAO;
+import appControl.CSC301ConnectionManager;
 
 public class LoginActivity extends Activity {
 
@@ -17,6 +20,18 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
+		//This is where we initialize server connection settings for the first time,
+		//since LoginActivity is the first to start.
+		
+		CSC301ConnectionManager connMgr = CSC301ConnectionManager.getInstance();
+		
+		String serverAddress = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server_address", "10.0.2.2:8080");
+		boolean serverIsHTTPS = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_server_https", false);
+		String serverProtocol = serverIsHTTPS ? "https://" : "http://";
+		
+		connMgr.setUseHTTPS(serverIsHTTPS);
+		connMgr.setServerURL(serverProtocol + serverAddress);
 	}
 
 	@Override
@@ -53,6 +68,11 @@ public class LoginActivity extends Activity {
 
 	public void register(View v) {
 		Intent intent = new Intent(this, RegisterActivity.class);
+		startActivity(intent);
+	}
+	
+	public void openSettings(MenuItem item) {
+		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
 	}
 

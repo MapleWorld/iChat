@@ -32,12 +32,11 @@ public class DAO {
 	public JSONObject createUser(String username, String password)
 			throws Exception {
 
-		String url = "http://10.0.2.2:8080/register";
 		Server server = new Server();
 		JSONObject account = new JSONObject("{\"username\":\"" + username
 				+ "\",\"password\":\"" + password + "\"}");
 
-		JSONObject result = server.new createUser().execute(url,
+		JSONObject result = server.new createUser().execute(
 				account.toString()).get();
 		return result;
 
