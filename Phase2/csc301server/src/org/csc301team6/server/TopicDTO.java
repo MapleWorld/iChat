@@ -76,7 +76,7 @@ public class TopicDTO {
 	
 	
 	
-	public static String listtopicsbyCategoryAsJsonString(long category_id){
+	public static String listTopicsByCategoryAsJSONString(long category_id){
 		  ConfigManager mgr = ConfigManager.getInstance();
 		  Connection conn = null;
           PreparedStatement ps;
@@ -84,9 +84,7 @@ public class TopicDTO {
           JSONObject jResp;
           JSONArray  jTopics;
           JSONObject jTopicHeading;
-          
-          
-          
+               
           jResp = new JSONObject();
           
           try {
@@ -94,8 +92,6 @@ public class TopicDTO {
         	  ps =conn.prepareStatement("select * from topic where cat_id = ? ");
         	  ps.setLong(1, category_id);
  
-        	  
-        	  
         	  rs=ps.executeQuery();
         	  
         	  jTopics = new JSONArray();
@@ -103,29 +99,16 @@ public class TopicDTO {
         	  while(rs.next()){
         		  jTopicHeading = new JSONObject();
         		  jTopicHeading.put("id", rs.getLong("id"));
-        		  jTopicHeading.put("name",rs.getString("name"));
-        		  jTopicHeading.put("create_timestamp", rs.getTimestamp("created_at").toString());
-        		  
+        		  jTopicHeading.put("name",rs.getString("name"));        		  
         		  jTopics.put(jTopicHeading);
         		  
         	  }
         	  
+        	  jResp.put("topics", jTopics);
+        	  
         	  rs.close();
         	  ps.close();
         	  
-        	 // ps = conn.prepareStatement("select count(*) numTopics from topic"  +
-        	   //                                          "where cat_id = ?");
-        	  
-        	  
-        	  //ps.setLong(1, category_id);
-        	  
-        	  
-        	  //jResp.put("topics", jTopics);
-        	  
-        	  
-        	  //rs.close();
-        	  
-        	 // ps.close();
           }catch (SQLException e){
         	  jResp = null;
         	  e.printStackTrace();
