@@ -5,13 +5,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import appControl.Session;
 
 public class MainActivity extends Activity {
+
+	// Session Manager Class
+	Session session;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// Session class instance
+		session = new Session(getApplicationContext());
 	}
 
 	@Override
@@ -28,6 +35,12 @@ public class MainActivity extends Activity {
 
 	public void createTopic(View v) {
 		Intent intent = new Intent(this, CreateTopicActivity.class);
+		startActivity(intent);
+	}
+
+	public void logoutUser(View v) {
+		Intent intent = new Intent(this, MainActivity.class);
+		session.logoutUser();
 		startActivity(intent);
 	}
 

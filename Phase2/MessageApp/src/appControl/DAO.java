@@ -52,16 +52,18 @@ public class DAO {
 
 	}
 
-	public JSONObject createTopic(String categoryID, String topicName)
-			throws Exception {
+	public JSONObject createTopicWithSession(String categoryID,
+			String topicName, String sessionID) throws Exception {
 
 		String url = "http://10.0.2.2:8080/topics/create";
 		Server server = new Server();
 		JSONObject topic = new JSONObject("{\"category\":\"" + categoryID
 				+ "\",\"name\":\"" + topicName + "\"}");
 
+		System.out.println(sessionID);
+
 		JSONObject result = server.new sendPOSTRequest().execute(url,
-				topic.toString()).get();
+				topic.toString(), sessionID).get();
 		return result;
 
 	}

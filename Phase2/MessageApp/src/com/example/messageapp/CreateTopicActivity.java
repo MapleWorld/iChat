@@ -11,13 +11,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import appControl.DAO;
+import appControl.Session;
 
 public class CreateTopicActivity extends Activity {
+
+	Session session;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_topic);
+		// Session class instance
+		session = new Session(getApplicationContext());
 	}
 
 	@Override
@@ -51,8 +56,13 @@ public class CreateTopicActivity extends Activity {
 		if (categoryID != null) {
 
 			DAO createTopic = new DAO();
-			JSONObject result2 = createTopic.createTopic(categoryID.toString(),
-					topicName);
+			JSONObject result2 = createTopic.createTopicWithSession(categoryID
+					.toString(), topicName,
+					session.getUserDetails().get("session"));
+
+			String message = (String) result2.get("message");
+			Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
+			msg.show();
 
 			if (result2.get("success").equals(true)) {
 				Intent intent = new Intent(this, MainActivity.class);
@@ -60,9 +70,6 @@ public class CreateTopicActivity extends Activity {
 			} else {
 				categoryText.setText("");
 				topicText.setText("");
-				String message = (String) result2.get("message");
-				Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
-				msg.show();
 			}
 		} else {
 			Toast msg = Toast.makeText(this, "category not exist",

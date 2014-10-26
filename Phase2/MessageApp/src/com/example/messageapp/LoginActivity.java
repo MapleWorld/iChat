@@ -14,13 +14,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import appControl.DAO;
+import appControl.Session;
 
 public class LoginActivity extends Activity {
 
+    // Session Manager Class
+    Session session;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
+		// Session Manager
+        session = new Session(getApplicationContext());   
 	}
 
 	@Override
@@ -45,6 +52,7 @@ public class LoginActivity extends Activity {
 
 		if (result.get("success").equals(true)) {
 			Intent intent = new Intent(this, MainActivity.class);
+			session.createLoginSession(userName, result.getString("SESSIONID"));
 			startActivity(intent);
 		} else { // Send out a notification
 			userNameText.setText("");

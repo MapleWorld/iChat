@@ -76,7 +76,7 @@ public class Server {
 	}
 
 	class sendPOSTRequest extends AsyncTask<String, String, JSONObject> {
-
+		
 		@Override
 		protected JSONObject doInBackground(String... params) {
 			InputStream is = null;
@@ -85,6 +85,13 @@ public class Server {
 				URL url = new URL(params[0]);
 				HttpURLConnection con = (HttpURLConnection) url
 						.openConnection();
+				
+				// Check if session id was passed down
+				// If it is, add session id to the header of the request
+				if(params.length == 3){
+					con.addRequestProperty("SESSIONID", params[2]);
+				}
+				
 				con.setRequestMethod("POST");
 				con.setDoOutput(true);
 
