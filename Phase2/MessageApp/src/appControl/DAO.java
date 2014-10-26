@@ -43,6 +43,20 @@ public class DAO {
 
 	}
 	
+	public JSONObject createTopic(String categoryID, String topicName)
+			throws Exception {
+
+		String url = "http://10.0.2.2:8080/topics/create";
+		Server server = new Server();
+		JSONObject topic = new JSONObject("{\"category\":\"" + categoryID
+				+ "\",\"name\":\"" + topicName + "\"}");
+
+		JSONObject result = server.new createTopic().execute(url,
+				topic.toString()).get();
+		return result;
+
+	}
+	
 	public JSONObject getServerResponseContent(String url) throws InterruptedException, ExecutionException{
 		
 		Server server = new Server();
