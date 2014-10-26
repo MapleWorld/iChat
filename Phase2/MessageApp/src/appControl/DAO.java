@@ -51,7 +51,7 @@ public class DAO {
 		return result;
 
 	}
-	/*
+	
 	public JSONObject createTopic(String categoryID, String topicName)
 			throws Exception {
 
@@ -60,11 +60,11 @@ public class DAO {
 		JSONObject topic = new JSONObject("{\"category\":\"" + categoryID
 				+ "\",\"name\":\"" + topicName + "\"}");
 
-		JSONObject result = server.new createTopic().execute(url,
+		JSONObject result = server.new sendUser().execute(url,
 				topic.toString()).get();
 		return result;
 
-	}*/
+	}
 
 
 	public JSONObject getServerResponseContent(String url)

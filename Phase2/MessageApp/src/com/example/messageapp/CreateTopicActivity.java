@@ -33,23 +33,24 @@ public class CreateTopicActivity extends Activity {
 
 		String categoryName = categoryText.getText().toString();
 		String topicName = topicText.getText().toString();
-		String categoryID = null;
+		Integer categoryID = null;
 
 		DAO response = new DAO();
 		JSONObject result = response.getServerResponseContent("http://10.0.2.2:8080/categories");
 		JSONArray results = result.getJSONArray("categories");
+		
 		for (int i=0; i < results.length(); i++) {
 			JSONObject o = results.getJSONObject(i);
-			if(o.getString("name") == categoryName){
-				categoryID = o.getString("id");
+			if(o.getString("name").equals(categoryName)){
+				categoryID = o.getInt("id");
 				break;
 			}
 		}
 		
-		/*
 		if(categoryID != null){
+			
 			DAO createTopic = new DAO();
-			JSONObject result2 = createTopic.createTopic(categoryID, topicName);
+			JSONObject result2 = createTopic.createTopic(categoryID.toString(), topicName);
 
 			if (result2.get("success").equals(true)) {
 				Intent intent = new Intent(this, MainActivity.class);
@@ -66,7 +67,7 @@ public class CreateTopicActivity extends Activity {
 					Toast.LENGTH_LONG);
 			msg.show();
 			
-		}*/
+		}
 		
 	}
 
