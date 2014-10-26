@@ -1,4 +1,3 @@
-
 package appControl;
 
 import java.io.DataOutputStream;
@@ -45,7 +44,7 @@ public class Server {
 				conn.setDoInput(true);
 				// Starts the query
 				conn.connect();
-				int response = conn.getResponseCode();
+				//int response = conn.getResponseCode();
 				is = conn.getInputStream();
 
 				// Convert the InputStream into a string
@@ -76,8 +75,7 @@ public class Server {
 
 	}
 
-
-	class sendUser extends AsyncTask<String, String, JSONObject> {
+	class sendPOSTRequest extends AsyncTask<String, String, JSONObject> {
 
 		@Override
 		protected JSONObject doInBackground(String... params) {
@@ -131,7 +129,4 @@ public class Server {
 
 	}
 
-
-
 }
-

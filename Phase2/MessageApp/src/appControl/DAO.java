@@ -1,4 +1,3 @@
-
 package appControl;
 
 import java.util.concurrent.ExecutionException;
@@ -31,7 +30,7 @@ public class DAO {
 		JSONObject account = new JSONObject("{\"username\":\"" + username
 				+ "\",\"password\":\"" + password + "\"}");
 
-		JSONObject result = server.new sendUser().execute(url,
+		JSONObject result = server.new sendPOSTRequest().execute(url,
 				account.toString()).get();
 		return result;
 	}
@@ -47,8 +46,22 @@ public class DAO {
 		JSONObject account = new JSONObject("{\"username\":\"" + username
 				+ "\",\"password\":\"" + password + "\"}");
 
-		JSONObject result = server.new sendUser().execute(url,
+		JSONObject result = server.new sendPOSTRequest().execute(url,
 				account.toString()).get();
+		return result;
+
+	}
+
+	public JSONObject createTopic(String categoryID, String topicName)
+			throws Exception {
+
+		String url = "http://10.0.2.2:8080/topics/create";
+		Server server = new Server();
+		JSONObject topic = new JSONObject("{\"category\":\"" + categoryID
+				+ "\",\"name\":\"" + topicName + "\"}");
+
+		JSONObject result = server.new sendPOSTRequest().execute(url,
+				topic.toString()).get();
 		return result;
 
 	}
@@ -63,22 +76,4 @@ public class DAO {
 
 	}
 
-
-
-	public JSONObject createTopic(String categoryID, String topicName)
-			throws Exception {
-
-		String url = "http://10.0.2.2:8080/topics/create";
-		Server server = new Server();
-		JSONObject topic = new JSONObject("{\"category\":\"" + categoryID
-				+ "\",\"name\":\"" + topicName + "\"}");
-
-		JSONObject result = server.new sendUser().execute(url,
-				topic.toString()).get();
-		return result;
-
-	}
-
-
 }
-

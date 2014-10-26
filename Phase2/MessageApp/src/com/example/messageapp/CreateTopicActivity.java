@@ -26,8 +26,8 @@ public class CreateTopicActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
-	public void createTopic(View V) throws Exception{
+
+	public void createTopic(View V) throws Exception {
 		EditText categoryText = (EditText) findViewById(R.id.category_name);
 		EditText topicText = (EditText) findViewById(R.id.new_topic);
 
@@ -36,21 +36,23 @@ public class CreateTopicActivity extends Activity {
 		Integer categoryID = null;
 
 		DAO response = new DAO();
-		JSONObject result = response.getServerResponseContent("http://10.0.2.2:8080/categories");
+		JSONObject result = response
+				.getServerResponseContent("http://10.0.2.2:8080/categories");
 		JSONArray results = result.getJSONArray("categories");
-		
-		for (int i=0; i < results.length(); i++) {
+
+		for (int i = 0; i < results.length(); i++) {
 			JSONObject o = results.getJSONObject(i);
-			if(o.getString("name").equals(categoryName)){
+			if (o.getString("name").equals(categoryName)) {
 				categoryID = o.getInt("id");
 				break;
 			}
 		}
-		
-		if(categoryID != null){
-			
+
+		if (categoryID != null) {
+
 			DAO createTopic = new DAO();
-			JSONObject result2 = createTopic.createTopic(categoryID.toString(), topicName);
+			JSONObject result2 = createTopic.createTopic(categoryID.toString(),
+					topicName);
 
 			if (result2.get("success").equals(true)) {
 				Intent intent = new Intent(this, MainActivity.class);
@@ -62,13 +64,13 @@ public class CreateTopicActivity extends Activity {
 				Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
 				msg.show();
 			}
-		}else{
+		} else {
 			Toast msg = Toast.makeText(this, "category not exist",
 					Toast.LENGTH_LONG);
 			msg.show();
-			
+
 		}
-		
+
 	}
 
 }
