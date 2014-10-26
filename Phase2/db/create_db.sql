@@ -1,4 +1,5 @@
 -- Tested with MySQL v5.1.73
+create database csc301 /** Creating Database **/
 
 create table user (
 	id int AUTO_INCREMENT PRIMARY KEY,
@@ -60,3 +61,4 @@ create table sessions (
 	expires datetime NOT NULL,
 	FOREIGN KEY (userid) references user (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

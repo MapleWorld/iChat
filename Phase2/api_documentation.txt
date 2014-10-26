@@ -303,7 +303,7 @@ NOTES:
 	Example success response:
 		HTTP 200 OK
 		
-		{"success":true,"message":"Message from server"}
+		{"success":true,"message":"Message from server", "thread_id":1}
 
 	Example failure response:
 		HTTP 400 bad request

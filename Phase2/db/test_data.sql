@@ -9,3 +9,5 @@ insert into topic (cat_id, name, user_id, created_at) values (1, "Topic1", 1, '2
 insert into thread (cat_id, title, body, user_id, created_at, updated_at) values (1, "Test title 1", "Test body 1", 1, NOW(), NOW());
 insert into thread (cat_id, title, body, user_id, created_at, updated_at) values (3, "Test title 2", "Test body 2", 2, NOW(), NOW());
 insert into thread (cat_id, title, body, user_id, created_at, updated_at) values (4, "Test title 3", "Test body 3", 1, NOW(), NOW());
+
+insert into thread_topics (thread_id, topic_id) values (1, 1), (1,2), (2, 3);

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <EditTextPreference
+        android:key="pref_server_address"
+        android:title="Server address"
+        android:summary="Hostname:port of server"
+        android:defaultValue="10.0.2.2:8080" />
+  
+    <CheckBoxPreference
+        android:key="pref_server_https"
+        android:title="Use HTTPS"
+        android:summary="Encrypt network communications (required for security)"
+        android:defaultValue="false" />
+    
+</PreferenceScreen>
