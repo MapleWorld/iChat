@@ -17,7 +17,7 @@ public class CreateTopicActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_create_topic);
 	}
 
 	@Override
@@ -47,6 +47,8 @@ public class CreateTopicActivity extends Activity {
 				break;
 			}
 		}
+		
+		/*
 		if(categoryID != null){
 			DAO createTopic = new DAO();
 			JSONObject result2 = createTopic.createTopic(categoryID, topicName);
@@ -66,7 +68,7 @@ public class CreateTopicActivity extends Activity {
 					Toast.LENGTH_LONG);
 			msg.show();
 			
-		}
+		}*/
 		
 	}
 
