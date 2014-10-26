@@ -2,6 +2,7 @@ package appControl;
 
 import java.util.concurrent.ExecutionException;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /*
@@ -21,9 +22,17 @@ public class DAO {
 	// Check user name and password and login user
 	// Check user name and password with the server database
 	// Login the user if they match with the database
-	public boolean loginAccount(String username, String password) {
-		// Do shit here
-		return true;
+	public JSONObject loginAccount(String username, String password)
+			throws InterruptedException, ExecutionException, JSONException {
+
+		String url = "http://10.0.2.2:8080/login";
+		Server server = new Server();
+		JSONObject account = new JSONObject("{\"username\":\"" + username
+				+ "\",\"password\":\"" + password + "\"}");
+
+		JSONObject result = server.new sendUser().execute(url,
+				account.toString()).get();
+		return result;
 	}
 
 	// Check user name and password and create user
@@ -37,19 +46,20 @@ public class DAO {
 		JSONObject account = new JSONObject("{\"username\":\"" + username
 				+ "\",\"password\":\"" + password + "\"}");
 
-		JSONObject result = server.new createUser().execute(url,
+		JSONObject result = server.new sendUser().execute(url,
 				account.toString()).get();
 		return result;
 
 	}
-	
-	public JSONObject getServerResponseContent(String url) throws InterruptedException, ExecutionException{
-		
+
+	public JSONObject getServerResponseContent(String url)
+			throws InterruptedException, ExecutionException {
+
 		Server server = new Server();
 		JSONObject result = server.new downloadUrl().execute(url).get();
 
 		return result;
-		
+
 	}
 
 }
