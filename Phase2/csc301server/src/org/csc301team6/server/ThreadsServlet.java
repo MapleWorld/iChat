@@ -221,7 +221,7 @@ public class ThreadsServlet extends HttpServlet {
         				topic_ids[idx] = jTopics.getInt(idx);
         			}
         		} else {
-        			topic_ids = null;
+        			topic_ids = new int[0];
         		}
         		
         		thread_id = ThreadsDTO.createThread(sessionID, thread_title, thread_body, cat_id, topic_ids);

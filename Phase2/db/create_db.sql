@@ -47,6 +47,7 @@ create table reply (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table thread_topics (
+	id int AUTO_INCREMENT UNIQUE,
 	thread_id int,
 	topic_id int,
 	PRIMARY KEY(thread_id, topic_id),

@@ -1,4 +1,10 @@
-/login/
+NOTES:
+	- In general you should check for an optional JSON field
+	  "message" in the response to see if there is anything.
+	  If there is a message, it should be suitable for displaying
+	  do the user to explain an error.
+
+/login
 	- Start a session and retrieve the ID
 	- Only accepts a POST with credentials provided
 	- Parameters are "username" and "password"
@@ -16,7 +22,7 @@
 		HTTP 401 unauthorized
 		{"success":false, "SESSIONID":null}
 
-/register/
+/register
 	- Register a new account
 	- Only accepts a POST request
 
@@ -35,7 +41,7 @@
 	
 	{"success":false, "SESSIONID":null}
 
-/logout/
+/logout
 	- Invalidate an active session
 	- A valid session ID is required for this to work
 	- Session ID must be provided as an HTTP header
@@ -49,7 +55,7 @@
 
 	{"success":true}
 
-/categories/
+/categories
 	- Get a list of all categories
 	- No authentication required
 	- Categories are listed in alphabetical order by name
@@ -63,7 +69,7 @@
 				{"name":"name2","id":2},
 				{"name":"name3","id":3}]}
 
-/topics/list/{category_id}/
+/topics/list/{category_id}
 
 	- Get a list of all topics within a given category
 	- No authentication required
@@ -86,7 +92,7 @@
 	Example response if no threads in topic:
 		{"topics":null}
 
-/topics/create/
+/topics/create
 	- Create a new topic within a category
 	- Must be a POST request
 	- Must have a valid session
@@ -111,7 +117,7 @@
 	Example unauthorized response (no response body sent):
 		HTTP 401 unauthorized
 
-/topics/subscribe/
+/topics/subscribe
 	- Subscribe to a topic
 	- Must be a POST
 	- Must have a valid session
@@ -136,7 +142,7 @@
 	Example unauthorized response (no response body sent):
 		HTTP 401 unauthorized
 
-/topics/unsubscribe/
+/topics/unsubscribe
 	- Unsubscribe from a topic
 	- Must be a POST
 	- Must have a valid session
@@ -161,7 +167,7 @@
 	Example unauthorized response (no response body sent):
 		HTTP 401 unauthorized
 
-/topics/subscriptions/
+/topics/subscriptions
 	- List topics that this user is subscribed to
 	- Must have a valid session
 	- List of topics are displayed in alphabetical order by name
@@ -179,7 +185,7 @@
 			{"name":"topic4", "id":30}
 			]
 		}
-/threads/by_category/{category_id}/{page_number}/
+/threads/by_category/{category_id}/{page_number}
 
 	- Get a list of all threads within a given category
 	- No authentication required
@@ -204,7 +210,7 @@
 
 		{"pages":0, "this_page":0, "threads":null}
 
-/threads/by_topic/{topic_id}/{page_number}/
+/threads/by_topic/{topic_id}/{page_number}
 
 	- Get a list of all threads tagged with a given topic ID
 	- Get a page worth at a time (page size to be determined later)
@@ -227,7 +233,7 @@
 
 		{"pages":0, "this_page":0, "threads":null}
 		
-/threads/view/{thread_id}/{page_number}/
+/threads/view/{thread_id}/{page_number}
 
 	- Get the contents of a single thread, original post plus replies on the page
 	- Replies are sorted in order of timestamp, oldest first
@@ -278,7 +284,7 @@
 
 
 
-/threads/new/
+/threads/new
 	- Creates a new thread
 	- Only POST requests are allowed
 	- A valid session is required
@@ -308,7 +314,7 @@
 		HTTP 401 unauthorized
 	
 
-/threads/reply/
+/threads/reply
 	- Replies to an existing thread
 	- Only POST requests are allowed
 	- A valid session is required

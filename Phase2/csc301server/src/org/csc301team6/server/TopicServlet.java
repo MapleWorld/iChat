@@ -15,6 +15,33 @@ import org.json.JSONObject;
 
 public class TopicServlet extends HttpServlet{
 	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Pattern topicPattern = Pattern.compile("^\\/topics\\/list\\/(\\d+)$");
+		Matcher topicMatcher = topicPattern.matcher(request.getRequestURI());
+		JSONObject jResp;
+		long param;
+		
+		if(topicMatcher.find()){
+			try {
+				param = Long.parseLong(topicMatcher.group(1));
+			} catch (Exception e){
+				e.printStackTrace();
+				jResp = new JSONObject();
+				jResp.put("success", false);
+				jResp.put("message", "Error parsing input parameters");
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().println(jResp.toString());	
+				return;
+			}
+			
+			doListTopicsByCategory(request, response, param);
+		} else {
+			jResp = new JSONObject();
+	        jResp.put("message", "Illegal request");
+	        response.getWriter().println(jResp.toString());
+		}
+	}
+	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		Pattern newTopicPattern = Pattern.compile("^\\/topics\\/create$");
 		Matcher newThreadMatcher = newTopicPattern.matcher(request.getRequestURI());
@@ -30,6 +57,26 @@ public class TopicServlet extends HttpServlet{
 		}
     }
 	
+    private void doListTopicsByCategory(HttpServletRequest request, 
+    										HttpServletResponse response,
+    										long cat_id) throws IOException {
+    	String jsonRespStr;
+    	JSONObject jsonError;
+    	
+    	jsonRespStr = TopicDTO.listTopicsByCategoryAsJSONString(cat_id);
+    	
+    	if(jsonRespStr != null) {
+    		response.setStatus(HttpServletResponse.SC_OK);
+    		response.getWriter().println(jsonRespStr);
+    	} else {
+    		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			jsonError = new JSONObject();
+			jsonError.put("success", false);
+			jsonError.put("message", "An error has occurred");
+			response.getWriter().println(jsonError);
+    	}
+    }
+    
 	private HttpServletResponse doNewTopic(HttpServletRequest request, HttpServletResponse response) throws IOException{
     	String line;
     	String jsonInput = "";
