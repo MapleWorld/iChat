@@ -65,11 +65,11 @@ public class DAO {
 
 	}
 
-	public JSONObject getServerResponseContent(String url)
+	public JSONObject getServerResponseContent(String uri)
 			throws InterruptedException, ExecutionException {
 
 		Server server = new Server();
-		JSONObject result = server.new downloadUrl().execute(url).get();
+		JSONObject result = server.new downloadUrl().execute(uri).get();
 
 		return result;
 

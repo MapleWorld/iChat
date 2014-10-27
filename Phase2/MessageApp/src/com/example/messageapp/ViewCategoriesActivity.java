@@ -30,7 +30,7 @@ public class ViewCategoriesActivity extends Activity {
 	public void getResponse() throws Exception {
 		DAO response = new DAO();
 		JSONObject result = response
-				.getServerResponseContent("http://10.0.2.2:8080/categories");
+				.getServerResponseContent("/categories");
 		JSONArray results = result.getJSONArray("categories");
 		ArrayList<String> list = new ArrayList<String>();
 

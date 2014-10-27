@@ -35,10 +35,10 @@ public class Server {
 			InputStream is = null;
 			int len = 500;
 
+			CSC301ConnectionManager connMgr = CSC301ConnectionManager.getInstance();
+			
 			try {
-				URL url = new URL(params[0]);
-				HttpURLConnection conn = (HttpURLConnection) url
-						.openConnection();
+				HttpURLConnection conn = (HttpURLConnection) connMgr.getServerConnection(params[0]);
 				conn.setReadTimeout(10000 /* milliseconds */);
 				conn.setConnectTimeout(15000 /* milliseconds */);
 				conn.setRequestMethod("GET");
