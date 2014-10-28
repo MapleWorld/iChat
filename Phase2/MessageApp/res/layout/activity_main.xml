@@ -31,10 +31,19 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button2"
+        android:layout_below="@+id/button4"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp"
-        android:onClick="logoutUser"  
+        android:layout_marginTop="40dp"
+        android:onClick="logoutUser"
         android:text="@string/user_logout" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:onClick="findThread"
+        android:text="@string/find_thread" />
 
 </RelativeLayout>

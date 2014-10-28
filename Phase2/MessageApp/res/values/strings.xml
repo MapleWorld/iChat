@@ -21,6 +21,8 @@
     <string name="list">List</string>
     <string name="save">Save</string>
     <string name="back">Back</string>
+    <string name="id">ID</string>
+    <string name="thread_info">Thread Information</string>
     <string name="get_response">Get Response</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="hello_world">Hello world!</string>
@@ -32,5 +34,11 @@
     <string name="title_activity_create_topic">CreateThreadActivity</string>
     <string name="title_activity_view_categories">ViewCategoriesActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="find_thread">Find Thread</string>
+    <string name="find_thread_threadID">Find Thread By Thread ID</string>
+    <string name="find_thread_categoryID">Find Thread By Category ID</string>
+    <string name="find_thread_topicID">Find Thread By Topic ID</string>
+    <string name="title_activity_find_thread">FindThreadActivity</string>
+    <string name="title_activity_view_list_thread">ViewListThreadActivity</string>
 
 </resources>

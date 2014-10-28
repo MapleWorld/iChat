@@ -52,6 +52,14 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name=".FindThreadActivity"
+            android:label="@string/title_activity_find_thread" >
+        </activity>
+        <activity
+            android:name=".ViewListThreadActivity"
+            android:label="@string/title_activity_view_list_thread" >
+        </activity>
     </application>
 
 </manifest>
