@@ -26,7 +26,7 @@ public class RegisterActivity extends Activity {
 		getMenuInflater().inflate(R.menu.register, menu);
 		return true;
 	}
-	
+
 	public void openSettings(MenuItem item) {
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
@@ -43,10 +43,10 @@ public class RegisterActivity extends Activity {
 		// Validate the inputs
 		// Store the inputs into database
 		DAO createAccount = new DAO();
-		
+
 		JSONObject result = createAccount.createUser(userName, userPassword);
 
-		if(result != null) {
+		if (result != null) {
 			if (result.get("success").equals(true)) {
 				Intent intent = new Intent(this, LoginActivity.class);
 				startActivity(intent);
@@ -58,9 +58,10 @@ public class RegisterActivity extends Activity {
 				msg.show();
 			}
 		} else {
-			Toast msg = Toast.makeText(this, "Error communicating with server", Toast.LENGTH_LONG);
+			Toast msg = Toast.makeText(this, "Error communicating with server",
+					Toast.LENGTH_LONG);
 			msg.show();
 		}
-		
+
 	}
 }

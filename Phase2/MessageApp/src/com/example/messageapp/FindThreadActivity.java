@@ -28,33 +28,71 @@ public class FindThreadActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	public void findThreadByThreadID(View v) throws Exception {
-		
+
 		EditText idText = (EditText) findViewById(R.id.input_id);
 		String inputID = idText.getText().toString();
 
 		DAO login = new DAO();
-		JSONObject result = login.getServerResponseContent("/threads/view/"+ 1 + "/1");
-		
-		if(result != null){
+		JSONObject result = login.getServerResponseContent("/threads/view/"
+				+ inputID + "/1");
+
+		if (result != null) {
 			Intent intent = new Intent(this, ViewThreadActivity.class);
 			intent.putExtra("thread", result.toString());
 			startActivity(intent);
 		} else {
 			idText.setText("");
+			Toast msg = Toast.makeText(this,
+					"Couldn't Find Thread With Given Thread ID",
+					Toast.LENGTH_LONG);
+			msg.show();
 		}
-		
+
 	}
-	
-	public void findThreadByCategoryID(View v) {
-		Intent intent = new Intent(this, ViewThreadActivity.class);
-		startActivity(intent);
+
+	public void findThreadByCategoryID(View v) throws Exception {
+
+		EditText idText = (EditText) findViewById(R.id.input_id);
+		String inputID = idText.getText().toString();
+
+		DAO login = new DAO();
+		JSONObject result = login
+				.getServerResponseContent("/threads/by_category/" + inputID
+						+ "/1");
+
+		if (result != null) {
+			Intent intent = new Intent(this, ViewListThreadActivity.class);
+			intent.putExtra("thread", result.toString());
+			startActivity(intent);
+		} else {
+			idText.setText("");
+			Toast msg = Toast.makeText(this,
+					"Couldn't Find Thread With Given ID", Toast.LENGTH_LONG);
+			msg.show();
+		}
 	}
-	
-	public void findThreadByTopicID(View v) {
-		Intent intent = new Intent(this, ViewThreadActivity.class);
-		startActivity(intent);
+
+	public void findThreadByTopicID(View v) throws Exception {
+
+		EditText idText = (EditText) findViewById(R.id.input_id);
+		String inputID = idText.getText().toString();
+
+		DAO login = new DAO();
+		JSONObject result = login.getServerResponseContent("/threads/by_topic/"
+				+ inputID + "/1");
+
+		if (result != null) {
+			Intent intent = new Intent(this, ViewListThreadActivity.class);
+			intent.putExtra("thread", result.toString());
+			startActivity(intent);
+		} else {
+			idText.setText("");
+			Toast msg = Toast.makeText(this,
+					"Couldn't Find Thread With Given ID", Toast.LENGTH_LONG);
+			msg.show();
+		}
 	}
 
 }

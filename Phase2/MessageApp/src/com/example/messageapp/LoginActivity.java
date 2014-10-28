@@ -21,27 +21,30 @@ import appControl.Session;
 
 public class LoginActivity extends Activity {
 
-    // Session Manager Class
-    Session session;
-    
+	// Session Manager Class
+	Session session;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
-		//This is where we initialize server connection settings for the first time,
-		//since LoginActivity is the first to start.
-		
+
+		// This is where we initialize server connection settings for the first
+		// time,
+		// since LoginActivity is the first to start.
+
 		CSC301ConnectionManager connMgr = CSC301ConnectionManager.getInstance();
-		
-		String serverAddress = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server_address", "10.0.2.2:8080");
-		boolean serverIsHTTPS = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_server_https", false);
+
+		String serverAddress = PreferenceManager.getDefaultSharedPreferences(
+				this).getString("pref_server_address", "10.0.2.2:8080");
+		boolean serverIsHTTPS = PreferenceManager.getDefaultSharedPreferences(
+				this).getBoolean("pref_server_https", false);
 		String serverProtocol = serverIsHTTPS ? "https://" : "http://";
-		
+
 		connMgr.setUseHTTPS(serverIsHTTPS);
 		connMgr.setServerURL(serverProtocol + serverAddress);
 		// Session Manager
-        session = new Session(getApplicationContext());   
+		session = new Session(getApplicationContext());
 	}
 
 	@Override
@@ -82,7 +85,7 @@ public class LoginActivity extends Activity {
 		Intent intent = new Intent(this, RegisterActivity.class);
 		startActivity(intent);
 	}
-	
+
 	public void openSettings(MenuItem item) {
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);

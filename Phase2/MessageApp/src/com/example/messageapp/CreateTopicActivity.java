@@ -41,8 +41,7 @@ public class CreateTopicActivity extends Activity {
 		Integer categoryID = null;
 
 		DAO response = new DAO();
-		JSONObject result = response
-				.getServerResponseContent("/categories");
+		JSONObject result = response.getServerResponseContent("/categories");
 		JSONArray results = result.getJSONArray("categories");
 
 		for (int i = 0; i < results.length(); i++) {

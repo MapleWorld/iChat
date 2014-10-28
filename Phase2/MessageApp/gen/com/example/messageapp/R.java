@@ -29,7 +29,7 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f09000d;
+        public static final int action_settings=0x7f09000e;
         public static final int button1=0x7f090004;
         public static final int button2=0x7f090006;
         public static final int button3=0x7f090005;
@@ -40,7 +40,8 @@ public final class R {
         public static final int listView1=0x7f09000b;
         public static final int new_topic=0x7f090001;
         public static final int register_button=0x7f09000a;
-        public static final int thread_info=0x7f09000c;
+        public static final int threadListView=0x7f09000c;
+        public static final int thread_info=0x7f09000d;
         public static final int user_name=0x7f090008;
         public static final int user_password=0x7f090007;
     }

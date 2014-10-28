@@ -7,12 +7,12 @@ import android.view.Menu;
 import android.widget.TextView;
 
 public class ViewThreadActivity extends Activity {
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_thread);
-		
+
 		try {
 			displayThread();
 		} catch (Exception e) {
@@ -27,7 +27,7 @@ public class ViewThreadActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	public void displayThread() throws Exception {
 		Intent intentN = getIntent();
 		String threadString = intentN.getStringExtra("thread");
