@@ -1,10 +1,8 @@
 package com.example.messageapp;
 
 import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -13,10 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import appControl.DAO;
 
-
 public class ViewTopicListByCategoryActivity extends Activity {
 	private ListView listview;
 	private String catID;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,12 +34,13 @@ public class ViewTopicListByCategoryActivity extends Activity {
 		getMenuInflater().inflate(R.menu.view_topic_list_by_category, menu);
 		return true;
 	}
-	
+
 	public void getResponse() throws Exception {
 		Intent intent = getIntent();
 		catID = intent.getStringExtra("catID");
 		DAO response = new DAO();
-		JSONObject result = response.getServerResponseContent("/topics/list/" + catID);
+		JSONObject result = response.getServerResponseContent("/topics/list/"
+				+ catID);
 		JSONArray results = result.getJSONArray("topics");
 		ArrayList<String> list = new ArrayList<String>();
 
@@ -49,7 +48,7 @@ public class ViewTopicListByCategoryActivity extends Activity {
 			JSONObject o = results.getJSONObject(i);
 			list.add(o.getString("name"));
 		}
-		
+
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, list);
 

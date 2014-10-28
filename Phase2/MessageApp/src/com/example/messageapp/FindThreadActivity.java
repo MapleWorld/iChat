@@ -1,10 +1,6 @@
 package com.example.messageapp;
 
-import java.util.concurrent.ExecutionException;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;

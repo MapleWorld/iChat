@@ -1,23 +1,17 @@
 package com.example.messageapp;
 
-import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 import appControl.DAO;
 
 public class ViewTopicListActivity extends Activity {
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +26,10 @@ public class ViewTopicListActivity extends Activity {
 		getMenuInflater().inflate(R.menu.view_topic_list, menu);
 		return true;
 	}
-	
-	public void ShowTopicList(View v) throws Exception {
-		
-		EditText categoryText = (EditText) findViewById(R.id.category_name2);
 
+	public void ShowTopicList(View v) throws Exception {
+
+		EditText categoryText = (EditText) findViewById(R.id.category_name2);
 		String categoryName = categoryText.getText().toString();
 		Integer categoryID = null;
 
@@ -53,11 +46,9 @@ public class ViewTopicListActivity extends Activity {
 		}
 
 		if (categoryID != null) {
-			Intent intent = new Intent(this, ViewTopicListByCategoryActivity.class);
+			Intent intent = new Intent(this,
+					ViewTopicListByCategoryActivity.class);
 			intent.putExtra("catID", categoryID.toString());
-			
-			System.out.println( "sdfdssf");
-			
 			startActivity(intent);
 		} else {
 			Toast msg = Toast.makeText(this, "category not exist",
@@ -65,7 +56,7 @@ public class ViewTopicListActivity extends Activity {
 			msg.show();
 
 		}
-		
+
 	}
 
 }

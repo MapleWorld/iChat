@@ -1,17 +1,14 @@
 package com.example.messageapp;
 
 import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import appControl.DAO;
 
 public class ViewListThreadActivity extends Activity {
 
