@@ -28,16 +28,6 @@
         android:text="@string/create_topic" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:onClick="logoutUser"
-        android:text="@string/user_logout" />
-
-    <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,5 +35,25 @@
         android:layout_centerVertical="true"
         android:onClick="findThread"
         android:text="@string/find_thread" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_below="@+id/button4"
+        android:layout_marginTop="18dp"
+        android:onClick="viewTopic"
+        android:text="@string/topic_list" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:onClick="logoutUser"
+        android:text="@string/user_logout" />
 
 </RelativeLayout>
