@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -32,7 +33,7 @@ public class ViewTopicListActivity extends Activity {
 		return true;
 	}
 	
-	public void ShowTopicList() throws Exception {
+	public void ShowTopicList(View v) throws Exception {
 		
 		EditText categoryText = (EditText) findViewById(R.id.category_name2);
 
@@ -53,7 +54,10 @@ public class ViewTopicListActivity extends Activity {
 
 		if (categoryID != null) {
 			Intent intent = new Intent(this, ViewTopicListByCategoryActivity.class);
-			intent.putExtra("catID", categoryID);
+			intent.putExtra("catID", categoryID.toString());
+			
+			System.out.println( "sdfdssf");
+			
 			startActivity(intent);
 		} else {
 			Toast msg = Toast.makeText(this, "category not exist",

@@ -41,7 +41,7 @@ public class ViewTopicListByCategoryActivity extends Activity {
 		Intent intent = getIntent();
 		catID = intent.getStringExtra("catID");
 		DAO response = new DAO();
-		JSONObject result = response.getServerResponseContent("/topics/" + catID);
+		JSONObject result = response.getServerResponseContent("/topics/list/" + catID);
 		JSONArray results = result.getJSONArray("topics");
 		ArrayList<String> list = new ArrayList<String>();
 
@@ -49,7 +49,7 @@ public class ViewTopicListByCategoryActivity extends Activity {
 			JSONObject o = results.getJSONObject(i);
 			list.add(o.getString("name"));
 		}
-
+		
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, list);
 
