@@ -13,11 +13,6 @@ public final class R {
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
-         Example customization of dimensions originally defined in res/values/dimens.xml
-         (such as screen margins) for screens with more than 820dp of available width. This
-         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
-    
-
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
@@ -32,9 +27,9 @@ public final class R {
         public static final int action_settings=0x7f090017;
         public static final int button2=0x7f09000a;
         public static final int button3=0x7f090009;
-        public static final int button4=0x7f09000d;
-        public static final int button5=0x7f09000e;
-        public static final int button6=0x7f09000f;
+        public static final int button4=0x7f09000e;
+        public static final int button5=0x7f09000f;
+        public static final int button6=0x7f09000d;
         public static final int category_name=0x7f090005;
         public static final int category_name2=0x7f090014;
         public static final int create_button=0x7f090007;

@@ -55,7 +55,7 @@ public class CreateTopicActivity extends Activity {
 		if (categoryID != null) {
 
 			DAO createTopic = new DAO();
-			JSONObject result2 = createTopic.createTopicWithSession(categoryID
+			JSONObject result2 = createTopic.createTopic(categoryID
 					.toString(), topicName,
 					session.getUserDetails().get("session"));
 

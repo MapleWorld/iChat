@@ -54,9 +54,13 @@ public class CSC301ConnectionManager {
 		setUpSSL();
 	}
 
+	/**
+	 * Given a server path, retrieve the server connection.
+	 */
 	public HttpURLConnection getServerConnection(String path)
 			throws IOException {
 		HttpURLConnection conn;
+
 		if (useHTTPS) {
 			conn = (HttpsURLConnection) (new URL(serverURL + path))
 					.openConnection();
@@ -68,7 +72,6 @@ public class CSC301ConnectionManager {
 		}
 
 		return conn;
-
 	}
 
 	public static CSC301ConnectionManager getInstance() {
@@ -88,8 +91,8 @@ public class CSC301ConnectionManager {
 	}
 
 	private void setUpSSL() {
-		// TODO: actually handle these exceptions...
 		InputStream caStream = new ByteArrayInputStream(caCertString.getBytes());
+
 		try {
 			cf = CertificateFactory.getInstance("X.509");
 			caCert = cf.generateCertificate(caStream);
@@ -105,6 +108,5 @@ public class CSC301ConnectionManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 }

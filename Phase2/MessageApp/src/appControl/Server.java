@@ -16,7 +16,9 @@ import android.util.Log;
 
 public class Server {
 
-	// Reads an InputStream and converts it to a String.
+	/**
+	 * Reads an InputStream and converts it to a String.
+	 */
 	public String readIt(InputStream stream, int len) throws IOException,
 			UnsupportedEncodingException {
 		Reader reader = null;
@@ -26,9 +28,10 @@ public class Server {
 		return new String(buffer);
 	}
 
-	// Given a URL, establishes an HttpUrlConnection and retrieves
-	// the web page content as a InputStream, which it returns as
-	// a string.
+	/**
+	 * Given a URL, establishes an HttpUrlConnection and retrieves the web page
+	 * content as a InputStream, which it returns as a string.
+	 */
 	class downloadUrl extends AsyncTask<String, String, JSONObject> {
 
 		@Override
@@ -43,10 +46,11 @@ public class Server {
 			try {
 				HttpURLConnection conn = (HttpURLConnection) connMgr
 						.getServerConnection(params[0]);
-				conn.setReadTimeout(10000 /* milliseconds */);
-				conn.setConnectTimeout(15000 /* milliseconds */);
+				conn.setReadTimeout(10000); /* milliseconds */
+				conn.setConnectTimeout(15000); /* milliseconds */
 				conn.setRequestMethod("GET");
 				conn.setDoInput(true);
+
 				// Starts the query
 				conn.connect();
 
@@ -144,15 +148,15 @@ public class Server {
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				Log.e("com.example.messageapp", "IOException in createUser");
+				Log.e("com.example.messageapp",
+						"IOException in sendPOSTRequest");
 				e.printStackTrace();
 			} catch (JSONException e) {
-				Log.e("com.example.messageapp", "JSONException in createUser");
+				Log.e("com.example.messageapp",
+						"JSONException in sendPOSTRequest");
 				e.printStackTrace();
 			}
 			return null;
 		}
-
 	}
-
 }
