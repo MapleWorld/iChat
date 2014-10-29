@@ -35,14 +35,20 @@ These changes are in the branch "https_custom". What other branches should I mer
 we need to change all functions in DAO.java and Server.java to use the new connection mechanism<br></p>
 
 *Gabriel Luong* <br>
-how do i get the android app to communicate with csc301.rs-ns.net:27487
+how do i get the android app to communicate with csc301.rs-ns.net:27487<br>
 *Alex Yan* <br>
-setting, when you open messageApp  right top corner
+setting, when you open messageApp  right top corner<br>
 *Russell Self*
 10/28, 6:51pm <br>
-in either LoginActivity or RegisterActivity you can open the settings activity
-I think the menu on the other screens has not been enabled yet
-
+in either LoginActivity or RegisterActivity you can open the settings activity<br>
+I think the menu on the other screens has not been enabled yet<br>
+*Ou Ye*<br>
+completed view a thread, view thread by topic id, view thread by category ID. The GUI looks ugly though.<br>
+*Frances Yu*<br>
+Got a question, for checking the category is existing. The checking is in the server part code. before insert to the database. check the category is existing?<br>
+*Ou Ye*
+10/25, 5:17pm<br>
+yes, it auto check if there is duplicate username when i try to register an account<br>
 
 ## Issue management system ##
 
