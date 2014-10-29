@@ -89,7 +89,7 @@ public class TopicDTO {
           
           try {
         	  conn = DriverManager.getConnection(mgr.getJDBCURL());
-        	  ps =conn.prepareStatement("select * from topic where cat_id = ? ");
+        	  ps =conn.prepareStatement("select * from topic where cat_id = ? order by name asc");
         	  ps.setLong(1, category_id);
  
         	  rs=ps.executeQuery();
