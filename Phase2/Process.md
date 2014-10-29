@@ -1,9 +1,9 @@
 <h1>Scrum-like process report (not finished)</h1>
 
- * [Sprint meetings](#Sprint-meetings)
- * [Daily Scrum](#Daily-Scrum)
- * [Issue management system](#Issue-management-system)
- * [Other decisions](#Other-decisions)
+ * [Sprint meetings](#sprint-meetings)
+ * [Daily Scrum](#daily-scrum)
+ * [Issue management system](#issue-management-system)
+ * [Other decisions](#other-decisions)
 
 ## Sprint meetings ##
 We had two sprints, one for the server side, the other for client side.  
