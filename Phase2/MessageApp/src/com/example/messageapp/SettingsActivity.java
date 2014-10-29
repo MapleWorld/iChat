@@ -29,7 +29,6 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 	
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-		Log.e("com.example.messageapp","calling onSharedPreferenceChanged...!");
 		String serverAddress = PreferenceManager.getDefaultSharedPreferences(
 				this).getString("pref_server_address", "");
 		boolean serverIsHTTPS = PreferenceManager.getDefaultSharedPreferences(
