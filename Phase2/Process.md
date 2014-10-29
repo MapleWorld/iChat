@@ -29,3 +29,7 @@ we need to change all functions in DAO.java and Server.java to use the new conne
 Description of how you used GitHub issue management system (e.g. naming conventions, labels, team's conventions, etc.)
 Description of any other major decisions/conventions you may have made/used during the process, and why.
 For example: Did you have a "scrum master"? Why? Do you think it was the right decision?
+
+# Use of Github Issue Management System
+
+We used the issue tracking system to log all of the tasks required for each sprint. For the server phase, all issues were titled with "Server - ", and for the Android client phase we titled them "Client - ". We assigned issues to the person who was currently working on the feature, and once that person had finished, he or she would put a note stating which commit the issue had been resolved with. For this phase, most of the issues we logged were for features described in the release plan. We also logged additional issues to track certain bug fixes or additional requirements that needed extra work.
