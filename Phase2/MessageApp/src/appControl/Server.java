@@ -1,5 +1,6 @@
 package appControl;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,8 +33,9 @@ public class Server {
 
 		@Override
 		protected JSONObject doInBackground(String... params) {
-			InputStream is = null;
-			int len = 500;
+			BufferedReader br = null;
+			String inputData = "";
+			String line;
 
 			CSC301ConnectionManager connMgr = CSC301ConnectionManager.getInstance();
 			
@@ -45,13 +47,16 @@ public class Server {
 				conn.setDoInput(true);
 				// Starts the query
 				conn.connect();
-				//int response = conn.getResponseCode();
-				is = conn.getInputStream();
 
+				br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				
 				// Convert the InputStream into a string
-				String contentAsString = readIt(is, len);
-				JSONObject jObject = new JSONObject(contentAsString);
+				while((line = br.readLine()) != null) {
+					inputData += line;
+				}
 
+				JSONObject jObject = new JSONObject(inputData);
+				
 				return jObject;
 
 			} catch (JSONException e) {
@@ -61,9 +66,9 @@ public class Server {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
-				if (is != null) {
+				if (br != null) {
 					try {
-						is.close();
+						br.close();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -80,8 +85,10 @@ public class Server {
 		
 		@Override
 		protected JSONObject doInBackground(String... params) {
-			InputStream is = null;
 			CSC301ConnectionManager connMgr = CSC301ConnectionManager.getInstance();
+			BufferedReader br = null;
+			String line;
+			String inputData = "";
 			
 			try {
 				
@@ -110,18 +117,22 @@ public class Server {
 				System.out.println(con.getErrorStream() != null);
 
 				if (con.getErrorStream() != null) {
-					is = con.getErrorStream();
+					br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 				} else {
-					is = con.getInputStream();
+					br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 				}
 
-				String contentAsString = readIt(is, 500);
-				JSONObject jObject = new JSONObject(contentAsString);
+				while((line = br.readLine()) != null) {
+					inputData += line;
+				}
+				JSONObject jObject = new JSONObject(inputData);
 
 				// Check Response Code
 				int responseCode = con.getResponseCode();
 				jObject.put("response", responseCode);
 
+				br.close();
+				
 				return jObject;
 
 			} catch (IOException e) {
