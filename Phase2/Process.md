@@ -1,20 +1,17 @@
-<h1>Scrum-like process report</h1>
-We had two sprints, one for the server side, the other for client side. <br>
-For the first sprint, we had a planning meeting at BA3195 on Sept. 18th (? comfirm this please), our group came up with a rough plan for first release which includes the features we think are improtant.  <br>
-We decided to use sql and servlet to build/host server for database communication.
-<br>
-At the end of first sprint, we got 100% of what planned done, the server is setup running and we had no difficulty communicating between andorid and server. <br>
+<h1>Scrum-like process report (not finished)</h1>
+We had two sprints, one for the server side, the other for client side.  
 
-At planning meeting for second sprint, we decided to work on client part of our product, we added some additional features after meeting with TA, and discussed how to setup android to connect to server. <br>
+For the first sprint, we had a planning meeting at BA3195 on Sept. 18th, our group came up with a rough plan for the first release which includes the most important features.  
 
-<br>
+We decided to use MySql for the database storage and Java Servlet to build and host the server for database communication.  
+
+At the end of first sprint, we got 100% of what planned done, the server is fully running there is no difficulty communicating between the Android client and Java server. <br>
+
+During the planning meeting for second sprint, we decided to work on client part of our product, we added some additional features after meeting with TA, and discussed how to setup android to connect to server.  
 
 For the review/retrospective meeting, we would like to see some numbers and/or interesting statistics.
 For example: Percentage of planned work that was actually completed, distribution of completed work among team members, percentage of planned work completed categorized by priority, etc.
-The point is to evaluate the estimations that you've made during the planning meeting.
-
-<br>
-
+The point is to evaluate the estimations that you've made during the planning meeting.  
 
 Daily scrum meetings done online, many of them are helping each others. We faced problem setting up the android, connecting to server, and coding, meetings were helpful to resolve those problem and keep us going.
 Please include date and location.
