@@ -1,9 +1,9 @@
 <h1>Scrum-like process report (not finished)</h1>
 We had two sprints, one for the server side, the other for client side. <br>
 For the first sprint, we had a planning meeting at BA3195 on Sept. 18th, our group came up with a rough plan for first release which includes the features we think are improtant.  <br>
-We decided to use MySql and servlet to build/host server for database communication.
+We decided to use MySql for the database storage and Java Servlet to build and host the server for database communication.
 <br>
-At the end of first sprint, we got 100% of what planned done, the server is setup running and we had no difficulty communicating between andorid and server. <br>
+At the end of first sprint, we got 100% of what planned done, the server is fully running there is no difficulty communicating between the Android client and Java server. <br>
 
 At planning meeting for second sprint, we decided to work on client part of our product, we added some additional features after meeting with TA, and discussed how to setup android to connect to server. <br>
 
