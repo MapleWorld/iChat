@@ -19,15 +19,16 @@ The point is to evaluate the estimations that you've made during the planning me
 Daily scrum meetings done online, many of them are helping each others. We faced problem setting up the android, connecting to server, and coding, meetings were helpful to resolve those problem and keep us going.
 Please include date and location.
 <br>
+
 chat history/highlights <br>
-Russell Self<br>
+<p>Russell Self<br>
 I have created a settings activity so that we can configure the server connection<br>
 I already changed the registration activity to read the server connection settings from the preferences<br>
 These changes are in the branch "https_custom". What other branches should I merge into it to make the changes?<br>
 Russell Self<br>
 10/26, 4:32pm<br>
 Russell Self<br>
-we need to change all functions in DAO.java and Server.java to use the new connection mechanism<br>
+we need to change all functions in DAO.java and Server.java to use the new connection mechanism<br></p>
 Description of how you used GitHub issue management system (e.g. naming conventions, labels, team's conventions, etc.)
 Description of any other major decisions/conventions you may have made/used during the process, and why.
 For example: Did you have a "scrum master"? Why? Do you think it was the right decision?
