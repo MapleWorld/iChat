@@ -12,7 +12,7 @@
         android:id="@+id/input_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/button1"
+        android:layout_alignEnd="@+id/thread_create_button"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/button3"
         android:layout_marginTop="72dp"
@@ -23,7 +23,7 @@
     </EditText>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/thread_create_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button2"

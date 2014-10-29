@@ -62,7 +62,18 @@ public class DAO {
 		JSONObject result = server.new sendPOSTRequest().execute(
 				"/topics/create", topic.toString(), sessionID).get();
 		return result;
+	}
 
+	public JSONObject createThread(String categoryID, String topicID,
+			String threadName, String threadBody, String sessionID)
+			throws Exception {
+		Server server = new Server();
+		JSONObject threadPOST = new JSONObject("{\"category\":\"" + categoryID
+				+ "\",\"title\":\"" + threadName + "\",\"body\":\""
+				+ threadBody + "\",\"topic_ids\":[" + topicID + "]}");
+		JSONObject result = server.new sendPOSTRequest().execute(
+				"/threads/new", threadPOST.toString(), sessionID).get();
+		return result;
 	}
 
 	public JSONObject getServerResponseContent(String uri)

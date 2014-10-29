@@ -9,6 +9,7 @@
     <string name="user_name">User Name</string>
     <string name="user_password">Password</string>
     <string name="user_logout">Logout</string>
+    <string name="thread_name">Thread</string>
     <string name="create_thread">Create Thread</string>
     <string name="category_name">Category</string>
     <string name="topic_name">Topic</string>
@@ -32,8 +33,8 @@
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="title_activity_view_thread">ViewThreadActivity</string>
-    <string name="title_activity_create_thread">CreateTopicActivity</string>
-    <string name="title_activity_create_topic">CreateThreadActivity</string>
+    <string name="title_activity_create_thread">CreateThreadActivity</string>
+    <string name="title_activity_create_topic">CreateTopicActivity</string>
     <string name="title_activity_view_categories">ViewCategoriesActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="find_thread">Find Thread</string>
