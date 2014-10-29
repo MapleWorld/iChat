@@ -26,13 +26,13 @@ Please include date and location.
 <br>
 
 <h5> Chat history/highlights </h5>
-<p>Russell Self<br>
+*Russell Self*
 I have created a settings activity so that we can configure the server connection<br>
 I already changed the registration activity to read the server connection settings from the preferences<br>
 These changes are in the branch "https_custom". What other branches should I merge into it to make the changes?<br>
-Russell Self<br>
+*Russell Self*
 10/26, 4:32pm<br>
-Russell Self<br>
+*Russell Self*
 we need to change all functions in DAO.java and Server.java to use the new connection mechanism<br></p>
 Description of how you used GitHub issue management system (e.g. naming conventions, labels, team's conventions, etc.)
 Description of any other major decisions/conventions you may have made/used during the process, and why.
