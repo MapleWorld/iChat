@@ -21,30 +21,36 @@ import java.util.*;
 import java.util.Date;
 
 public class ServerMain extends AbstractHandler {
-    @Override
-    public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("text/html;charset=utf-8");
-        response.setStatus(HttpServletResponse.SC_OK);
-        baseRequest.setHandled(true);
-        response.getWriter().println("<h1>CSC301 test</h1>");
-    }
- 
-    public static void main(String[] args) throws Exception {
-    	ConfigManager mgr = ConfigManager.getInstance();
-    	
-        Server server = new Server(mgr.getHTTPPort());
-        
-    	ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-    	context.setContextPath("/");
-    	server.setHandler(context);
-    	context.addServlet(new ServletHolder(new CategoryServlet()),"/categories");
-    	context.addServlet(new ServletHolder(new RegisterServlet()),"/register");
-    	context.addServlet(new ServletHolder(new LoginServlet()),"/login");
-    	context.addServlet(new ServletHolder(new LogoutServlet()),"/logout");
-    	context.addServlet(new ServletHolder(new ThreadsServlet()),"/threads/*");
-    	context.addServlet(new ServletHolder(new TopicServlet()), "/topics/*");
-    	
-        server.start();
-        server.join();
-    }
+	@Override
+	public void handle(String target, Request baseRequest,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		response.setContentType("text/html;charset=utf-8");
+		response.setStatus(HttpServletResponse.SC_OK);
+		baseRequest.setHandled(true);
+		response.getWriter().println("<h1>CSC301 test</h1>");
+	}
+
+	public static void main(String[] args) throws Exception {
+		ConfigManager mgr = ConfigManager.getInstance();
+
+		Server server = new Server(mgr.getHTTPPort());
+
+		ServletContextHandler context = new ServletContextHandler(
+				ServletContextHandler.SESSIONS);
+		context.setContextPath("/");
+		server.setHandler(context);
+		context.addServlet(new ServletHolder(new CategoryServlet()),
+				"/categories");
+		context.addServlet(new ServletHolder(new RegisterServlet()),
+				"/register");
+		context.addServlet(new ServletHolder(new LoginServlet()), "/login");
+		context.addServlet(new ServletHolder(new LogoutServlet()), "/logout");
+		context.addServlet(new ServletHolder(new ThreadsServlet()),
+				"/threads/*");
+		context.addServlet(new ServletHolder(new TopicServlet()), "/topics/*");
+
+		server.start();
+		server.join();
+	}
 }
