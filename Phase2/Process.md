@@ -1,10 +1,10 @@
 <h1>Scrum-like process report</h1>
-Our planning and review meetings are mostly done online, its more convenien, and solves time conflicts. <br>
-There was one planning meeting at very beginning, although not everyone showed up but our group was able to come up a plan for first release. <br>
+We had two sprints, one for the server side, the other for client side. <br>
+For the first sprint, we had a planning meeting at BA3195 on Sept. 18th (? comfirm this please), our group came up with a rough plan for first release which includes the features we think are improtant.  <br>
 We decided to use sql and servlet to build/host server for database communication.
 <br>
 
-Tip: You can use GitHub to label all the user stories you plan to complete during a sprint, and include a link to an issue search result (example) in your planning meeting summary.
+At planning meeting for second sprint, we decided to work on client part of our product, we added some additional features after meeting with TA, and discussed how to setup android to connect to server. <br>
 
 <br>
 
