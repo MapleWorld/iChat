@@ -3,4 +3,4 @@ For the upcoming project, we plan on implementing an Android version of the mess
 
 <h2>Product Description</h2>
 
-Our product is an Android version of the messaging application for universities. For the first release, the users of our application will be able to own their personal accounts on our server and use their account to interact with activities/service we provide, which means we provide <b>register</b> and <b>log in</b> actions
+Our product is an Android version of the messaging application for universities. At the first release, the users of our application will be able to own their personal accounts on our server and use their account to interact with activities/services we provide, which means there are basic <b>register</b> and <b>log in</b> actions provided connecting our sql server.
