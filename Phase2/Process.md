@@ -1,5 +1,4 @@
-A report describing your scrum-like process. The report should include the following items:
-
+<h1>Scrum process report</h1>
 Our planning and review meetings are mostly done online, its more convenien, and solves time conflicts. <br>
 There was one planning meeting at very beginning, although not everyone showed up but our group was able to come up a plan for first release. <br>
 We decided to use sql and servlet to build/host server for database communication.
