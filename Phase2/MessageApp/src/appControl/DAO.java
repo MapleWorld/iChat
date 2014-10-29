@@ -74,5 +74,14 @@ public class DAO {
 		return result;
 
 	}
+	
+	public JSONObject logoutUser(String sessionID) throws Exception{
+		
+		Server server = new Server();
+		JSONObject result = server.new sendPOSTRequest().execute("/logout", "logout", sessionID).get();
+		System.out.println(result);
+		return result;
+		
+	}
 
 }
