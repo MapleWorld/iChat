@@ -33,9 +33,16 @@ These changes are in the branch "https_custom". What other branches should I mer
 *Russell Self*
 10/26, 4:32pm<br>
 we need to change all functions in DAO.java and Server.java to use the new connection mechanism<br></p>
-Description of how you used GitHub issue management system (e.g. naming conventions, labels, team's conventions, etc.)
-Description of any other major decisions/conventions you may have made/used during the process, and why.
-For example: Did you have a "scrum master"? Why? Do you think it was the right decision?
+
+*Gabriel Luong* <br>
+how do i get the android app to communicate with csc301.rs-ns.net:27487
+*Alex Yan* <br>
+setting, when you open messageApp  right top corner
+*Russell Self*
+10/28, 6:51pm <br>
+in either LoginActivity or RegisterActivity you can open the settings activity
+I think the menu on the other screens has not been enabled yet
+
 
 ## Issue management system ##
 
