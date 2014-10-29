@@ -1,6 +1,6 @@
 <h1>Scrum-like process report</h1>
 We had two sprints, one for the server side, the other for client side. <br>
-For the first sprint, we had a planning meeting at BA3195 on Sept. 18th (? comfirm this please), our group came up with a rough plan for first release, includes the features and team all  <br>
+For the first sprint, we had a planning meeting at BA3195 on Sept. 18th (? comfirm this please), our group came up with a rough plan for first release which includes the features we think are improtant.  <br>
 We decided to use sql and servlet to build/host server for database communication.
 <br>
 
