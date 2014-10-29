@@ -8,7 +8,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import appControl.CSC301ConnectionManager;
 
-public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener{
+public class SettingsActivity extends PreferenceActivity implements
+		OnSharedPreferenceChangeListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -16,17 +17,19 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 	}
 
 	@Override
-	protected void onResume(){
+	protected void onResume() {
 		super.onResume();
-		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+		getPreferenceScreen().getSharedPreferences()
+				.registerOnSharedPreferenceChangeListener(this);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
-		getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+		getPreferenceScreen().getSharedPreferences()
+				.unregisterOnSharedPreferenceChangeListener(this);
 	}
-	
+
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
 		String serverAddress = PreferenceManager.getDefaultSharedPreferences(

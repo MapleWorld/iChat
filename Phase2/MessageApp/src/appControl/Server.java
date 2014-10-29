@@ -37,10 +37,12 @@ public class Server {
 			String inputData = "";
 			String line;
 
-			CSC301ConnectionManager connMgr = CSC301ConnectionManager.getInstance();
-			
+			CSC301ConnectionManager connMgr = CSC301ConnectionManager
+					.getInstance();
+
 			try {
-				HttpURLConnection conn = (HttpURLConnection) connMgr.getServerConnection(params[0]);
+				HttpURLConnection conn = (HttpURLConnection) connMgr
+						.getServerConnection(params[0]);
 				conn.setReadTimeout(10000 /* milliseconds */);
 				conn.setConnectTimeout(15000 /* milliseconds */);
 				conn.setRequestMethod("GET");
@@ -48,15 +50,16 @@ public class Server {
 				// Starts the query
 				conn.connect();
 
-				br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				
+				br = new BufferedReader(new InputStreamReader(
+						conn.getInputStream()));
+
 				// Convert the InputStream into a string
-				while((line = br.readLine()) != null) {
+				while ((line = br.readLine()) != null) {
 					inputData += line;
 				}
 
 				JSONObject jObject = new JSONObject(inputData);
-				
+
 				return jObject;
 
 			} catch (JSONException e) {
@@ -82,28 +85,30 @@ public class Server {
 	}
 
 	class sendPOSTRequest extends AsyncTask<String, String, JSONObject> {
-		
+
 		@Override
 		protected JSONObject doInBackground(String... params) {
-			CSC301ConnectionManager connMgr = CSC301ConnectionManager.getInstance();
+			CSC301ConnectionManager connMgr = CSC301ConnectionManager
+					.getInstance();
 			BufferedReader br = null;
 			String line;
 			String inputData = "";
-			
+
 			try {
-				
-				//Establish connection
-				HttpURLConnection con = (HttpURLConnection)connMgr.getServerConnection(params[0]);
-				
+
+				// Establish connection
+				HttpURLConnection con = (HttpURLConnection) connMgr
+						.getServerConnection(params[0]);
+
 				// Check if session id was passed down
 				// If it is, add session id to the header of the request
-				if(params.length == 3){
+				if (params.length == 3) {
 					con.addRequestProperty("SESSIONID", params[2]);
 				}
-				
+
 				con.setRequestMethod("POST");
 				con.setDoOutput(true);
-				
+
 				// Send post request
 				DataOutputStream wr = new DataOutputStream(
 						con.getOutputStream());
@@ -117,12 +122,14 @@ public class Server {
 				System.out.println(con.getErrorStream() != null);
 
 				if (con.getErrorStream() != null) {
-					br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+					br = new BufferedReader(new InputStreamReader(
+							con.getErrorStream()));
 				} else {
-					br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+					br = new BufferedReader(new InputStreamReader(
+							con.getInputStream()));
 				}
 
-				while((line = br.readLine()) != null) {
+				while ((line = br.readLine()) != null) {
 					inputData += line;
 				}
 				JSONObject jObject = new JSONObject(inputData);
@@ -132,7 +139,7 @@ public class Server {
 				jObject.put("response", responseCode);
 
 				br.close();
-				
+
 				return jObject;
 
 			} catch (IOException e) {

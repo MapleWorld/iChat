@@ -59,8 +59,8 @@ public class DAO {
 
 		System.out.println(sessionID);
 
-		JSONObject result = server.new sendPOSTRequest().execute("/topics/create",
-				topic.toString(), sessionID).get();
+		JSONObject result = server.new sendPOSTRequest().execute(
+				"/topics/create", topic.toString(), sessionID).get();
 		return result;
 
 	}
@@ -74,14 +74,15 @@ public class DAO {
 		return result;
 
 	}
-	
-	public JSONObject logoutUser(String sessionID) throws Exception{
-		
+
+	public JSONObject logoutUser(String sessionID) throws Exception {
+
 		Server server = new Server();
-		JSONObject result = server.new sendPOSTRequest().execute("/logout", "logout", sessionID).get();
+		JSONObject result = server.new sendPOSTRequest().execute("/logout",
+				"logout", sessionID).get();
 		System.out.println(result);
 		return result;
-		
+
 	}
 
 }
