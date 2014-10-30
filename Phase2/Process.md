@@ -50,4 +50,4 @@ yes, it auto check if there is duplicate username when i try to register an acco
 We used the issue tracking system to log all of the tasks required for each sprint. For the server phase, all issues were titled with "Server - ", and for the Android client phase we titled them "Client - ". We assigned issues to the person who was currently working on the feature, and once that person had finished, he or she would put a note stating which commit the issue had been resolved with. For this phase, most of the issues we logged were for features described in the release plan. We also logged additional issues to track certain bug fixes or additional requirements that needed extra work.
 
 ## Other decisions ##
-Our team decided to have Russell as our Scrum Master, he was in charge of helping us work together and meet deadlines on time.
+Our team decided to have Russell as our Scrum Master, he was in charge of helping us work together and meeting deadlines on time.
