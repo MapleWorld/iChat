@@ -1,5 +1,10 @@
 package org.csc301team6.server;
 
+/*
+ * Data model for a user of this application
+ * Used for packaging together user information
+ * returned from a database query.
+ */
 public class CSC301User {
 
 	private String username;

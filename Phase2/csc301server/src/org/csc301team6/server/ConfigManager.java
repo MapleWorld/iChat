@@ -10,6 +10,12 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.Iterator;
 
+/* This class is implemented as a Singleton.
+ * It contains all global configuration for 
+ * the server. The configuration is loaded from
+ * two configuration files: config/db.json, and
+ * config/general.json
+ * */
 public class ConfigManager {
 
 	private static ConfigManager mgr = null;
@@ -22,10 +28,15 @@ public class ConfigManager {
 	private static int MAX_THREAD_BODY_LENGTH;
 
 	private ConfigManager() {
+		// The first time we access this class, the config values are loaded
+		// from the JSON config files.
 		loadDBConfig();
 		loadGeneralConfig();
 	}
 
+	/* Load the database configuration into memory from the file
+	 * config/db.json
+	 */
 	private void loadDBConfig() {
 		InputStream in = ClassLoader.getSystemResourceAsStream("db.json");
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -44,10 +55,17 @@ public class ConfigManager {
 		}
 
 		if (file_contents == null) {
+			//If there was a problem reading from the file, this is a critical error
+			//There is no way to connect to the database since we were not able to
+			//load a JDBC connection string.
+			
 			dbURL = "";
 			System.err.println("CRITICAL ERROR: unable to load database configuration from file.");
 		} else {
 			try {
+				//Config parameters loaded from the file, so we will attempt to parse them
+				//and build the JDBC connection string.
+				
 				json = new JSONObject(file_contents.toString());
 				dbURL = "jdbc:mysql://" + json.getString("hostname") + ":"
 						+ json.getInt("port") + "/" + json.getString("schema")
@@ -60,6 +78,9 @@ public class ConfigManager {
 		}
 	}
 
+	/*
+	 * Load general configuration parameters from config/general.json
+	 */
 	private void loadGeneralConfig() {
 		InputStream in = ClassLoader.getSystemResourceAsStream("general.json");
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -78,10 +99,13 @@ public class ConfigManager {
 		}
 
 		if (file_contents == null) {
+			//Unable to read the config file. The server can still run, but will be using
+			//default values.
 			System.err.println("WARNING: unable to load general configuration from file, using defaults");
 			setDefaultConfig();
 		} else {
 			try {
+				//Attempt to set the config based on the values read from the file
 				json = new JSONObject(file_contents.toString());
 				CSC301_HTTP_PORT = json.getInt("CSC301_HTTP_PORT");
 				REPLIES_PER_PAGE = json.getInt("REPLIES_PER_PAGE");
@@ -90,12 +114,19 @@ public class ConfigManager {
 				MAX_REPLY_LENGTH = json.getInt("MAX_REPLY_LENGTH");
 				MAX_THREAD_BODY_LENGTH = json.getInt("MAX_THREAD_BODY_LENGTH");
 			} catch (JSONException e) {
+				//Since there was an error parsing the config, we set the configuration
+				//to use default values. The server may still be able to run.
 				System.err.println("WARNING: unable to parse general configuration, using defaults");
 				setDefaultConfig();
 			}
 		}
 	}
 
+	/*
+	 * Set all configurable values to their defaults.
+	 * This is the fallback if there is an error reading the config
+	 * from the file config/general.json
+	 */
 	private void setDefaultConfig() {
 		SESSION_DURATION_MINUTES = 180;
 		REPLIES_PER_PAGE = 20;

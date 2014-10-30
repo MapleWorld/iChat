@@ -10,6 +10,7 @@ public class ThreadsDTO {
 
 	}
 
+	//Create a new thread
 	public static long createThread(String sessionID, String title,
 			String body, int cat_id, int[] topics) throws UnauthorizedException {
 		long thread_id = -1;
@@ -94,9 +95,11 @@ public class ThreadsDTO {
 
 			conn.commit();
 		} catch (UnauthorizedException e) {
+			//Provided session ID is not valid
 			e.printStackTrace();
 			throw e;
 		} catch (SQLException se) {
+			//Error executing one of the updates
 			se.printStackTrace();
 			
 			try {
@@ -119,6 +122,8 @@ public class ThreadsDTO {
 		return thread_id;
 	}
 
+	//Return thread heading, and one page worth of replies
+	//Includes original body if it's the first page.
 	public static String getThreadPageAsJSONString(long thread_id, long page) {
 		ConfigManager mgr = ConfigManager.getInstance();
 		Connection conn = null;
@@ -243,6 +248,7 @@ public class ThreadsDTO {
 		return jThread == null ? null : jThread.toString();
 	}
 
+	//Add a reply to an existing thread
 	public static long addReply(String sessionID, long thread_id, String body)
 			throws UnauthorizedException {
 
@@ -286,6 +292,7 @@ public class ThreadsDTO {
 			ps.close();
 
 		} catch (UnauthorizedException e) {
+			//Provided session ID was not valid
 			e.printStackTrace();
 			throw e;
 		} catch (SQLException se) {
@@ -308,6 +315,7 @@ public class ThreadsDTO {
 		return reply_id;
 	}
 
+	//List all threads matching a provided category ID
 	public static String listThreadsByCategoryAsJsonString(long category_id,
 			long page) {
 		ConfigManager mgr = ConfigManager.getInstance();
@@ -383,7 +391,8 @@ public class ThreadsDTO {
 
 		return jResp == null ? null : jResp.toString();
 	}
-
+	
+	//Return a list of thread headings associated with a topic ID
 	public static String listThreadsByTopicAsJSONString(long topic_id, long page) {
 		ConfigManager mgr = ConfigManager.getInstance();
 		Connection conn = null;
@@ -425,6 +434,7 @@ public class ThreadsDTO {
 			rs.close();
 			ps.close();
 
+			//Count how many threads are in the entire set
 			ps = conn.prepareStatement("select count(*) numThreads from thread_topics tt "
 							+ " inner join thread tr on tt.thread_id = tr.id "
 							+ " where tt.topic_id = ?");
@@ -434,6 +444,7 @@ public class ThreadsDTO {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
+				//Count how many pages there are
 				pages = (rs.getLong("numThreads") / mgr.getThreadsPerPage()) + 1;
 			} else {
 				pages = 0;

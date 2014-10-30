@@ -11,6 +11,7 @@ public class SessionDTO {
 		// this doesn't get called
 	}
 
+	//Start a new session if the credentials are valid
 	public static String createSession(String username, String password) {
 		ConfigManager mgr = ConfigManager.getInstance();
 		String sessionID = null;
@@ -62,6 +63,7 @@ public class SessionDTO {
 		return sessionID;
 	}
 
+	//Given a session ID, look up the associated user ID
 	public static long getUserIDFromSessionID(String sessionID)
 			throws UnauthorizedException {
 		ConfigManager mgr = ConfigManager.getInstance();
@@ -184,6 +186,7 @@ public class SessionDTO {
 		return destroyed > 0 ? true : false;
 	}
 
+	//Return a hex string which is the computed SHA-256 hash of the argument
 	public static String getSHA256FromString(String str) {
 		MessageDigest md = null;
 		String sb;
@@ -207,6 +210,7 @@ public class SessionDTO {
 		return sb.toString();
 	}
 
+	//Return a hex string which is the computed SHA-256 hash of the argument
 	public static String getSHA256FromBytes(byte[] bytes) {
 		MessageDigest md = null;
 		String sb;

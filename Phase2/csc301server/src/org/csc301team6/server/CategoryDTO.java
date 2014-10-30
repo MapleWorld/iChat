@@ -11,6 +11,9 @@ public class CategoryDTO {
 	private CategoryDTO() {
 	}
 
+	/* Return a JSON string listing all categories found 
+	 * in the database. 
+	 * */
 	public static String getAllCategoriesAsJSON() {
 		ConfigManager mgr = ConfigManager.getInstance();
 		Connection conn = null;
@@ -29,6 +32,7 @@ public class CategoryDTO {
 
 			category_array = new JSONArray();
 
+			/* Read all categories from the database */
 			while (rs.next()) {
 				category = new JSONObject();
 				category.put("id", rs.getInt("id"));
@@ -41,10 +45,15 @@ public class CategoryDTO {
 
 		} catch (SQLException e) {
 			category_obj = new JSONObject();
+			
+			// Some sort of problem occurred, so we return an empty array
 			category_obj.put("categories", new JSONArray());
 			e.printStackTrace();
 		} catch (JSONException je) {
 			category_obj = new JSONObject();
+			
+			// Unable to insert some category data into the array
+			// Return an empty array to be safe
 			category_obj.put("categories", new JSONArray());
 			je.printStackTrace();
 		} finally {

@@ -13,8 +13,13 @@ public class CategoryServlet extends HttpServlet {
 
 	}
 
+	/* There is only one thing this servlet does, which is return a 
+	 * list of all categories from the database. The categories are
+	 * written into the response as a JSON string.
+	 * */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
 		response.setContentType("application/json");
 		response.setStatus(HttpServletResponse.SC_OK);
 		String responseText = CategoryDTO.getAllCategoriesAsJSON();

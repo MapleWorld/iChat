@@ -28,18 +28,23 @@ public class ServerMain extends AbstractHandler {
 		response.setContentType("text/html;charset=utf-8");
 		response.setStatus(HttpServletResponse.SC_OK);
 		baseRequest.setHandled(true);
-		response.getWriter().println("<h1>CSC301 test</h1>");
+		response.getWriter().println("{\"message\":\"Not implememented\"}");
 	}
 
+	/* Entry point for the execution of the server */
 	public static void main(String[] args) throws Exception {
 		ConfigManager mgr = ConfigManager.getInstance();
 
+		// Use the HTTP port that we defined in the general.json config file
+		// This loads an embedded instance of the Jetty servlet container
 		Server server = new Server(mgr.getHTTPPort());
 
 		ServletContextHandler context = new ServletContextHandler(
 				ServletContextHandler.SESSIONS);
 		context.setContextPath("/");
 		server.setHandler(context);
+		
+		//These are the mappings which assign various servlets to URL paths
 		context.addServlet(new ServletHolder(new CategoryServlet()),
 				"/categories");
 		context.addServlet(new ServletHolder(new RegisterServlet()),

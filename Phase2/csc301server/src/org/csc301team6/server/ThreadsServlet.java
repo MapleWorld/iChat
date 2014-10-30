@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 public class ThreadsServlet extends HttpServlet {
 
+	//Handle GET requests for /threads/*
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -38,6 +39,7 @@ public class ThreadsServlet extends HttpServlet {
 		Matcher listByTopicMatcher = listByTopicPattern.matcher(request
 				.getRequestURI());
 
+		//Try to match the request URI to a pre-defined pattern
 		if (viewThreadMatcher.find()) {
 			try {
 				param_id = Long.parseLong(viewThreadMatcher.group(1));
@@ -87,6 +89,7 @@ public class ThreadsServlet extends HttpServlet {
 
 			doListByTopic(request, response, param_id, page_num);
 		} else {
+			//Since the reply did not match any of the patterns, it is invalid
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			jResp = new JSONObject();
 			jResp.put("message", "Illegal request");
@@ -95,6 +98,7 @@ public class ThreadsServlet extends HttpServlet {
 
 	}
 
+	//Handle POST requests for /threads/*
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -106,11 +110,13 @@ public class ThreadsServlet extends HttpServlet {
 				.getRequestURI());
 		JSONObject jResp;
 
+		//Try to match the request URI to a pre-defined pattern
 		if (newThreadMatcher.find()) {
 			doNewThread(request, response);
 		} else if (replyThreadMatcher.find()) {
 			doReplyThread(request, response);
 		} else {
+			//Since the request did not match any pattern, it is invalid
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			jResp = new JSONObject();
 			jResp.put("message", "Illegal request");

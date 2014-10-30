@@ -14,8 +14,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/*
+ * This servlet will create a new user account with
+ * data provided to /register via a POST request
+ */
 public class RegisterServlet extends HttpServlet {
 
+	//Does not support GET for /register
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -25,6 +30,7 @@ public class RegisterServlet extends HttpServlet {
 		response.getWriter().println("{\"message\":\"Method not allowed\"}");
 	}
 
+	//Process the request to create a new user
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -93,6 +99,7 @@ public class RegisterServlet extends HttpServlet {
 				return;
 			}
 
+			//Start a session for the newly created user
 			sessionID = SessionDTO.createSession(username, password);
 
 			if (sessionID == null) {
