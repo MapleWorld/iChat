@@ -16,10 +16,6 @@ At the end of first sprint, we got 100% of what planned done, the server is full
 
 During the planning meeting for second sprint, we decided to work on client part of our product, we added some additional features after meeting with TA, and discussed how to setup android to connect to server.  
 
-For the review/retrospective meeting, we would like to see some numbers and/or interesting statistics.
-For example: Percentage of planned work that was actually completed, distribution of completed work among team members, percentage of planned work completed categorized by priority, etc.
-The point is to evaluate the estimations that you've made during the planning meeting.  
-
 ## Daily Scrum ##
 Daily scrum meetings done online, many of them are helping each others. We faced problem setting up the android, connecting to server, and coding, meetings were helpful to resolve those problem and keep us going.
 Please include date and location.
