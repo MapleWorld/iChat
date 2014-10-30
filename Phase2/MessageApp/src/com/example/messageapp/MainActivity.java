@@ -46,12 +46,12 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(this, ViewTopicListActivity.class);
 		startActivity(intent);
 	}
-	
+
 	public void createThread(View v) {
 		Intent intent = new Intent(this, CreateThreadActivity.class);
 		startActivity(intent);
 	}
-	
+
 	public void findThread(View v) {
 		Intent intent = new Intent(this, FindThreadActivity.class);
 		startActivity(intent);

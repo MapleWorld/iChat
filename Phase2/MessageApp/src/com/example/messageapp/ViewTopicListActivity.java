@@ -17,7 +17,6 @@ public class ViewTopicListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_topic_list);
-
 	}
 
 	@Override
@@ -28,7 +27,6 @@ public class ViewTopicListActivity extends Activity {
 	}
 
 	public void ShowTopicList(View v) throws Exception {
-
 		EditText categoryText = (EditText) findViewById(R.id.category_name2);
 		String categoryName = categoryText.getText().toString();
 		Integer categoryID = null;
@@ -54,9 +52,7 @@ public class ViewTopicListActivity extends Activity {
 			Toast msg = Toast.makeText(this, "category not exist",
 					Toast.LENGTH_LONG);
 			msg.show();
-
 		}
-
 	}
 
 }

@@ -29,7 +29,6 @@ public class ViewListThreadActivity extends Activity {
 	}
 
 	public void displayThreadList() throws Exception {
-
 		Intent intentN = getIntent();
 		String threadListString = intentN.getStringExtra("thread");
 

@@ -26,7 +26,6 @@ public class FindThreadActivity extends Activity {
 	}
 
 	public void findThreadByThreadID(View v) throws Exception {
-
 		EditText idText = (EditText) findViewById(R.id.input_id);
 		String inputID = idText.getText().toString();
 
@@ -49,7 +48,6 @@ public class FindThreadActivity extends Activity {
 	}
 
 	public void findThreadByCategoryID(View v) throws Exception {
-
 		EditText idText = (EditText) findViewById(R.id.input_id);
 		String inputID = idText.getText().toString();
 
@@ -71,7 +69,6 @@ public class FindThreadActivity extends Activity {
 	}
 
 	public void findThreadByTopicID(View v) throws Exception {
-
 		EditText idText = (EditText) findViewById(R.id.input_id);
 		String inputID = idText.getText().toString();
 

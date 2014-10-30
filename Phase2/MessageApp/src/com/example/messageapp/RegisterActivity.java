@@ -33,15 +33,12 @@ public class RegisterActivity extends Activity {
 	}
 
 	public void register(View v) throws Exception {
-
 		EditText userNameText = (EditText) findViewById(R.id.user_name);
 		EditText userPasswordText = (EditText) findViewById(R.id.user_password);
 
 		String userName = userNameText.getText().toString();
 		String userPassword = userPasswordText.getText().toString();
 
-		// Validate the inputs
-		// Store the inputs into database
 		DAO createAccount = new DAO();
 
 		JSONObject result = createAccount.createUser(userName, userPassword);
@@ -62,6 +59,5 @@ public class RegisterActivity extends Activity {
 					Toast.LENGTH_LONG);
 			msg.show();
 		}
-
 	}
 }

@@ -78,6 +78,8 @@ public class CreateThreadActivity extends Activity {
 			}
 		}
 
+		// Perform POST request to create a new thread and handle successes
+		// and failures from the response
 		if (categoryID != null) {
 			JSONObject threadResponse = serverDAO.createThread(
 					categoryID.toString(), topicID, threadName, threadBody,
