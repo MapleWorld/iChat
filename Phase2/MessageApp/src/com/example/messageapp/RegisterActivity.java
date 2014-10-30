@@ -39,8 +39,10 @@ public class RegisterActivity extends Activity {
 		String userName = userNameText.getText().toString();
 		String userPassword = userPasswordText.getText().toString();
 
+		// Perform a POST request to create a new user with the provided
+		// username and password, and login in the user. If the user already
+		// exist, display an error message
 		DAO createAccount = new DAO();
-
 		JSONObject result = createAccount.createUser(userName, userPassword);
 
 		if (result != null) {
@@ -48,6 +50,8 @@ public class RegisterActivity extends Activity {
 				Intent intent = new Intent(this, LoginActivity.class);
 				startActivity(intent);
 			} else {
+				// Clear the form and display an error notification if the user
+				// registration fails
 				userNameText.setText("");
 				userPasswordText.setText("");
 				String message = (String) result.get("message");

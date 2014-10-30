@@ -22,7 +22,7 @@ public class ViewTopicListByCategoryActivity extends Activity {
 		listview = (ListView) findViewById(R.id.topicListView);
 
 		try {
-			getResponse();
+			displayTopicList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -35,9 +35,15 @@ public class ViewTopicListByCategoryActivity extends Activity {
 		return true;
 	}
 
-	public void getResponse() throws Exception {
+	/**
+	 * Display a list of topics for a given category
+	 */
+	public void displayTopicList() throws Exception {
 		Intent intent = getIntent();
 		catID = intent.getStringExtra("catID");
+		
+		// Perform a POST request to get the list of topics for the given category
+		// and display it
 		DAO response = new DAO();
 		JSONObject result = response.getServerResponseContent("/topics/list/"
 				+ catID);

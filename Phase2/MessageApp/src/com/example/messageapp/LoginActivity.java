@@ -40,7 +40,8 @@ public class LoginActivity extends Activity {
 
 		connMgr.setUseHTTPS(serverIsHTTPS);
 		connMgr.setServerURL(serverProtocol + serverAddress);
-		// Session Manager
+
+		// Initialize session manager
 		session = new Session(getApplicationContext());
 	}
 
@@ -59,7 +60,7 @@ public class LoginActivity extends Activity {
 		String userName = userNameText.getText().toString();
 		String userPassword = userPasswordText.getText().toString();
 
-		// Need to check the user account with the server
+		// Authenticate the user account with the server
 		DAO login = new DAO();
 		JSONObject result = login.loginAccount(userName, userPassword);
 
@@ -68,7 +69,7 @@ public class LoginActivity extends Activity {
 			session.createLoginSession(userName, result.getString("SESSIONID"));
 			startActivity(intent);
 		} else {
-			// Display a notification if the user failed to login
+			// Clear the form and display a notification if the user failed to login
 			userNameText.setText("");
 			userPasswordText.setText("");
 			String message = (String) result.get("message");

@@ -45,7 +45,7 @@ public class CreateTopicActivity extends Activity {
 		JSONObject result = serverDAO.getServerResponseContent("/categories");
 		JSONArray results = result.getJSONArray("categories");
 
-		// Get the category ID
+		// Get the category ID that matches the given category
 		for (int i = 0; i < results.length(); i++) {
 			JSONObject o = results.getJSONObject(i);
 			if (o.getString("name").equals(categoryName)) {
@@ -68,6 +68,7 @@ public class CreateTopicActivity extends Activity {
 				Intent intent = new Intent(this, MainActivity.class);
 				startActivity(intent);
 			} else {
+				// Clear the form
 				categoryText.setText("");
 				topicText.setText("");
 			}

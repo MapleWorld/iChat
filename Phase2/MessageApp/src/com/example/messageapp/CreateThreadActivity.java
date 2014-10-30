@@ -52,7 +52,7 @@ public class CreateThreadActivity extends Activity {
 				.getServerResponseContent("/categories");
 		JSONArray categories = categoryResponse.getJSONArray("categories");
 
-		// Get the category ID
+		// Get the category ID that matches the given category
 		for (int i = 0; i < categories.length(); i++) {
 			JSONObject o = categories.getJSONObject(i);
 			if (o.getString("name").equals(categoryName)) {
@@ -61,7 +61,7 @@ public class CreateThreadActivity extends Activity {
 			}
 		}
 
-		// Get the topic ID
+		// Get the topic ID that matches the given topic
 		if (topicName != null && categoryID != null) {
 			JSONObject topicResponse = serverDAO
 					.getServerResponseContent("/topics/list/"
@@ -93,6 +93,7 @@ public class CreateThreadActivity extends Activity {
 				Intent intent = new Intent(this, MainActivity.class);
 				startActivity(intent);
 			} else {
+				// Clear the form
 				categoryText.setText("");
 				topicText.setText("");
 				threadText.setText("");
