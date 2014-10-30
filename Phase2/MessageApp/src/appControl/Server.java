@@ -67,17 +67,14 @@ public class Server {
 				return jObject;
 
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
 				if (br != null) {
 					try {
 						br.close();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -147,7 +144,6 @@ public class Server {
 				return jObject;
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				Log.e("com.example.messageapp",
 						"IOException in sendPOSTRequest");
 				e.printStackTrace();
