@@ -8,17 +8,16 @@
 ## Sprint meetings ##
 We had two sprints, one for the server side, the other for client side.  
 
-For the first sprint, we had a planning meeting at BA3195 on Sept. 18th, our group came up with a rough plan for the first release which includes the most important features.  
+For the first sprint, we had a planning meeting at BA3195 on Sept. 18th; our group came up with a rough plan for the first release which included the most important features.  
 
-We decided to use MySql for the database storage and Java Servlet to build and host the server for database communication.  
+We decided to use MySQL for the database storage and Java Servlets to build and host the server for database communication.  
 
-At the end of first sprint, we got 100% of what planned done, the server is fully running there is no difficulty communicating between the Android client and Java server. <br>
+At the end of first sprint, we got 100% of what planned done, and the server was fully functional with all of the request types that the Android client would be making to it.<br>
 
-During the planning meeting for second sprint, we decided to work on client part of our product, we added some additional features after meeting with TA, and discussed how to setup android to connect to server.  
+During the planning meeting for the second sprint, we decided to work on the client part of our product. We added some additional features after the TA reviewed out release plan, and discussed how to set up Android to connect to the server.  
 
 ## Daily Scrum ##
-Daily scrum meetings done online, many of them are helping each others. We faced problem setting up the android, connecting to server, and coding, meetings were helpful to resolve those problem and keep us going.
-Please include date and location.
+Daily scrum meetings were done online, many of them spent helping each other with issues. We faced problems setting up the Android code, connecting to the server, and meetings were helpful to resolve those problems and keep us going.
 <br>
 
 <h5> Chat history/highlights </h5>
@@ -51,4 +50,4 @@ yes, it auto check if there is duplicate username when i try to register an acco
 We used the issue tracking system to log all of the tasks required for each sprint. For the server phase, all issues were titled with "Server - ", and for the Android client phase we titled them "Client - ". We assigned issues to the person who was currently working on the feature, and once that person had finished, he or she would put a note stating which commit the issue had been resolved with. For this phase, most of the issues we logged were for features described in the release plan. We also logged additional issues to track certain bug fixes or additional requirements that needed extra work.
 
 ## Other decisions ##
-Our team decided to have Russell as our Scrum Master, he was in charge of keeping us work together and catch mini-deadlines on time
+Our team decided to have Russell as our Scrum Master, he was in charge of helping us work together and meet deadlines on time.
