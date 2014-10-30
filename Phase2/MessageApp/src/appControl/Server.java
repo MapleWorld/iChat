@@ -121,8 +121,8 @@ public class Server {
 				wr.close();
 
 				// For some reason, con.getErrorStream() != null would be true
-				// even if con.getErrorStream() is in fact null
-				// Must print it first, WTF!!!
+				// even if con.getErrorStream() is in fact null.
+				// Clear the error stream.
 				System.out.println(con.getErrorStream() != null);
 
 				if (con.getErrorStream() != null) {
