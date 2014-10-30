@@ -1,4 +1,4 @@
-<h1>Scrum-like process report (not finished)</h1>
+<h1>Scrum-like process report</h1>
 
  * [Sprint meetings](#sprint-meetings)
  * [Daily Scrum](#daily-scrum)
