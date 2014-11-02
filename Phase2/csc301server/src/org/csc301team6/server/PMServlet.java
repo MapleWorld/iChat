@@ -19,13 +19,59 @@ public class PMServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		JSONObject jResp;
+		long pmID;
+		String sessionID;
+		String pmData;
 
+		Pattern pmViewPattern = Pattern.compile("^\\/pm\\/view\\/(\\d+)$");
+		Matcher viewThreadMatcher = pmViewPattern.matcher(request.getRequestURI());
+		
 		jResp = new JSONObject();
-		jResp.put("message", "Not implemented");
+		
+		sessionID = request.getHeader("SESSIONID");
+		
+		if(sessionID == null) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			jResp.put("success", false);
+			jResp.put("message", "Missing SESSIONID");
+			
+		} else {
+			if(viewThreadMatcher.find()) {
+				//View a PM
+				try {
+					pmID = Long.parseLong(viewThreadMatcher.group(1));
+					
+					pmData = PMDTO.viewPMAsJSONString(sessionID, pmID);
+					
+					jResp = new JSONObject(pmData);
+					
+					if(jResp.getBoolean("success")) {
+						response.setStatus(HttpServletResponse.SC_OK);
+					} else {
+						response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+					}
+					
+				} catch (NumberFormatException ne) {
+					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+					jResp = new JSONObject();
+					jResp.put("message", "Illegal request");
+					jResp.put("success", false);
+				} catch (UnauthorizedException ue) {
+					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+					jResp = new JSONObject();
+					jResp.put("message", "Unauthorized");
+					jResp.put("success", false);
+				}
+				
+			} else {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				jResp = new JSONObject();
+				jResp.put("message", "Illegal request");
+				jResp.put("success", false);
+			}
+		}
 
 		response.setContentType("application/json");
-		response.setStatus(HttpServletResponse.SC_NOT_IMPLEMENTED);
-
 		response.getWriter().println(jResp.toString());
 	}
 	
@@ -43,6 +89,8 @@ public class PMServlet extends HttpServlet {
 		String body;
 		long userid_to;
 		ConfigManager mgr = ConfigManager.getInstance();
+		
+		response.setContentType("application/json");
 
 		if(sessionID != null) {
 			if(request.getRequestURI().equals("/pm/send")){
