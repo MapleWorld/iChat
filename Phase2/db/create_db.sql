@@ -85,7 +85,7 @@ create table message (
 	send_time datetime,
 	subject varchar(255),
 	body varchar(6000),
-	unread tinyint,
+	unread tinyint NOT NULL DEFAULT 1,
 	inbox tinyint NOT NULL DEFAULT 1,
 	sentbox tinyint NOT NULL DEFAULT 1,
 	PRIMARY KEY (id),
