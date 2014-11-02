@@ -27,6 +27,17 @@ public class RegisterActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		switch(item.getItemId()){
+			case R.id.action_settings:
+				openSettings(item);
+				return true;
+			default:
+				return false;
+		}
+	}
+	
 	public void openSettings(MenuItem item) {
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);

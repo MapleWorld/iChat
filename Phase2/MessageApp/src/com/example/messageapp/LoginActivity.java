@@ -54,6 +54,17 @@ public class LoginActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		switch(item.getItemId()){
+			case R.id.action_settings:
+				openSettings(item);
+				return true;
+			default:
+				return false;
+		}
+	}
+	
 	public void login(View v) throws InterruptedException, ExecutionException,
 			JSONException {
 
