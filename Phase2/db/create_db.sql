@@ -1,12 +1,12 @@
 -- Tested with MySQL v5.1.73
-create database csc301 /** Creating Database **/
 
 create table user (
 	id int AUTO_INCREMENT PRIMARY KEY,
 	username varchar(40) UNIQUE NOT NULL,
 	password varchar(100) NOT NULL,
 	created_at datetime NOT NULL,
-	banned tinyint default 0 NOT NULL
+	banned tinyint default 0 NOT NULL,
+	admin tinyint default 0 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table category (
@@ -62,3 +62,33 @@ create table sessions (
 	FOREIGN KEY (userid) references user (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+create table subscription (
+	user_id int,
+	topic_id int,
+	PRIMARY KEY (user_id, topic_id),
+	FOREIGN KEY (user_id) references user (id),
+	FOREIGN KEY (topic_id) references topic (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table contact (
+	owner_id int,
+	contact_id int,
+	PRIMARY KEY (owner_id, contact_id),
+	FOREIGN KEY (owner_id) REFERENCES user (id),
+	FOREIGN KEY (contact_id) REFERENCES user (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table message (
+	id int AUTO_INCREMENT,
+	userid_from int,
+	userid_to int,
+	send_time datetime,
+	subject varchar(255),
+	body varchar(6000),
+	unread tinyint,
+	inbox tinyint NOT NULL DEFAULT 1,
+	sentbox tinyint NOT NULL DEFAULT 1,
+	PRIMARY KEY (id),
+	FOREIGN KEY (userid_from) references user (id),
+	FOREIGN KEY (userid_to) references user (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
