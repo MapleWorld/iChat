@@ -598,15 +598,22 @@ NOTES:
 		HTTP 200 OK
 
 		{
-		"msg_id":1,
-		"userid_from":100,
-		"username_from":"someone",
-		"userid_to":125,
-		"username_to":"my name",
-		"subject":"Subject text",
-		"datetime":"2014-01-01 15:12:35",
-		"msg_body":"Body text here"
+		"pm": {
+			"msg_id":1,
+			"userid_from":100,
+			"username_from":"someone",
+			"userid_to":125,
+			"username_to":"my name",
+			"subject":"Subject text",
+			"datetime":"2014-01-01 15:12:35",
+			"msg_body":"Body text here"
+			}
 		}
+		
+	Example for non-existant message:
+		HTTP 200 OK
+		
+		{"pm":null, "success":false, "message":"Message does not exist"}
 
 /pm/sent/{page_number}
 	- View sent private messages
