@@ -69,6 +69,28 @@ NOTES:
 				{"name":"name2","id":2},
 				{"name":"name3","id":3}]}
 
+/categories/create
+	- Create a new category
+	- SESSIONID required
+	- Admin only
+	- POST request
+
+	Example request to create a category:
+		POST /categories/create
+		SESSIONID: ABCDEF123456
+
+		{"name":"Category500"}
+
+	Example successful response:
+		HTTP 200 OK
+
+		{"success":true, "message":"Category created", "cat_id":10}
+
+	Example failure response (invalid or duplicate name):
+		HTTP 400
+
+		{"success":false, "message":"Error creating category from provided name"}
+
 /topics/list/{category_id}
 
 	- Get a list of all topics within a given category
@@ -185,6 +207,35 @@ NOTES:
 			{"name":"topic4", "id":30}
 			]
 		}
+
+/topics/delete/{topic_id}
+	- Delete an existing topic
+	- Admin only
+	- POST request
+	- SESSIONID is required
+	- Must remove topic association from threads
+
+	Example request to delete a topic (empty request body):
+		POST /topics/delete/1
+		SESSIONID: ABCDEF123456
+	
+	Example successful response:
+		HTTP 200 OK
+
+		{"success":true, "message":"Topic deleted"}
+
+	Example failure response (bad thread id):
+		HTTP 400 BAD REQUEST
+
+		{"success":false, "message":"Bad topic ID"}
+
+	Example unauthorized response:
+		HTTP 401 unauthorized
+
+		{"success":false, "message":"Unauthorized"}
+
+
+
 /threads/by_category/{category_id}/{page_number}
 
 	- Get a list of all threads within a given category
@@ -288,6 +339,7 @@ NOTES:
 	- Creates a new thread
 	- Only POST requests are allowed
 	- A valid session is required
+	- ADMIN ONLY: can be marked as sticky
 
 	Example request to create a new thread:
 
@@ -300,10 +352,21 @@ NOTES:
 		"topic_ids":[1,2,6,5]
 		}
 
+	Example to create a sticky thread:
+		POST /threads/new
+		SESSIONID: ABCDEF123456
+
+		{"category":1,
+		"title":"thread title", 
+		"body":"thread body",
+		"topic_ids":[1,2,6,5],
+		"sticky":true
+		}
+
 	Example success response:
 		HTTP 200 OK
 		
-		{"success":true,"message":"Message from server", "thread_id":1}
+		{"success":true,"message":"Message from server"}
 
 	Example failure response:
 		HTTP 400 bad request
@@ -339,4 +402,303 @@ NOTES:
 	Example unauthorized response (no response body sent):
 		HTTP 401 unauthorized
 
+/threads/edit/{thread_id}
 
+	- Optionally edit the body of an existing thread
+	- Optionally change topics of thread
+	- Must be a POST`
+	- Must have SESSIONID
+	- SESSIONID -> user must match original author
+
+	Example request to edit body:
+
+		POST /threads/edit/1
+		SESSIONID: ABCDEF123456
+
+		{"body":"Edited reply body"}
+
+	Example request to change topics (topics set to array provided):
+
+		POST /threads/edit/1
+		SESSIONID: ABCDEF123456
+
+		{"topic_ids":[1,3,5]}
+
+	Example request to change body and topics:
+
+		POST /threads/edit/1
+		SESSIONID: ABCDEF123456
+
+		{"body":"Edited reply body", "topic_ids":[1,3,5]}
+
+	Example successful response:
+		HTTP 200 OK
+		
+		{"success":true, "message":"Thread successfully edited"}
+
+	Example bad request:
+		HTTP 400 BAD REQUEST
+
+		{"success":false", "message":"Bad request"}
+
+	Example unauthorized (SESSIONID mismatch or not present):
+		HTTP 401 unauthorized
+
+		{"success":false, "message":"Unauthorized"}
+
+/threads/reply/edit/{reply_id}
+	- Edit an existing reply body
+	- POST request
+	- SESSIONID is required
+	- SESSIONID -> user must match reply author
+
+	Example request to edit reply:
+
+		POST /threads/reply/edit/1
+		SESSIONID: ABCDEF123456
+
+		{"body":"Edited reply body"}
+
+	Example successful response:
+		HTTP 200 OK
+
+		{"success":true, "message":"Reply edited successfully"}
+
+	Example failure message:
+		HTTP 400 BAD REQUEST
+
+		{"success":false, "message":"Bad request"}
+
+	Example unauthorized response:
+		HTTP 401 unauthorized
+
+		{"success":false, "message":"Unauthorized"}
+
+
+/threads/delete/{thread_id}
+	- Delete an existing thread
+	- Admin only
+	- POST request
+	- SESSIONID is required
+
+	Example request to delete a thread (empty request body):
+		POST /threads/delete/1
+		SESSIONID: ABCDEF123456
+	
+	Example successful response:
+		HTTP 200 OK
+
+		{"success":true, "message":"Thread deleted"}
+
+	Example failure response (bad thread id):
+		HTTP 400 BAD REQUEST
+
+		{"success":false, "message":"Bad thread ID"}
+
+	Example unauthorized response:
+		HTTP 401 unauthorized
+
+		{"success":false, "message":"Unauthorized"}
+
+/threads/reply/delete/{reply_id}
+	- Delete an existing reply
+	- Admin only
+	- POST request
+	- SESSIONID is required
+
+	Example request to delete a reply (empty request body):
+		POST /threads/reply/delete/1
+		SESSIONID: ABCDEF123456
+	
+	Example successful response:
+		HTTP 200 OK
+
+		{"success":true, "message":"Reply deleted"}
+
+	Example failure response (bad thread id):
+		HTTP 400 BAD REQUEST
+
+		{"success":false, "message":"Bad reply ID"}
+
+	Example unauthorized response:
+		HTTP 401 unauthorized
+
+		{"success":false, "message":"Unauthorized"}
+
+
+/users/ban/{user_id}
+	- Ban an existing user
+	- Admin only
+	- POST request
+	- SESSIONID is required 
+	
+	Example request to ban a user (empty request body):
+		POST /users/ban/1
+		SESSIONID: ABCDEF123456
+
+	Example successful response:
+		HTTP 200 OK
+
+		{"success":true, "message":"User has been banned"}
+
+	Example failure response (bad user ID):
+		HTTP 400 bad request
+
+		{"success":false, "message":"Bad user ID"}
+
+	Example unauthorized response:
+		HTTP 401 unauthorized
+
+		{"success":false, "message":"Unauthorized"}
+
+
+/pm/inbox/{page_number}
+	- List messages in inbox, by page number
+	- GET request
+	- SESSIONID required
+
+	Example request:
+		GET /pm/inbox/1
+		SESSIONID: ABCDEF123456
+
+	Example successful response:
+
+		{
+		"messages":[
+			{
+			"msg_id":1234543,
+			"user_from":"a name",
+			"subject":"Subject text",
+			"datetime": "2014-01-01 15:12:35",
+			"unread":true
+			},
+			{
+			"msg_id":45453223,
+			"user_from":"some name",
+			"subject":"something",
+			"datetime":"2013-12-21 10:11:12",
+			"unread":false
+			}
+		]
+		}
+		
+/pm/view/{message_id}
+	- View a private message
+	- GET request
+	- SESSIONID required
+	- SESSIONID->userid must match owner of message, or recipient
+	- Message gets marked unread=false if the recipient views it
+	- If the sender views it, no change is made
+
+	Example request:
+		GET /pm/view/1
+		SESSIONID: ABCDEF123456
+
+	Example successful response:
+		HTTP 200 OK
+
+		{
+		"msg_id":1,
+		"userid_from":100,
+		"username_from":"someone",
+		"userid_to":125,
+		"username_to":"my name",
+		"subject":"Subject text",
+		"datetime":"2014-01-01 15:12:35",
+		"msg_body":"Body text here"
+		}
+
+/pm/sent/{page_number}
+	- View sent private messages
+	- GET request
+	- SESSIONID required
+
+	Example request to list sent messages:
+		GET /pm/sent/1
+		SESSIONID: ABCDEF123456
+
+		{
+		"messages":[
+			{
+			"msg_id":1234543,
+			"user_to":"a name",
+			"subject":"Subject text",
+			"datetime": "2014-01-01 15:12:35"
+			},
+			{
+			"msg_id":45453223,
+			"user_from":"some name",
+			"subject":"something",
+			"datetime":"2013-12-21 10:11:12"
+			}
+		]
+		}
+
+/pm/send
+	- Send a new private message
+	- POST request
+	- SESSIONID required
+
+	Example request to send a message:
+		POST /pm/send
+		SESSIONID: ABCDEF123456
+
+		{
+		"userid_to":1,
+		"subject":"Subject text",
+		"body":"Message body"
+		}
+
+/contacts/list/{page_number}
+	- GET request
+	- SESSIONID required
+	- List of contacts by page, ordered by username alphabetically
+
+	Example request:
+		GET /contacts/list/1
+		SESSIONID: ABCDEF123456
+
+	Example response:
+
+	{
+	"contacts":[
+		{
+		"userid":5,
+		"username":"a name"
+		},
+		{
+		"userid":2,
+		"username":"some name"
+		}
+	]
+	}	
+
+/contacts/add
+	- Add a new contact
+	- POST request
+	- SESSIONID required
+
+	Example request:
+		POST /contacts/add
+		SESSIONID: ABCDEF123456
+
+		{"userid":1}
+
+	Example response:
+		HTTP 200 OK
+
+		{"success":true, "message":"Contact added"}
+
+/contacts/delete/{user_id}
+	- Delete a contact
+	- POST request
+	- SESSIONID required
+
+	Example request (no request body):
+		POST /contacts/delete/140
+		SESSIONID: ABCDEF123456
+
+	Example response:
+		HTTP 200 OK
+
+		{"success":true, "message":"Contact deleted"}
