@@ -44,17 +44,16 @@ public class RegisterActivity extends Activity {
 	}
 
 	public void register(View v) throws Exception {
-
 		EditText userNameText = (EditText) findViewById(R.id.user_name);
 		EditText userPasswordText = (EditText) findViewById(R.id.user_password);
 
 		String userName = userNameText.getText().toString();
 		String userPassword = userPasswordText.getText().toString();
 
-		// Validate the inputs
-		// Store the inputs into database
+		// Perform a POST request to create a new user with the provided
+		// username and password, and login in the user. If the user already
+		// exist, display an error message
 		DAO createAccount = new DAO();
-
 		JSONObject result = createAccount.createUser(userName, userPassword);
 
 		if (result != null) {
@@ -62,6 +61,8 @@ public class RegisterActivity extends Activity {
 				Intent intent = new Intent(this, LoginActivity.class);
 				startActivity(intent);
 			} else {
+				// Clear the form and display an error notification if the user
+				// registration fails
 				userNameText.setText("");
 				userPasswordText.setText("");
 				String message = (String) result.get("message");
@@ -73,6 +74,5 @@ public class RegisterActivity extends Activity {
 					Toast.LENGTH_LONG);
 			msg.show();
 		}
-
 	}
 }

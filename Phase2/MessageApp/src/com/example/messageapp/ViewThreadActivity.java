@@ -27,7 +27,10 @@ public class ViewThreadActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+	
+	/**
+	 * Display a thread. 
+	 */
 	public void displayThread() throws Exception {
 		Intent intentN = getIntent();
 		String threadString = intentN.getStringExtra("thread");

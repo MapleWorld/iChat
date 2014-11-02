@@ -1,37 +1,42 @@
 package org.csc301team6.server;
 
+/*
+ * Data model for a user of this application
+ * Used for packaging together user information
+ * returned from a database query.
+ */
 public class CSC301User {
 
 	private String username;
 	private long id;
 	private boolean banned;
-	
+
 	public CSC301User() {
-		
+
 	}
-	
-	public void setID(long new_id){
+
+	public void setID(long new_id) {
 		id = new_id;
 	}
-	
-	public long getID(){
+
+	public long getID() {
 		return id;
 	}
-	
-	public void setBanned(boolean set_banned){
+
+	public void setBanned(boolean set_banned) {
 		banned = set_banned;
 	}
-	
-	public boolean getBanned(){
+
+	public boolean getBanned() {
 		return banned;
 	}
-	
+
 	public void setUsername(String new_username) {
 		username = new_username;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
-	
+
 }

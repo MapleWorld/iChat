@@ -29,10 +29,7 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
-		// This is where we initialize server connection settings for the first
-		// time,
-		// since LoginActivity is the first to start.
-
+		// Initialize server connection settings
 		CSC301ConnectionManager connMgr = CSC301ConnectionManager.getInstance();
 
 		String serverAddress = PreferenceManager.getDefaultSharedPreferences(
@@ -43,7 +40,8 @@ public class LoginActivity extends Activity {
 
 		connMgr.setUseHTTPS(serverIsHTTPS);
 		connMgr.setServerURL(serverProtocol + serverAddress);
-		// Session Manager
+
+		// Initialize session manager
 		session = new Session(getApplicationContext());
 	}
 
@@ -67,14 +65,13 @@ public class LoginActivity extends Activity {
 	
 	public void login(View v) throws InterruptedException, ExecutionException,
 			JSONException {
-
 		EditText userNameText = (EditText) findViewById(R.id.user_name);
 		EditText userPasswordText = (EditText) findViewById(R.id.user_password);
 
 		String userName = userNameText.getText().toString();
 		String userPassword = userPasswordText.getText().toString();
 
-		// Need to check the user account with the server
+		// Authenticate the user account with the server
 		DAO login = new DAO();
 		JSONObject result = login.loginAccount(userName, userPassword);
 
@@ -82,14 +79,14 @@ public class LoginActivity extends Activity {
 			Intent intent = new Intent(this, MainActivity.class);
 			session.createLoginSession(userName, result.getString("SESSIONID"));
 			startActivity(intent);
-		} else { // Send out a notification
+		} else {
+			// Clear the form and display a notification if the user failed to login
 			userNameText.setText("");
 			userPasswordText.setText("");
 			String message = (String) result.get("message");
 			Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
 			msg.show();
 		}
-
 	}
 
 	public void register(View v) {

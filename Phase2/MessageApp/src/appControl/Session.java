@@ -20,10 +20,10 @@ public class Session {
 	// Context
 	Context _context;
 
-	// Shared pref mode
+	// Shared preference mode
 	int PRIVATE_MODE = 0;
 
-	// Sharedpref file name
+	// Shared preference file name
 	private static final String PREF_NAME = "AndroidHivePref";
 
 	// All Shared Preferences Keys
@@ -49,10 +49,10 @@ public class Session {
 		// Storing login value as TRUE
 		editor.putBoolean(IS_LOGIN, true);
 
-		// Storing name in pref
+		// Storing name in preference
 		editor.putString(KEY_NAME, name);
 
-		// Storing email in pref
+		// Storing email in preference
 		editor.putString(KEY_SESSION, sessionID);
 
 		// commit changes
@@ -60,7 +60,7 @@ public class Session {
 	}
 
 	/**
-	 * Check login method wil check user login status If false it will redirect
+	 * Check login method will check user login status If false it will redirect
 	 * user to login page Else won't do anything
 	 * */
 	public void checkLogin() {
@@ -103,7 +103,7 @@ public class Session {
 		editor.clear();
 		editor.commit();
 
-		// After logout redirect user to Loing Activity
+		// After logout redirect user to Login Activity
 		Intent i = new Intent(_context, LoginActivity.class);
 		// Closing all the Activities
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -115,10 +115,6 @@ public class Session {
 		_context.startActivity(i);
 	}
 
-	/**
-	 * Quick check for login
-	 * **/
-	// Get Login State
 	public boolean isLoggedIn() {
 		return pref.getBoolean(IS_LOGIN, false);
 	}

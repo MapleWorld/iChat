@@ -26,7 +26,10 @@ public class ViewCategoriesActivity extends Activity {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * Display the list of categories. 
+	 */
 	public void getResponse() throws Exception {
 		DAO response = new DAO();
 		JSONObject result = response.getServerResponseContent("/categories");

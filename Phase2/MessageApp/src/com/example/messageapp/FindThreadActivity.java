@@ -26,10 +26,11 @@ public class FindThreadActivity extends Activity {
 	}
 
 	public void findThreadByThreadID(View v) throws Exception {
-
 		EditText idText = (EditText) findViewById(R.id.input_id);
 		String inputID = idText.getText().toString();
 
+		// Perform a POST request to get a list of threads for the given the
+		// thread ID
 		DAO login = new DAO();
 		JSONObject result = login.getServerResponseContent("/threads/view/"
 				+ inputID + "/1");
@@ -39,6 +40,8 @@ public class FindThreadActivity extends Activity {
 			intent.putExtra("thread", result.toString());
 			startActivity(intent);
 		} else {
+			// Clear the form and display an error notification if the thread
+			// cannot be found
 			idText.setText("");
 			Toast msg = Toast.makeText(this,
 					"Couldn't Find Thread With Given Thread ID",
@@ -49,10 +52,11 @@ public class FindThreadActivity extends Activity {
 	}
 
 	public void findThreadByCategoryID(View v) throws Exception {
-
 		EditText idText = (EditText) findViewById(R.id.input_id);
 		String inputID = idText.getText().toString();
 
+		// Perform a POST request to get a list of threads for the given
+		// category ID and display the list of threads
 		DAO login = new DAO();
 		JSONObject result = login
 				.getServerResponseContent("/threads/by_category/" + inputID
@@ -63,6 +67,8 @@ public class FindThreadActivity extends Activity {
 			intent.putExtra("thread", result.toString());
 			startActivity(intent);
 		} else {
+			// Clear the form and display an error notification if the thread
+			// cannot be found
 			idText.setText("");
 			Toast msg = Toast.makeText(this,
 					"Couldn't Find Thread With Given ID", Toast.LENGTH_LONG);
@@ -71,10 +77,11 @@ public class FindThreadActivity extends Activity {
 	}
 
 	public void findThreadByTopicID(View v) throws Exception {
-
 		EditText idText = (EditText) findViewById(R.id.input_id);
 		String inputID = idText.getText().toString();
 
+		// Perform a POST request to get a list of threads for the given
+		// topic ID and display the list of threads
 		DAO login = new DAO();
 		JSONObject result = login.getServerResponseContent("/threads/by_topic/"
 				+ inputID + "/1");
@@ -84,6 +91,8 @@ public class FindThreadActivity extends Activity {
 			intent.putExtra("thread", result.toString());
 			startActivity(intent);
 		} else {
+			// Clear the form and display an error notification if the thread
+			// cannot be found
 			idText.setText("");
 			Toast msg = Toast.makeText(this,
 					"Couldn't Find Thread With Given ID", Toast.LENGTH_LONG);

@@ -1,6 +1,3 @@
-<h2>Product Description</h2>
-<p>
-Our product is an Android version of the messaging application for universities. At the first release, the users of our application will be able to own their personal accounts on our server and use their accounts to interact with in-app activities/services on their Android device, which means there are basic <b>Register</b> and <b>Log in</b> services provided on our server. Once logged in, any user can enjoy features like <b>View Categories</b> which lists all currently available Categories they might be interested in. Users can then click on any Category to <b>view all the Topics</b> within that category. By doing so, users filter futher down to <b>view threads</b> of that specific topic. <br>
-Other than obsorbing information, user can also <b>Create Topic</b> & <b>Create Thread </b>, thread is the information they want to post and topic is the optional filter tool under category to help other users <b>Find Thread</b> easier, works like a sub-category.<br>
-And finally, <b>Log out</b> when finished or switching between accounts.
-</p>
+#### Product Description
+
+Our product is an Android version of the messaging application for universities. The first release of our application allows basic user registration and login, and category, topic, thread creation and exploration. Once logged in, users have the options to create new categories, topics or threads. Otherwise, users can filter through the threads available by thread ID, categories or topics to easily find the threads they are interested in. Furthermore, users can view a list of all the available categories or topics. If the users want to start a discussion, they can create a new thread by specifying the category and optionally the topics the thread belongs in along with a subject title and body. Finally, users can log out when they are finished with their session or want to switch accounts.

@@ -17,7 +17,6 @@ public class ViewTopicListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_topic_list);
-
 	}
 
 	@Override
@@ -26,17 +25,20 @@ public class ViewTopicListActivity extends Activity {
 		getMenuInflater().inflate(R.menu.view_topic_list, menu);
 		return true;
 	}
-
+	
+	/**
+	 * Display a list of topics
+	 */
 	public void ShowTopicList(View v) throws Exception {
-
 		EditText categoryText = (EditText) findViewById(R.id.category_name2);
 		String categoryName = categoryText.getText().toString();
 		Integer categoryID = null;
-
+		
 		DAO response = new DAO();
 		JSONObject result = response.getServerResponseContent("/categories");
 		JSONArray results = result.getJSONArray("categories");
-
+		
+		// Get the category ID that matches the given category name
 		for (int i = 0; i < results.length(); i++) {
 			JSONObject o = results.getJSONObject(i);
 			if (o.getString("name").equals(categoryName)) {
@@ -54,9 +56,7 @@ public class ViewTopicListActivity extends Activity {
 			Toast msg = Toast.makeText(this, "category not exist",
 					Toast.LENGTH_LONG);
 			msg.show();
-
 		}
-
 	}
 
 }

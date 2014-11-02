@@ -4,12 +4,12 @@ package org.csc301team6.server;
 
 public class UnauthorizedException extends Exception {
 	private String message;
-	
-	public UnauthorizedException(String msg){
+
+	public UnauthorizedException(String msg) {
 		super();
 		message = msg;
 	}
-	
+
 	public String getMessage() {
 		return message;
 	}

@@ -47,6 +47,11 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 
+	public void createThread(View v) {
+		Intent intent = new Intent(this, CreateThreadActivity.class);
+		startActivity(intent);
+	}
+
 	public void findThread(View v) {
 		Intent intent = new Intent(this, FindThreadActivity.class);
 		startActivity(intent);
