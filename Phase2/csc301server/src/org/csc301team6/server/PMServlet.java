@@ -26,9 +26,11 @@ public class PMServlet extends HttpServlet {
 
 		Pattern pmViewPattern = Pattern.compile("^\\/pm\\/view\\/(\\d+)$");
 		Pattern inboxViewPattern = Pattern.compile("^\\/pm\\/inbox\\/(\\d+)$");
+		Pattern sentViewPattern = Pattern.compile("^\\/pm\\/sent\\/(\\d+)$");
 		
 		Matcher viewThreadMatcher = pmViewPattern.matcher(request.getRequestURI());
 		Matcher inboxViewMatcher = inboxViewPattern.matcher(request.getRequestURI());
+		Matcher sentViewMatcher = sentViewPattern.matcher(request.getRequestURI());
 		
 		jResp = new JSONObject();
 		
@@ -73,6 +75,28 @@ public class PMServlet extends HttpServlet {
 					pageID = Long.parseLong(inboxViewMatcher.group(1));
 					
 					pmData = PMDTO.viewMsgBoxPageAsJSONString(sessionID, pageID, ConfigManager.BOX_TYPE_INBOX);
+					
+					jResp = new JSONObject(pmData);
+					
+					response.setStatus(HttpServletResponse.SC_OK);
+					
+				} catch (NumberFormatException ne) {
+					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+					jResp = new JSONObject();
+					jResp.put("message", "Illegal request");
+					jResp.put("success", false);
+				} catch (UnauthorizedException ue) {
+					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+					jResp = new JSONObject();
+					jResp.put("message", "Unauthorized");
+					jResp.put("success", false);
+				}
+			} else if (sentViewMatcher.find()) {
+				//List messages in sent box
+				try {
+					pageID = Long.parseLong(sentViewMatcher.group(1));
+					
+					pmData = PMDTO.viewMsgBoxPageAsJSONString(sessionID, pageID, ConfigManager.BOX_TYPE_SENT);
 					
 					jResp = new JSONObject(pmData);
 					
