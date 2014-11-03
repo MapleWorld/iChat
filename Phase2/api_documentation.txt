@@ -567,14 +567,14 @@ NOTES:
 		"messages":[
 			{
 			"msg_id":1234543,
-			"user_from":"a name",
+			"username":"a name",
 			"subject":"Subject text",
 			"datetime": "2014-01-01 15:12:35",
 			"unread":true
 			},
 			{
 			"msg_id":45453223,
-			"user_from":"some name",
+			"username":"some name",
 			"subject":"something",
 			"datetime":"2013-12-21 10:11:12",
 			"unread":false
@@ -630,13 +630,13 @@ NOTES:
 		"messages":[
 			{
 			"msg_id":1234543,
-			"user_to":"a name",
+			"username":"a name",
 			"subject":"Subject text",
 			"datetime": "2014-01-01 15:12:35"
 			},
 			{
 			"msg_id":45453223,
-			"user_from":"some name",
+			"username":"some name",
 			"subject":"something",
 			"datetime":"2013-12-21 10:11:12"
 			}
