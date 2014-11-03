@@ -579,7 +579,9 @@ NOTES:
 			"datetime":"2013-12-21 10:11:12",
 			"unread":false
 			}
-		]
+		],
+		"this_page":1,
+		"pages":5
 		}
 		
 /pm/view/{message_id}
@@ -638,7 +640,9 @@ NOTES:
 			"subject":"something",
 			"datetime":"2013-12-21 10:11:12"
 			}
-		]
+		],
+		"this_page":1,
+		"pages":10
 		}
 
 /pm/send
