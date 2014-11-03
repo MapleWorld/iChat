@@ -20,11 +20,15 @@ public class PMServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		JSONObject jResp;
 		long pmID;
+		long pageID;
 		String sessionID;
 		String pmData;
 
 		Pattern pmViewPattern = Pattern.compile("^\\/pm\\/view\\/(\\d+)$");
+		Pattern inboxViewPattern = Pattern.compile("^\\/pm\\/inbox\\/(\\d+)$");
+		
 		Matcher viewThreadMatcher = pmViewPattern.matcher(request.getRequestURI());
+		Matcher inboxViewMatcher = inboxViewPattern.matcher(request.getRequestURI());
 		
 		jResp = new JSONObject();
 		
@@ -63,6 +67,28 @@ public class PMServlet extends HttpServlet {
 					jResp.put("success", false);
 				}
 				
+			} else if (inboxViewMatcher.find()) {
+				//List messages in the inbox
+				try {
+					pageID = Long.parseLong(inboxViewMatcher.group(1));
+					
+					pmData = PMDTO.viewInboxPageAsJSONString(sessionID, pageID);
+					
+					jResp = new JSONObject(pmData);
+					
+					response.setStatus(HttpServletResponse.SC_OK);
+					
+				} catch (NumberFormatException ne) {
+					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+					jResp = new JSONObject();
+					jResp.put("message", "Illegal request");
+					jResp.put("success", false);
+				} catch (UnauthorizedException ue) {
+					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+					jResp = new JSONObject();
+					jResp.put("message", "Unauthorized");
+					jResp.put("success", false);
+				}
 			} else {
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				jResp = new JSONObject();

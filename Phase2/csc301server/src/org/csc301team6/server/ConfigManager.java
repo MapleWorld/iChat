@@ -28,6 +28,8 @@ public class ConfigManager {
 	private static int MAX_THREAD_BODY_LENGTH;
 	private static int MAX_PM_SUBJ_LENGTH;
 	private static int MAX_PM_BODY_LENGTH;
+	private static int INBOX_PMS_PER_PAGE;
+	private static int SENT_PMS_PER_PAGE;
 
 	private ConfigManager() {
 		// The first time we access this class, the config values are loaded
@@ -117,6 +119,8 @@ public class ConfigManager {
 				MAX_THREAD_BODY_LENGTH = json.getInt("MAX_THREAD_BODY_LENGTH");
 				MAX_PM_SUBJ_LENGTH = json.getInt("MAX_PM_SUBJ_LENGTH");
 				MAX_PM_BODY_LENGTH = json.getInt("MAX_PM_BODY_LENGTH");
+				INBOX_PMS_PER_PAGE = json.getInt("INBOX_PMS_PER_PAGE");
+				SENT_PMS_PER_PAGE = json.getInt("SENT_PMS_PER_PAGE");
 			} catch (JSONException e) {
 				//Since there was an error parsing the config, we set the configuration
 				//to use default values. The server may still be able to run.
@@ -140,6 +144,8 @@ public class ConfigManager {
 		MAX_THREAD_BODY_LENGTH = 5000;
 		MAX_PM_SUBJ_LENGTH = 200;
 		MAX_PM_BODY_LENGTH = 5000;
+		INBOX_PMS_PER_PAGE = 20;
+		SENT_PMS_PER_PAGE = 20;
 	}
 
 	public String getJDBCURL() {
@@ -176,6 +182,14 @@ public class ConfigManager {
 	
 	public int getMaxPMBodyLength() {
 		return MAX_PM_BODY_LENGTH;
+	}
+	
+	public int getInboxPMsPerPage() {
+		return INBOX_PMS_PER_PAGE;
+	}
+	
+	public int getSentPMsPerPage() {
+		return SENT_PMS_PER_PAGE;
 	}
 
 	public static ConfigManager getInstance() {

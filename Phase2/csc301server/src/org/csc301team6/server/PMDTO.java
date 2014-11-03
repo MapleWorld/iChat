@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class PMDTO {
@@ -143,5 +144,85 @@ public class PMDTO {
 		}
 
 		return jResp.toString();
+	}
+	
+	public static String viewInboxPageAsJSONString(String sessionID, long inboxPage) throws UnauthorizedException {
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		ResultSet rs;
+		long userid;
+		JSONObject inboxData;
+		JSONArray inboxMsgs;
+		JSONObject pmData;
+		
+		if(inboxPage < 1){
+			inboxPage = 1;
+		}
+
+		inboxData = new JSONObject();
+		
+		try {
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+			
+			userid = SessionDTO.getUserIDFromSessionID(sessionID);
+			
+			ps = conn.prepareStatement("select m.*, u.username username_from from message m "
+										+ " inner join user u on u.id = m.userid_from "
+										+ "where m.userid_to = ? limit ? offset ?");
+			ps.setLong(1, userid);
+			ps.setLong(2, mgr.getInboxPMsPerPage());
+			ps.setLong(3, (inboxPage - 1) * mgr.getInboxPMsPerPage());
+			
+			rs = ps.executeQuery();
+			
+			inboxMsgs = new JSONArray();
+			
+			while(rs.next()){
+				pmData = new JSONObject();
+				pmData.put("msg_id", rs.getLong("id"));
+				pmData.put("user_from", rs.getString("username_from"));
+				pmData.put("subject", rs.getString("subject"));
+				pmData.put("datetime", rs.getTimestamp("send_time").toString());
+				pmData.put("unread", rs.getInt("unread") == 1);
+				
+				inboxMsgs.put(pmData);	
+			}
+
+			inboxData.put("messages", inboxMsgs);
+			
+			rs.close();
+			ps.close();
+			
+			ps = conn.prepareStatement("select count(*) numMsgs from message where userid_to = ?");
+			ps.setLong(1, userid);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				inboxData.put("pages", (rs.getLong("numMsgs") / mgr.getInboxPMsPerPage()) + 1);
+			} else {
+				inboxData.put("pages", 0);
+			}
+			
+			inboxData.put("this_page", inboxPage);
+			inboxData.put("success", true);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new UnauthorizedException("An error has occurred");
+		} catch (UnauthorizedException e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+	
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return inboxData.toString();
 	}
 }
