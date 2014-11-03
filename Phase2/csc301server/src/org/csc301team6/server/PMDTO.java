@@ -146,7 +146,7 @@ public class PMDTO {
 		return jResp.toString();
 	}
 	
-	public static String viewInboxPageAsJSONString(String sessionID, long inboxPage) throws UnauthorizedException {
+	public static String viewMsgBoxPageAsJSONString(String sessionID, long inboxPage, int boxType) throws UnauthorizedException {
 		ConfigManager mgr = ConfigManager.getInstance();
 		Connection conn = null;
 		PreparedStatement ps;
@@ -167,9 +167,15 @@ public class PMDTO {
 			
 			userid = SessionDTO.getUserIDFromSessionID(sessionID);
 			
-			ps = conn.prepareStatement("select m.*, u.username username_from from message m "
+			if(boxType == ConfigManager.BOX_TYPE_INBOX){
+				ps = conn.prepareStatement("select m.*, u.username from message m "
 										+ " inner join user u on u.id = m.userid_from "
 										+ "where m.userid_to = ? limit ? offset ?");
+			} else {
+				ps = conn.prepareStatement("select m.*, u.username from message m "
+										+ " inner join user u on u.id = m.userid_to "
+										+ "where m.userid_from = ? limit ? offset ?");
+			}
 			ps.setLong(1, userid);
 			ps.setLong(2, mgr.getInboxPMsPerPage());
 			ps.setLong(3, (inboxPage - 1) * mgr.getInboxPMsPerPage());
@@ -181,7 +187,7 @@ public class PMDTO {
 			while(rs.next()){
 				pmData = new JSONObject();
 				pmData.put("msg_id", rs.getLong("id"));
-				pmData.put("user_from", rs.getString("username_from"));
+				pmData.put("username", rs.getString("username"));
 				pmData.put("subject", rs.getString("subject"));
 				pmData.put("datetime", rs.getTimestamp("send_time").toString());
 				pmData.put("unread", rs.getInt("unread") == 1);
@@ -194,7 +200,12 @@ public class PMDTO {
 			rs.close();
 			ps.close();
 			
-			ps = conn.prepareStatement("select count(*) numMsgs from message where userid_to = ?");
+			if(boxType == ConfigManager.BOX_TYPE_INBOX) {
+				ps = conn.prepareStatement("select count(*) numMsgs from message where userid_to = ?");
+			} else {
+				ps = conn.prepareStatement("select count(*) numMsgs from message where userid_from = ?");
+			}
+			
 			ps.setLong(1, userid);
 			
 			rs = ps.executeQuery();
@@ -204,6 +215,9 @@ public class PMDTO {
 			} else {
 				inboxData.put("pages", 0);
 			}
+			
+			rs.close();
+			ps.close();
 			
 			inboxData.put("this_page", inboxPage);
 			inboxData.put("success", true);

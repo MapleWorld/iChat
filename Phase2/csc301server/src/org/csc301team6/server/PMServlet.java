@@ -72,7 +72,7 @@ public class PMServlet extends HttpServlet {
 				try {
 					pageID = Long.parseLong(inboxViewMatcher.group(1));
 					
-					pmData = PMDTO.viewInboxPageAsJSONString(sessionID, pageID);
+					pmData = PMDTO.viewMsgBoxPageAsJSONString(sessionID, pageID, ConfigManager.BOX_TYPE_INBOX);
 					
 					jResp = new JSONObject(pmData);
 					

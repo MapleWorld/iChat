@@ -30,6 +30,9 @@ public class ConfigManager {
 	private static int MAX_PM_BODY_LENGTH;
 	private static int INBOX_PMS_PER_PAGE;
 	private static int SENT_PMS_PER_PAGE;
+	
+	public static final int BOX_TYPE_INBOX = 1;
+	public static final int BOX_TYPE_SENT = 2;
 
 	private ConfigManager() {
 		// The first time we access this class, the config values are loaded
