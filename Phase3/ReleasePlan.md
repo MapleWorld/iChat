@@ -18,6 +18,8 @@ User stories planned for Phase 3:
 
 * As an Administrator, I want to be able to create new categories, so that I can organize all threads using the appropriate categories. (3/2)
 
+# Deferred to Phase 4
+
 * As The Social One, I want to send private messages (PM) directly to other users, so that I can communicate with other users. (3/1)
 
 * As The Social One, I want to maintain a list of contacts, so that I can communicate with other users. (3/2)
