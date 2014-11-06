@@ -1,4 +1,4 @@
-User stories planned for Phase 3:
+# User stories planned for Phase 3:
 
 * As a Consumer, I want to save my preferences about topics that I like, so that I can easily browse through the topics I am interested in. (2/2)As a Producer, I want to be able to respond to threads, so that I can be involved in the discussion and communicate with other users. (2/2)
 
