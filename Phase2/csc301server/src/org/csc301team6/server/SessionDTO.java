@@ -20,6 +20,7 @@ public class SessionDTO {
 		ResultSet rs;
 		byte[] sessionBytes = new byte[32];
 		long userid;
+		boolean banned;
 
 		if (sessionRNG == null) {
 			sessionRNG = new SecureRandom();
@@ -27,26 +28,31 @@ public class SessionDTO {
 
 		try {
 			conn = DriverManager.getConnection(mgr.getJDBCURL());
-			ps = conn.prepareStatement("select id from user where username = ? and password = ?");
+			ps = conn.prepareStatement("select * from user where username = ? and password = ?");
 			ps.setString(1, username);
 			ps.setString(2, getSHA256FromString(username + password));
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
 				userid = rs.getLong("id");
-
+				banned = rs.getInt("banned") == 1;
+				
 				rs.close();
 				ps.close();
 
-				sessionRNG.nextBytes(sessionBytes);
-				sessionID = getSHA256FromBytes(sessionBytes);
-				ps = conn.prepareStatement("insert into sessions (sessionid, userid, expires) values (?, ?, DATE_ADD(NOW(), INTERVAL ? MINUTE))");
-				ps.setString(1, sessionID);
-				ps.setLong(2, userid);
-				ps.setInt(3, mgr.getSessionDurationMinutes());
+				if(!banned) {
+					sessionRNG.nextBytes(sessionBytes);
+					sessionID = getSHA256FromBytes(sessionBytes);
+					ps = conn.prepareStatement("insert into sessions (sessionid, userid, expires) values (?, ?, DATE_ADD(NOW(), INTERVAL ? MINUTE))");
+					ps.setString(1, sessionID);
+					ps.setLong(2, userid);
+					ps.setInt(3, mgr.getSessionDurationMinutes());
 
-				ps.executeUpdate();
-				ps.close();
+					ps.executeUpdate();
+					ps.close();
+				} else {
+					sessionID = null;
+				}
 
 			}
 		} catch (SQLException e) {
