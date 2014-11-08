@@ -237,7 +237,7 @@ public class ThreadsDTO {
 		} catch (SQLException se) {
 			se.printStackTrace();
 			try {
-				conn.close();
+				conn.rollback();
 			} catch (SQLException se2) {
 				se2.printStackTrace();
 			}
@@ -308,10 +308,80 @@ public class ThreadsDTO {
 		} catch (SQLException se) {
 			se.printStackTrace();
 			try {
-				conn.close();
+				conn.rollback();
 			} catch (SQLException se2) {
 				se2.printStackTrace();
 			}
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void editReplyBody(long reply_id, String newBody, String sessionID) throws UnauthorizedException {
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		ResultSet rs;
+		CSC301User user;
+		long userid;
+		
+		try {
+			userid = SessionDTO.getUserIDFromSessionID(sessionID);
+			
+			user = UserDTO.fetchUserByID(userid);
+			
+			if(user == null || user.getBanned()) {
+				throw new UnauthorizedException("Unauthorized");
+			}
+			
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+
+			ps = conn.prepareStatement("select * from reply where id = ? and user_id = ?");
+			ps.setLong(1, reply_id);
+			ps.setLong(2, userid);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()){
+				setReplyBody(reply_id, newBody);
+			} else {
+				throw new UnauthorizedException("Unauthorized");
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static void setReplyBody(long reply_id, String newBody) {
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		
+		try {
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+
+			ps = conn.prepareStatement("update reply set body = ?, updated_at = NOW() where id = ?");
+			ps.setString(1, newBody);
+			ps.setLong(2, reply_id);
+			
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException se) {
+			se.printStackTrace();
 		} finally {
 			try {
 				if (conn != null)
@@ -471,8 +541,8 @@ public class ThreadsDTO {
 			conn = DriverManager.getConnection(mgr.getJDBCURL());
 
 			ps = conn.prepareStatement(
-					"insert into reply (user_id, thread_id, body, created_at) "
-							+ "values (?, ?, ?, NOW())",
+					"insert into reply (user_id, thread_id, body, created_at, updated_at) "
+							+ "values (?, ?, ?, NOW(), NOW())",
 					Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(1, userid);
 			ps.setLong(2, thread_id);

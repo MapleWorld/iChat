@@ -25,19 +25,14 @@ public class ThreadsServlet extends HttpServlet {
 		long param_id;
 		long page_num;
 
-		Pattern viewThreadPattern = Pattern
-				.compile("^\\/threads\\/view\\/(\\d+)\\/(\\d+)$");
-		Pattern listByCatPattern = Pattern
-				.compile("^\\/threads\\/by_category\\/(\\d+)\\/(\\d+)");
-		Pattern listByTopicPattern = Pattern
-				.compile("^\\/threads\\/by_topic\\/(\\d+)\\/(\\d+)");
+		Pattern viewThreadPattern = Pattern.compile("^\\/threads\\/view\\/(\\d+)\\/(\\d+)$");
+		Pattern listByCatPattern = Pattern.compile("^\\/threads\\/by_category\\/(\\d+)\\/(\\d+)");
+		Pattern listByTopicPattern = Pattern.compile("^\\/threads\\/by_topic\\/(\\d+)\\/(\\d+)");
+		
 
-		Matcher viewThreadMatcher = viewThreadPattern.matcher(request
-				.getRequestURI());
-		Matcher listByCatMatcher = listByCatPattern.matcher(request
-				.getRequestURI());
-		Matcher listByTopicMatcher = listByTopicPattern.matcher(request
-				.getRequestURI());
+		Matcher viewThreadMatcher = viewThreadPattern.matcher(request.getRequestURI());
+		Matcher listByCatMatcher = listByCatPattern.matcher(request.getRequestURI());
+		Matcher listByTopicMatcher = listByTopicPattern.matcher(request.getRequestURI());
 
 		//Try to match the request URI to a pre-defined pattern
 		if (viewThreadMatcher.find()) {
@@ -105,10 +100,12 @@ public class ThreadsServlet extends HttpServlet {
 		Pattern newThreadPattern = Pattern.compile("^\\/threads\\/new$");
 		Pattern replyThreadPattern = Pattern.compile("^\\/threads\\/reply$");
 		Pattern editThreadPattern = Pattern.compile("^\\/threads\\/edit\\/(\\d+)$");
+		Pattern editReplyPattern = Pattern.compile("^\\/threads\\/reply\\/edit\\/(\\d+)$");
 		
 		Matcher newThreadMatcher = newThreadPattern.matcher(request.getRequestURI());
 		Matcher replyThreadMatcher = replyThreadPattern.matcher(request.getRequestURI());
 		Matcher editThreadMatcher = editThreadPattern.matcher(request.getRequestURI());
+		Matcher editReplyMatcher = editReplyPattern.matcher(request.getRequestURI());
 		
 		JSONObject jResp;
 		long param;
@@ -143,6 +140,30 @@ public class ThreadsServlet extends HttpServlet {
 				return;
 			}
 
+		} else if (editReplyMatcher.find()) {
+			try {
+				param = Long.parseLong(editReplyMatcher.group(1));
+			} catch (NumberFormatException ne) {
+				// Unable to parse thread_id/page_num params
+				ne.printStackTrace();
+				jResp = new JSONObject();
+				jResp.put("success", false);
+				jResp.put("message", "Error parsing input parameters");
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().println(jResp.toString());
+				return;
+			} 
+			
+			try {
+				doEditReply(request, response, param);
+			} catch (UnauthorizedException ue) {
+				jResp = new JSONObject();
+				jResp.put("success", false);
+				jResp.put("message", "Unauthorized");
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				response.getWriter().println(jResp.toString());
+				return;
+			}
 		} else {
 			//Since the request did not match any pattern, it is invalid
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -152,12 +173,64 @@ public class ThreadsServlet extends HttpServlet {
 		}
 	}
 
+
+	private void doEditReply(HttpServletRequest request, 
+			HttpServletResponse response,
+			long reply_id) throws IOException, UnauthorizedException {
+
+		String sessionID;
+		String line;
+		String jsonInput = "";
+		JSONObject jo;
+		BufferedReader br = request.getReader();
+		JSONObject jResp;
+		String newBody;
+
+		response.setContentType("application/json");
+
+		sessionID = request.getHeader("SESSIONID");
+		
+		jResp = new JSONObject();
+		
+		if (sessionID == null) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			jResp.put("success", false);
+			jResp.put("message", "No session token provided");
+		} else {
+			while ((line = br.readLine()) != null) {
+				jsonInput += line;
+			}
+
+			try {
+				jo = new JSONObject(jsonInput);
+				newBody = jo.getString("body");
+				
+				ThreadsDTO.editReplyBody(reply_id, newBody, sessionID);
+				
+				jResp.put("message", "Reply edited successfully");
+				response.setStatus(HttpServletResponse.SC_OK);
+				jResp.put("success", true);
+
+			} catch (JSONException e) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				jResp.put("success", false);
+				jResp.put("message", "Error parsing request");
+			} catch (UnauthorizedException ue) {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				jResp.put("success", false);
+				jResp.put("message", ue.getMessage());
+			}
+		}
+		
+		response.getWriter().println(jResp.toString());
+	}
+	
+	
 	private void doEditThread(HttpServletRequest request, 
 								HttpServletResponse response,
 								long thread_id) throws IOException, UnauthorizedException {
 		
 		String sessionID;
-		ConfigManager mgr = ConfigManager.getInstance();
 		String line;
 		String jsonInput = "";
 		JSONObject jo;
