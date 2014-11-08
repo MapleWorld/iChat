@@ -52,7 +52,8 @@ public class ServerMain extends AbstractHandler {
 		context.addServlet(new ServletHolder(new ThreadsServlet()),"/threads/*");		
 		context.addServlet(new ServletHolder(new TopicServlet()), "/topics/*");
 		context.addServlet(new ServletHolder(new PMServlet()), "/pm/*");
-
+		context.addServlet(new ServletHolder(new UserServlet()), "/users/*");
+		
 		server.start();
 		server.join();
 	}
