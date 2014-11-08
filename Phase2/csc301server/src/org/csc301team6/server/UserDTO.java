@@ -60,7 +60,7 @@ public class UserDTO {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				user = new CSC301User();
+				user = new CSC301User(rs.getInt("admin") == 1);
 				user.setBanned(rs.getInt("banned") > 0);
 				user.setID(rs.getInt("id"));
 				user.setUsername(rs.getString("username"));
@@ -95,7 +95,7 @@ public class UserDTO {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				user = new CSC301User();
+				user = new CSC301User(rs.getInt("admin") == 1);
 				user.setBanned(rs.getInt("banned") > 0);
 				user.setID(rs.getInt("id"));
 				user.setUsername(rs.getString("username"));
@@ -115,4 +115,48 @@ public class UserDTO {
 
 		return user;
 	}
+	
+	public static boolean banUserByID(long userid, String sessionID) throws UnauthorizedException {
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		long req_userid;
+		CSC301User reqUser;
+		int res = 0;
+		
+		req_userid = SessionDTO.getUserIDFromSessionID(sessionID);
+		
+		reqUser = fetchUserByID(req_userid);
+		
+		if(reqUser != null && reqUser.isAdmin()) {
+			try {
+				conn = DriverManager.getConnection(mgr.getJDBCURL());
+				
+				ps = conn.prepareStatement("update user set banned = 1 where id = ?");
+				ps.setLong(1, userid);
+				res = ps.executeUpdate();
+				
+				ps.close();
+	
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if(conn != null)
+						conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		
+		} else {
+			throw new UnauthorizedException("You are not authorized to perform this action");
+		}
+		
+		if (res == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}	
 }

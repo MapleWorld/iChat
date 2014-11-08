@@ -10,9 +10,10 @@ public class CSC301User {
 	private String username;
 	private long id;
 	private boolean banned;
+	private boolean isAdminV;
 
-	public CSC301User() {
-
+	public CSC301User(boolean isAdminSet) {
+		isAdminV = isAdminSet;
 	}
 
 	public void setID(long new_id) {
@@ -39,4 +40,8 @@ public class CSC301User {
 		return username;
 	}
 
+	public boolean isAdmin(){
+		return isAdminV;
+	}
+	
 }
