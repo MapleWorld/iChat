@@ -42,6 +42,7 @@ create table reply (
 	thread_id int NOT NULL,
 	body varchar(6000) NOT NULL,
 	created_at datetime NOT NULL,
+	updated_at datetime NOT NULL,
 	FOREIGN KEY (user_id) references user(id),
 	FOREIGN KEY (thread_id)references thread(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
