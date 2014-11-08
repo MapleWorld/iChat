@@ -76,12 +76,16 @@ public class SessionDTO {
 
 		try {
 			conn = DriverManager.getConnection(mgr.getJDBCURL());
-			ps = conn.prepareStatement("select * from sessions where sessionid = ?");
+			ps = conn.prepareStatement("select * from sessions s inner join user u on s.userid = u.id where sessionid = ?");
 			ps.setString(1, sessionID);
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				userid = rs.getLong("userid");
+				if(rs.getInt("u.banned") == 0) {
+					userid = rs.getLong("s.userid");
+				} else {
+					throw new UnauthorizedException("User is banned, session is not valid");
+				}
 
 			} else {
 				throw new UnauthorizedException("Session is not valid");
@@ -89,7 +93,7 @@ public class SessionDTO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new UnauthorizedException("Database error");
+			throw new UnauthorizedException("An error has occurred");
 		} finally {
 			try {
 				conn.close();
