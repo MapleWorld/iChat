@@ -26,6 +26,13 @@ public class ConfigManager {
 	private static int CSC301_HTTP_PORT;
 	private static int MAX_REPLY_LENGTH;
 	private static int MAX_THREAD_BODY_LENGTH;
+	private static int MAX_PM_SUBJ_LENGTH;
+	private static int MAX_PM_BODY_LENGTH;
+	private static int INBOX_PMS_PER_PAGE;
+	private static int SENT_PMS_PER_PAGE;
+	
+	public static final int BOX_TYPE_INBOX = 1;
+	public static final int BOX_TYPE_SENT = 2;
 
 	private ConfigManager() {
 		// The first time we access this class, the config values are loaded
@@ -113,6 +120,10 @@ public class ConfigManager {
 				SESSION_DURATION_MINUTES = json.getInt("SESSION_DURATION_MINUTES");
 				MAX_REPLY_LENGTH = json.getInt("MAX_REPLY_LENGTH");
 				MAX_THREAD_BODY_LENGTH = json.getInt("MAX_THREAD_BODY_LENGTH");
+				MAX_PM_SUBJ_LENGTH = json.getInt("MAX_PM_SUBJ_LENGTH");
+				MAX_PM_BODY_LENGTH = json.getInt("MAX_PM_BODY_LENGTH");
+				INBOX_PMS_PER_PAGE = json.getInt("INBOX_PMS_PER_PAGE");
+				SENT_PMS_PER_PAGE = json.getInt("SENT_PMS_PER_PAGE");
 			} catch (JSONException e) {
 				//Since there was an error parsing the config, we set the configuration
 				//to use default values. The server may still be able to run.
@@ -134,6 +145,10 @@ public class ConfigManager {
 		CSC301_HTTP_PORT = 8080;
 		MAX_REPLY_LENGTH = 5000;
 		MAX_THREAD_BODY_LENGTH = 5000;
+		MAX_PM_SUBJ_LENGTH = 200;
+		MAX_PM_BODY_LENGTH = 5000;
+		INBOX_PMS_PER_PAGE = 20;
+		SENT_PMS_PER_PAGE = 20;
 	}
 
 	public String getJDBCURL() {
@@ -162,6 +177,22 @@ public class ConfigManager {
 
 	public int getMaxThreadBodyLength() {
 		return MAX_THREAD_BODY_LENGTH;
+	}
+	
+	public int getMaxPMSubjLength() {
+		return MAX_PM_SUBJ_LENGTH;
+	}
+	
+	public int getMaxPMBodyLength() {
+		return MAX_PM_BODY_LENGTH;
+	}
+	
+	public int getInboxPMsPerPage() {
+		return INBOX_PMS_PER_PAGE;
+	}
+	
+	public int getSentPMsPerPage() {
+		return SENT_PMS_PER_PAGE;
 	}
 
 	public static ConfigManager getInstance() {
