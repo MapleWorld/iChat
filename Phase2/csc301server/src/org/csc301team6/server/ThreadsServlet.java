@@ -104,17 +104,45 @@ public class ThreadsServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		Pattern newThreadPattern = Pattern.compile("^\\/threads\\/new$");
 		Pattern replyThreadPattern = Pattern.compile("^\\/threads\\/reply$");
-		Matcher newThreadMatcher = newThreadPattern.matcher(request
-				.getRequestURI());
-		Matcher replyThreadMatcher = replyThreadPattern.matcher(request
-				.getRequestURI());
+		Pattern editThreadPattern = Pattern.compile("^\\/threads\\/edit\\/(\\d+)$");
+		
+		Matcher newThreadMatcher = newThreadPattern.matcher(request.getRequestURI());
+		Matcher replyThreadMatcher = replyThreadPattern.matcher(request.getRequestURI());
+		Matcher editThreadMatcher = editThreadPattern.matcher(request.getRequestURI());
+		
 		JSONObject jResp;
-
+		long param;
+		
 		//Try to match the request URI to a pre-defined pattern
 		if (newThreadMatcher.find()) {
 			doNewThread(request, response);
 		} else if (replyThreadMatcher.find()) {
 			doReplyThread(request, response);
+		} else if (editThreadMatcher.find()) {
+			try {
+				param = Long.parseLong(editThreadMatcher.group(1));
+			} catch (NumberFormatException ne) {
+				// Unable to parse thread_id/page_num params
+				ne.printStackTrace();
+				jResp = new JSONObject();
+				jResp.put("success", false);
+				jResp.put("message", "Error parsing input parameters");
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().println(jResp.toString());
+				return;
+			} 
+			
+			try {
+				doEditThread(request, response, param);
+			} catch (UnauthorizedException ue) {
+				jResp = new JSONObject();
+				jResp.put("success", false);
+				jResp.put("message", "Unauthorized");
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				response.getWriter().println(jResp.toString());
+				return;
+			}
+
 		} else {
 			//Since the request did not match any pattern, it is invalid
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -124,6 +152,84 @@ public class ThreadsServlet extends HttpServlet {
 		}
 	}
 
+	private void doEditThread(HttpServletRequest request, 
+								HttpServletResponse response,
+								long thread_id) throws IOException, UnauthorizedException {
+		
+		String sessionID;
+		ConfigManager mgr = ConfigManager.getInstance();
+		String line;
+		String jsonInput = "";
+		JSONObject jo;
+		BufferedReader br = request.getReader();
+		long[] topics;
+		JSONObject jResp;
+		JSONArray jTopics;
+		String newBody;
+		
+		response.setContentType("application/json");
+
+		sessionID = request.getHeader("SESSIONID");
+		
+		jResp = new JSONObject();
+
+		if (sessionID == null) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			jResp.put("success", false);
+			jResp.put("message", "No session token provided");
+		} else {
+			while ((line = br.readLine()) != null) {
+				jsonInput += line;
+			}
+
+			try {
+				jo = new JSONObject(jsonInput);
+				jTopics = jo.optJSONArray("topic_ids");
+				newBody = jo.optString("body");
+				
+				if(jTopics != null) {
+					if (jTopics.length() > 0) {
+	
+						topics = new long[jTopics.length()];
+	
+						for (int idx = 0; idx < jTopics.length(); idx++) {
+							topics[idx] = jTopics.getLong(idx);
+						}
+					} else {
+						topics = new long[0];
+					}
+	
+					ThreadsDTO.editThreadTopics(thread_id, topics, sessionID);
+				}
+				
+				if(newBody != null && !newBody.equals("")) {
+					ThreadsDTO.editThreadBody(thread_id, newBody, sessionID);
+				}
+				
+				if(newBody == null && jTopics == null) {
+					jResp.put("message", "No changes made");
+				} else {
+					jResp.put("message", "Thread edited successfully");
+				}
+				response.setStatus(HttpServletResponse.SC_OK);
+				jResp.put("success", true);
+
+
+			} catch (JSONException e) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				jResp.put("success", false);
+				jResp.put("message", "Error parsing request");
+			} catch (UnauthorizedException ue) {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				jResp.put("success", false);
+				jResp.put("message", ue.getMessage());
+			}
+		}
+		
+		response.getWriter().println(jResp.toString());
+
+	}
+	
 	private void doReplyThread(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		ConfigManager mgr = ConfigManager.getInstance();

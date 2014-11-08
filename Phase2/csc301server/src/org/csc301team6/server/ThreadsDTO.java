@@ -1,6 +1,8 @@
 package org.csc301team6.server;
 
 import java.sql.*;
+
+import org.eclipse.jetty.server.UserIdentity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -121,7 +123,205 @@ public class ThreadsDTO {
 
 		return thread_id;
 	}
+	
+	public static void editThreadTopics(long thread_id, long[] topics, String sessionID) throws UnauthorizedException {
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		ResultSet rs;
+		CSC301User user;
+		long userid;
+		
+		try {
+			userid = SessionDTO.getUserIDFromSessionID(sessionID);
+			
+			user = UserDTO.fetchUserByID(userid);
+			
+			if(user == null || user.getBanned()) {
+				throw new UnauthorizedException("Unauthorized");
+			}
+			
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
 
+			ps = conn.prepareStatement("select * from thread where id = ? and user_id = ?");
+			ps.setLong(1, thread_id);
+			ps.setLong(2, userid);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()){
+				setThreadTopics(thread_id, topics);
+			} else {
+				throw new UnauthorizedException("Unauthorized");
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void editThreadBody(long thread_id, String newBody, String sessionID) throws UnauthorizedException {
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		ResultSet rs;
+		CSC301User user;
+		long userid;
+		
+		try {
+			userid = SessionDTO.getUserIDFromSessionID(sessionID);
+			
+			user = UserDTO.fetchUserByID(userid);
+			
+			if(user == null || user.getBanned()) {
+				throw new UnauthorizedException("Unauthorized");
+			}
+			
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+
+			ps = conn.prepareStatement("select * from thread where id = ? and user_id = ?");
+			ps.setLong(1, thread_id);
+			ps.setLong(2, userid);
+			
+			rs = ps.executeQuery();
+			
+			if(rs.next()){
+				setThreadBody(thread_id, newBody);
+			} else {
+				throw new UnauthorizedException("Unauthorized");
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static void setThreadBody(long thread_id, String body){
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		
+		try {
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+			conn.setAutoCommit(false);
+
+			ps = conn.prepareStatement("update thread set body = ? where id = ?");
+			ps.setString(1, body);
+			ps.setLong(2, thread_id);
+			
+			ps.executeUpdate();
+			ps.close();
+			
+			ps = conn.prepareStatement("update thread set updated_at = NOW() where id = ?");
+			ps.setLong(1, thread_id);
+			
+			ps.executeUpdate();
+			ps.close();
+			
+			conn.commit();
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+			try {
+				conn.close();
+			} catch (SQLException se2) {
+				se2.printStackTrace();
+			}
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static void setThreadTopics(long thread_id, long[] topics) {
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		String topics_values = "";
+		
+		try {
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+			conn.setAutoCommit(false);
+
+			if (topics.length > 0) {
+				for (int idx = 0; idx < topics.length; idx++) {
+					topics_values += ("(?, ?)");
+					if (idx + 1 < topics.length) {
+						topics_values += ", ";
+					} else {
+						topics_values += " ";
+					}
+				}
+				
+				ps = conn.prepareStatement("delete from thread_topics where thread_id = ?");
+				ps.setLong(1, thread_id);
+				ps.executeUpdate();
+				ps.close();
+
+				ps = conn.prepareStatement("insert into thread_topics (thread_id, topic_id) values "
+								+ topics_values);
+
+				for (int idx = 0; idx < topics.length * 2; idx += 2) {
+					ps.setLong(idx + 1, thread_id);
+					ps.setLong(idx + 2, topics[idx / 2]);
+				}
+
+				ps.executeUpdate();
+
+				ps.close();
+				
+				ps = conn.prepareStatement("update thread set updated_at = NOW() where id = ?");
+				ps.setLong(1, thread_id);
+				ps.executeUpdate();
+				ps.close();
+
+				// Get rid of topic associations where provided topic was
+				// from the wrong category.
+
+				ps = conn.prepareStatement("delete tt from thread_topics tt "
+						+ " inner join topic top on tt.topic_id = top.id "
+						+ " inner join thread tr on tt.thread_id = tr.id "
+						+ " where top.cat_id <> tr.cat_id ");
+				ps.executeUpdate();
+				
+				conn.commit();
+			}
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+			try {
+				conn.close();
+			} catch (SQLException se2) {
+				se2.printStackTrace();
+			}
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	//Return thread heading, and one page worth of replies
 	//Includes original body if it's the first page.
 	public static String getThreadPageAsJSONString(long thread_id, long page) {

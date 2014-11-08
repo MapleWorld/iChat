@@ -406,7 +406,7 @@ NOTES:
 
 	- Optionally edit the body of an existing thread
 	- Optionally change topics of thread
-	- Must be a POST`
+	- Must be a POST
 	- Must have SESSIONID
 	- SESSIONID -> user must match original author
 
