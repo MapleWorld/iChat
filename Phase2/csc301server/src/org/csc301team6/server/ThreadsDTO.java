@@ -741,4 +741,71 @@ public class ThreadsDTO {
 		return jResp == null ? null : jResp.toString();
 	}
 	
+	public static long deleteThread(String sessionID, long thread_id)
+			throws UnauthorizedException {
+
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		ResultSet rs;
+		int result;
+		long userid;
+		CSC301User user;
+		long deleted;
+
+		try {
+			userid = SessionDTO.getUserIDFromSessionID(sessionID);
+			user = UserDTO.fetchUserByID(userid);
+			if (!user.isAdmin()) {
+				throw new UnauthorizedException(
+						"User is not admin and cannot delete thread.");
+			}
+
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+
+			ps = conn.prepareStatement(
+					"delete t from thread where t.id = ?");
+			ps.setLong(1, thread_id);
+
+			result = ps.executeUpdate();
+
+
+			if (result == 1) {
+				deleted = 1;
+			} else {
+				deleted = -1;
+			}
+			ps.close();
+			ps = conn.prepareStatement("select id from reply where reply.thread_id = ?");
+			ps.setLong(1, thread_id);
+			rs = ps.executeQuery();
+			while(rs.next()){
+				deleteReply(sessionID, rs.getLong("id"));
+			}
+
+		} catch (UnauthorizedException e) {
+			//Provided session ID was not valid
+			e.printStackTrace();
+			throw e;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			if (se.getSQLState().equals("23000")) {
+				// This is likely a foreign key integrity violation due to
+				// an invalid thread_id provided
+				throw new UnauthorizedException("Invalid thread ID");
+			} else {
+				throw new UnauthorizedException("An error has occurred");
+			}
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return deleted;
+	}
+	
+	
 }

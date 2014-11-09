@@ -101,12 +101,13 @@ public class ThreadsServlet extends HttpServlet {
 		Pattern replyThreadPattern = Pattern.compile("^\\/threads\\/reply$");
 		Pattern editThreadPattern = Pattern.compile("^\\/threads\\/edit\\/(\\d+)$");
 		Pattern editReplyPattern = Pattern.compile("^\\/threads\\/reply\\/edit\\/(\\d+)$");
+		Pattern deleteThreadPattern = Pattern.compile("^\\/threads\\/delete/(\\d+)$");
 		
 		Matcher newThreadMatcher = newThreadPattern.matcher(request.getRequestURI());
 		Matcher replyThreadMatcher = replyThreadPattern.matcher(request.getRequestURI());
 		Matcher editThreadMatcher = editThreadPattern.matcher(request.getRequestURI());
 		Matcher editReplyMatcher = editReplyPattern.matcher(request.getRequestURI());
-		
+		Matcher deleteThreadMatcher = deleteThreadPattern.matcher(request.getRequestURI());
 		JSONObject jResp;
 		long param;
 		
@@ -164,6 +165,32 @@ public class ThreadsServlet extends HttpServlet {
 				response.getWriter().println(jResp.toString());
 				return;
 			}
+		}else if(deleteThreadMatcher.find()){
+			try {
+				param = Long.parseLong(deleteThreadMatcher.group(1));
+			} catch (NumberFormatException ne) {
+				// Unable to parse thread_id/page_num params
+				ne.printStackTrace();
+				jResp = new JSONObject();
+				jResp.put("success", false);
+				jResp.put("message", "Error parsing input parameters");
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().println(jResp.toString());
+				return;
+			} 
+			
+			try {
+				doDeleteThread(request, response, param);
+			} catch (UnauthorizedException ue) {
+				jResp = new JSONObject();
+				jResp.put("success", false);
+				jResp.put("message", "Unauthorized");
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				response.getWriter().println(jResp.toString());
+				return;
+			}
+			
+			
 		} else {
 			//Since the request did not match any pattern, it is invalid
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -515,4 +542,64 @@ public class ThreadsServlet extends HttpServlet {
 
 		return response;
 	}
+	
+	private void doDeleteThread(HttpServletRequest request,
+			HttpServletResponse response, long thread_id) throws IOException, UnauthorizedException{
+		String line;
+		String jsonInput = "";
+		JSONObject jo;
+		BufferedReader br = request.getReader();
+		String sessionID;
+		JSONObject jResp;
+
+		jResp = new JSONObject();
+
+		response.setContentType("application/json");
+
+		sessionID = request.getHeader("SESSIONID");
+
+		if (sessionID == null) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			jResp.put("success", false);
+			jResp.put("message", "No session token provided");
+		} else {
+			while ((line = br.readLine()) != null) {
+				jsonInput += line;
+			}
+
+			try {
+				jo = new JSONObject(jsonInput);
+				thread_id = jo.getLong("thread_id");
+				long success_deleted = 0;
+
+				success_deleted = ThreadsDTO.deleteThread(sessionID, thread_id);
+				
+
+				if (success_deleted == 0) {
+						response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+						jResp.put("success", false);
+						jResp.put("message", "Error deleting thread");
+				} else {
+						response.setStatus(HttpServletResponse.SC_OK);
+						jResp.put("success", true);
+						jResp.put("message", "Thread deleted");
+				}
+			
+			} catch (JSONException e) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				jResp.put("success", false);
+				jResp.put("message", "Error parsing request");
+			} catch (UnauthorizedException ue) {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				jResp.put("success", false);
+				jResp.put("message", ue.getMessage());
+			}
+		}
+
+		response.getWriter().println(jResp.toString());
+	}
+	
+	
+	
+	
 }

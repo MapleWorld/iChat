@@ -87,9 +87,6 @@ public class CategoryDTO {
 
 			conn = DriverManager.getConnection(mgr.getJDBCURL());
 
-			// We have multiple inserts taking place that must be atomic
-			conn.setAutoCommit(false);
-
 			ps = conn.prepareStatement(
 					"insert into category (name) " + "values (?)",
 					Statement.RETURN_GENERATED_KEYS);
@@ -114,14 +111,6 @@ public class CategoryDTO {
 		} catch (SQLException se) {
 			//Error executing one of the updates
 			se.printStackTrace();
-			
-			try {
-				// Revert what we did if there is a failure
-				conn.rollback();
-			} catch (SQLException se2) {
-				se.printStackTrace();
-			}
-			
 			throw new UnauthorizedException("An error has occurred");
 		} finally {
 			try {
