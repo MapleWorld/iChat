@@ -69,7 +69,23 @@ public class DAO {
 				"/threads/new", threadPOST.toString(), sessionID).get();
 		return result;
 	}
-
+	
+	/**
+	 * Edit an existing thread with the given category and topic id, and thread name
+	 * and body.
+	 */
+	public JSONObject editThread(String categoryID, String topicID,
+			String threadName, String threadBody, String sessionID)
+			throws Exception {
+		Server server = new Server();
+		JSONObject threadPOST = new JSONObject("{\"category\":\"" + categoryID
+				+ "\",\"title\":\"" + threadName + "\",\"body\":\""
+				+ threadBody + "\",\"topic_ids\":[" + topicID + "]}");
+		JSONObject result = server.new sendPOSTRequest().execute(
+				"/threads/edit", threadPOST.toString(), sessionID).get();
+		return result;
+	}
+	
 	/**
 	 * Given an user's session ID, log out the user.
 	 */
