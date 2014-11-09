@@ -16,7 +16,11 @@ NOTES:
 
 	Example of successful login response:
 		HTTP 200 OK
-		{"success":true, "SESSIONID":"ABCDEF123456"}
+		{"success":true, "SESSIONID":"ABCDEF123456", "admin":false}
+
+	Example of admin login:
+		HTTP 200 OK
+		{"success":true, "SESSIONID":ABCDEF123456", "admin":true}
 
 	Unsuccessful login:
 		HTTP 401 unauthorized
