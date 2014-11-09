@@ -75,7 +75,6 @@ public class CategoryDTO {
 		ResultSet rs;
 		long userid;
 		CSC301User user;
-		String topics_values = "";
 
 		try {
 			userid = SessionDTO.getUserIDFromSessionID(sessionID);

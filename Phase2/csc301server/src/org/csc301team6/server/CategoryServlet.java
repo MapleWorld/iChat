@@ -35,19 +35,8 @@ public class CategoryServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		Pattern newTopicPattern = Pattern.compile("^\\/categories\\/create$");
-		Matcher newThreadMatcher = newTopicPattern.matcher(request
-				.getRequestURI());
-		JSONObject jResp;
 
-		if (newThreadMatcher.find()) {
 			doNewCategory(request, response);
-		} else {
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			jResp = new JSONObject();
-			jResp.put("message", "Illegal request");
-			response.getWriter().println(jResp.toString());
-		}
 	}
 
 	
