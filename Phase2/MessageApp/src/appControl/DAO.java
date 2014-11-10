@@ -5,6 +5,8 @@ import java.util.concurrent.ExecutionException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 public class DAO {
 
 	/**
@@ -106,6 +108,26 @@ public class DAO {
 		JSONObject result = server.new sendPOSTRequest().execute(
 				"/threads/edit", threadPOST.toString(), sessionID).get();
 		return result;
+	}
+	
+	public boolean editReply(String newBody, long replyID, String sessionID) {
+		JSONObject replyReq = new JSONObject();
+		JSONObject result;
+		Server server = new Server();
+		boolean success;
+		
+		try {
+			replyReq.put("body", newBody);
+			result = server.new sendPOSTRequest().execute("/threads/reply/edit/"+replyID,
+														replyReq.toString(),
+														sessionID).get();
+			success = result.getBoolean("success");
+		} catch (Exception e) {
+			success = false;
+			Log.e("com.example.messageapp", "exception", e);
+		}
+		
+		return success;
 	}
 	
 	/**

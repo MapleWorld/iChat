@@ -14,18 +14,21 @@ public class CSC301Thread {
 	private String title;
 	private String body;
 	private ArrayList<CSC301Reply> replies;
+	private long threadID;
 	
 	public CSC301Thread (String setUsername, 
 						long setUserid, 
 						String setTimestamp,
 						String setTitle,
-						String setBody) {
+						String setBody,
+						long setThreadID) {
 		
 		username = setUsername;
 		userid = setUserid;
 		timestamp = setTimestamp;
 		title = setTitle;
 		body = setBody;
+		threadID = setThreadID;
 		
 		replies = new ArrayList<CSC301Reply>();
 	}
@@ -52,7 +55,8 @@ public class CSC301Thread {
 				reply = new CSC301Reply(jReply.getString("username"), 
 										jReply.getLong("userid"),
 										jReply.getString("timestamp"),
-										jReply.getString("body"));
+										jReply.getString("body"),
+										jReply.getLong("id"));
 				
 				replies.add(reply);
 				
@@ -80,6 +84,10 @@ public class CSC301Thread {
 
 	public String getBody() {
 		return body;
+	}
+	
+	public long getThreadID() {
+		return threadID;
 	}
 
 	public void addReply(CSC301Reply reply) {

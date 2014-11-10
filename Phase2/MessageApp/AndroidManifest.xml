@@ -76,6 +76,10 @@
             android:name=".BanUserActivity"
             android:label="@string/title_activity_ban_user" >
         </activity>
+        <activity
+            android:name=".EditReplyActivity"
+            android:label="@string/title_activity_edit_reply" >
+        </activity>
     </application>
 
 </manifest>
