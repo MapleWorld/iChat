@@ -101,7 +101,6 @@ public class ThreadsServlet extends HttpServlet {
 		Pattern replyThreadPattern = Pattern.compile("^\\/threads\\/reply$");
 		Pattern editThreadPattern = Pattern.compile("^\\/threads\\/edit\\/(\\d+)$");
 		Pattern editReplyPattern = Pattern.compile("^\\/threads\\/reply\\/edit\\/(\\d+)$");
-        HEAD
 		Pattern deleteThreadPattern = Pattern.compile("^\\/threads\\/delete/(\\d+)$");
 
 		Pattern deleteReplyPattern=Pattern.compile("^\\/threads\\/reply\\/delete\\/(\\d+)$");
@@ -180,6 +179,10 @@ public class ThreadsServlet extends HttpServlet {
 				param = Long.parseLong(deleteThreadMatcher.group(1));
 			} catch (NumberFormatException ne) {
 				// Unable to parse thread_id/page_num params
+				ne.printStackTrace();
+ 				jResp = new JSONObject();
+ 				jResp.put("success", false);
+			}
 
 		}else if (deleteReplyMatcher.find()){
 			try {
@@ -196,9 +199,6 @@ public class ThreadsServlet extends HttpServlet {
 			} 
 			
 			try {
-
-				doDeleteThread(request, response, param);
-
 				doDeleteReply(request, response, param);
 
 			} catch (UnauthorizedException ue) {
@@ -213,8 +213,6 @@ public class ThreadsServlet extends HttpServlet {
 			
 
 		} else {
-
-		}else {
 
 			//Since the request did not match any pattern, it is invalid
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -567,10 +565,6 @@ public class ThreadsServlet extends HttpServlet {
 		return response;
 	}
 	
-
-	private void doDeleteThread(HttpServletRequest request,
-			HttpServletResponse response, long thread_id) throws IOException, UnauthorizedException{
-
 	private void doDeleteReply(HttpServletRequest request,
 			HttpServletResponse response, long reply_id) throws IOException, UnauthorizedException{
 
@@ -598,11 +592,6 @@ public class ThreadsServlet extends HttpServlet {
 
 			try {
 				jo = new JSONObject(jsonInput);
-
-				thread_id = jo.getLong("thread_id");
-				long success_deleted = 0;
-
-				success_deleted = ThreadsDTO.deleteThread(sessionID, thread_id);
 
 				reply_id = jo.getLong("reply_id");
 				long success_deleted = 0;
