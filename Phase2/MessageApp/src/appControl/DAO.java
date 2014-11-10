@@ -55,6 +55,28 @@ public class DAO {
 	}
 
 	/**
+	 * Ban a user
+	 * @param userID
+	 * @return
+	 */
+	public boolean banUser(long userID, String sessionID) {
+		Server server = new Server();
+		JSONObject result;
+		boolean success = false;
+		
+		try {
+			result = server.new sendPOSTRequest().execute("/users/ban/" + userID,
+															"",
+															sessionID).get();
+			success = result.getBoolean("success");
+		} catch (Exception e){
+			success = false;
+		}
+		
+		return success;
+	}
+	
+	/**
 	 * Create a new thread with the given category and topic id, and thread name
 	 * and body.
 	 */
@@ -69,7 +91,23 @@ public class DAO {
 				"/threads/new", threadPOST.toString(), sessionID).get();
 		return result;
 	}
-
+	
+	/**
+	 * Edit an existing thread with the given category and topic id, and thread name
+	 * and body.
+	 */
+	public JSONObject editThread(String categoryID, String topicID,
+			String threadName, String threadBody, String sessionID)
+			throws Exception {
+		Server server = new Server();
+		JSONObject threadPOST = new JSONObject("{\"category\":\"" + categoryID
+				+ "\",\"title\":\"" + threadName + "\",\"body\":\""
+				+ threadBody + "\",\"topic_ids\":[" + topicID + "]}");
+		JSONObject result = server.new sendPOSTRequest().execute(
+				"/threads/edit", threadPOST.toString(), sessionID).get();
+		return result;
+	}
+	
 	/**
 	 * Given an user's session ID, log out the user.
 	 */
@@ -90,4 +128,5 @@ public class DAO {
 
 		return result;
 	}
+	
 }

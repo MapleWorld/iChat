@@ -50,6 +50,7 @@ public class LoginServlet extends HttpServlet {
 		String password;
 		String sessionID;
 		JSONObject jResp;
+		CSC301User user;
 
 		jResp = new JSONObject();
 
@@ -88,10 +89,28 @@ public class LoginServlet extends HttpServlet {
 			jResp.put("message", "Authentication failure");
 		} else {
 			//User has been granted a session
-			response.setStatus(HttpServletResponse.SC_OK);
-			jResp.put("success", true);
-			jResp.put("SESSIONID", sessionID);
-			jResp.put("message", "Authenticated");
+			try {
+				user = UserDTO.fetchUserByID(SessionDTO.getUserIDFromSessionID(sessionID));
+				
+				if(user != null && user.isAdmin()) {
+					jResp.put("admin", true);
+				} else {
+					jResp.put("admin", false);
+				}
+				
+				response.setStatus(HttpServletResponse.SC_OK);
+				jResp.put("success", true);
+				jResp.put("SESSIONID", sessionID);
+				jResp.put("message", "Authenticated");
+				jResp.put("userid", user.getID());
+				
+			} catch (UnauthorizedException e) {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				jResp.put("success", false);
+				jResp.put("SESSIONID", JSONObject.NULL);
+				jResp.put("message", "Authentication failure");
+			}
+
 		}
 
 		response.getWriter().println(jResp.toString());

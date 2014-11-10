@@ -40,7 +40,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="43dp"
         android:onClick="editThread"
-        android:text="@string/edit_button" />
+        android:text="Edit thread" />
 
     <EditText
         android:id="@+id/thread_topic_name"
