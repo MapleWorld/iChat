@@ -103,6 +103,10 @@ public class Session {
 		return user;
 	}
 
+	public long getUserID() {
+		return pref.getLong("userID", 0);
+	}
+	
 	/**
 	 * Clear session details
 	 * */
