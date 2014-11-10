@@ -103,6 +103,14 @@ public class Session {
 		return user;
 	}
 
+	public String getSessionID() {
+		return pref.getString(KEY_SESSION, "");
+	}
+	
+	public long getUserID() {
+		return pref.getLong(KEY_USERID, 0);
+	}
+	
 	/**
 	 * Clear session details
 	 * */

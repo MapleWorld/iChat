@@ -66,4 +66,61 @@ public class CategoryDTO {
 
 		return category_obj.toString();
 	}
+	
+	public static long createCategory(String sessionID, String name) throws UnauthorizedException {
+		long category_id = -1;
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		ResultSet rs;
+		long userid;
+		CSC301User user;
+
+		try {
+			userid = SessionDTO.getUserIDFromSessionID(sessionID);
+			user = UserDTO.fetchUserByID(userid);
+			
+			if (!user.isAdmin()) {
+				throw new UnauthorizedException(
+						"User is not Admin and cannot create category.");
+			}
+
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+
+			ps = conn.prepareStatement(
+					"insert into category (name) " + "values (?)",
+					Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, name);
+
+			ps.executeUpdate();
+
+			rs = ps.getGeneratedKeys();
+
+			if (rs.next()) {
+				category_id = rs.getInt(1);
+			} else {
+				category_id = -1;
+			}
+
+			rs.close();
+			ps.close();
+		} catch (UnauthorizedException e) {
+			//Provided session ID is not valid
+			e.printStackTrace();
+			throw e;
+		} catch (SQLException se) {
+			//Error executing one of the updates
+			se.printStackTrace();
+			throw new UnauthorizedException("An error has occurred");
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return category_id;
+	}
 }

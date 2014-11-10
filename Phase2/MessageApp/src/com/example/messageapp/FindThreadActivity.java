@@ -29,25 +29,10 @@ public class FindThreadActivity extends Activity {
 		EditText idText = (EditText) findViewById(R.id.input_id);
 		String inputID = idText.getText().toString();
 
-		// Perform a POST request to get a list of threads for the given the
-		// thread ID
-		DAO login = new DAO();
-		JSONObject result = login.getServerResponseContent("/threads/view/"
-				+ inputID + "/1");
+		Intent intent = new Intent(this, ViewThreadActivity.class);
+		intent.putExtra("threadID", inputID);
+		startActivity(intent);
 
-		if (result != null) {
-			Intent intent = new Intent(this, ViewThreadActivity.class);
-			intent.putExtra("thread", result.toString());
-			startActivity(intent);
-		} else {
-			// Clear the form and display an error notification if the thread
-			// cannot be found
-			idText.setText("");
-			Toast msg = Toast.makeText(this,
-					"Couldn't Find Thread With Given Thread ID",
-					Toast.LENGTH_LONG);
-			msg.show();
-		}
 
 	}
 

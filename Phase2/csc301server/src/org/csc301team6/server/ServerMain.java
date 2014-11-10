@@ -45,7 +45,7 @@ public class ServerMain extends AbstractHandler {
 		server.setHandler(context);
 		
 		//These are the mappings which assign various servlets to URL paths
-		context.addServlet(new ServletHolder(new CategoryServlet()),"/categories");
+		context.addServlet(new ServletHolder(new CategoryServlet()),"/categories/*");
 		context.addServlet(new ServletHolder(new RegisterServlet()),"/register");
 		context.addServlet(new ServletHolder(new LoginServlet()), "/login");
 		context.addServlet(new ServletHolder(new LogoutServlet()), "/logout");
