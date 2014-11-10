@@ -419,6 +419,7 @@ public class ThreadsDTO {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
+				jThread.put("id", rs.getLong("t.id"));
 				jThread.put("title", rs.getString("title"));
 				jThread.put("username", rs.getString("username"));
 				jThread.put("userid", rs.getString("user_id"));
@@ -465,10 +466,11 @@ public class ThreadsDTO {
 
 				while (rs.next()) {
 					jReply = new JSONObject();
+					jReply.put("id", rs.getLong("r.id"));
 					jReply.put("username", rs.getString("username"));
 					jReply.put("userid", rs.getString("user_id"));
 					jReply.put("body", rs.getString("body"));
-					jReply.put("timestamp", rs.getTimestamp("created_at")
+					jReply.put("timestamp", rs.getTimestamp("updated_at")
 							.toString());
 					jReplies.put(jReply);
 				}

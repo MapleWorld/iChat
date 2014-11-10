@@ -47,5 +47,8 @@
     <string name="title_activity_view_topic_list">ViewTopicListActivity</string>
     <string name="title_activity_view_topic_list_by_category">ViewTopicListByCategoryActivity</string>
     <string name="title_activity_ban_user">BanUserActivity</string>
+    <string name="title_activity_edit_reply">EditReplyActivity</string>
+    <string name="editReplyBodyTag">something</string>
+    <string name="editReplyIDTag">something</string>
 
 </resources>

@@ -310,7 +310,9 @@ NOTES:
 	Example response for first page:
 		HTTP 200 OK
 
-		{"pages":5,
+		{
+		"id":124,
+		"pages":5,
 		"this_page":1,
 		"title":"This is a title", 
 		"username":"user1",
@@ -322,16 +324,18 @@ NOTES:
 			{"name":"topic2", "id":64}
 			],
 		"replies":[
-			{"username":"user_r1", "userid":20, "body":"body of a reply", "timestamp":"2014-01-02 00:01:01"},
-			{"username":"user_r2", "userid":50, "body":"body of a reply", "timestamp":"2014-01-03 00:01:01"},
-			{"username":"user_r1", "userid":20, "body":"body of a reply", "timestamp":"2014-01-03 00:13:01"}
+			{"id":1203, "username":"user_r1", "userid":20, "body":"body of a reply", "timestamp":"2014-01-02 00:01:01"},
+			{"id":1334, "username":"user_r2", "userid":50, "body":"body of a reply", "timestamp":"2014-01-03 00:01:01"},
+			{"id":1556, "username":"user_r1", "userid":20, "body":"body of a reply", "timestamp":"2014-01-03 00:13:01"}
 			]
 		}
 
 
 	Example response for a later page:
 
-		{"pages":5,
+		{
+		"id":124,
+		"pages":5,
 		"this_page":3,
 		"title":"This is a title", 
 		"username":null,
@@ -343,9 +347,9 @@ NOTES:
 			{"name":"topic2", "id":64}
 			],
 		"replies": [
-			{"username":"user_r1", "userid":20, "body":"body of a reply", "timestamp":"2014-01-02 00:01:01"},
-			{"username":"user_r2", "userid":50, "body":"body of a reply", "timestamp":"2014-01-03 00:01:01"},
-			{"username":"user_r1", "userid":20, "body":"body of a reply", "timestamp":"2014-01-03 00:13:01"}
+			{"id":1675, "username":"user_r1", "userid":20, "body":"body of a reply", "timestamp":"2014-01-02 00:01:01"},
+			{"id":4423, "username":"user_r2", "userid":50, "body":"body of a reply", "timestamp":"2014-01-03 00:01:01"},
+			{"id":6778, "username":"user_r1", "userid":20, "body":"body of a reply", "timestamp":"2014-01-03 00:13:01"}
 			]
 		}
 
