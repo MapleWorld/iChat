@@ -421,6 +421,7 @@ public class ThreadsDTO {
 			if (rs.next()) {
 				jThread.put("title", rs.getString("title"));
 				jThread.put("username", rs.getString("username"));
+				jThread.put("userid", rs.getString("user_id"));
 				jThread.put("body", rs.getString("body"));
 				jThread.put("timestamp", rs.getTimestamp("created_at")
 						.toString());
@@ -465,6 +466,7 @@ public class ThreadsDTO {
 				while (rs.next()) {
 					jReply = new JSONObject();
 					jReply.put("username", rs.getString("username"));
+					jReply.put("userid", rs.getString("user_id"));
 					jReply.put("body", rs.getString("body"));
 					jReply.put("timestamp", rs.getTimestamp("created_at")
 							.toString());
