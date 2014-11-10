@@ -30,7 +30,7 @@ public class EditThreadActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+/*
 	// Create a new thread
 	public void editThread(View V) throws Exception {
 		EditText categoryText = (EditText) findViewById(R.id.thread_category_name);
@@ -105,5 +105,5 @@ public class EditThreadActivity extends Activity {
 			msg.show();
 		}
 	}
-
+*/
 }

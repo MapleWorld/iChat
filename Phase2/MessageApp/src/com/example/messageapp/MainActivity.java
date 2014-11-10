@@ -7,7 +7,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
+import android.widget.LinearLayout;
 import appControl.DAO;
 import appControl.Session;
 
@@ -20,9 +22,31 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+	
 
 		// Session class instance
 		session = new Session(getApplicationContext());
+		
+		//If this is an admin user, load the admin controls
+		if(session.isAdmin()) {
+			LinearLayout layout = (LinearLayout) findViewById(R.id.admin_buttons);
+			
+			Button banUserButton = new Button(this);
+			
+			banUserButton.setText("Ban user");
+			banUserButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(v.getContext(), BanUserActivity.class);
+					startActivity(intent);
+				}
+			});
+			
+			layout.addView(banUserButton);
+			
+			//setContentView(layout);
+			
+		}
 	}
 
 	@Override

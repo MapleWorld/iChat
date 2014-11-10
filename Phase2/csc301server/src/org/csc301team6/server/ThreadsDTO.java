@@ -421,6 +421,7 @@ public class ThreadsDTO {
 			if (rs.next()) {
 				jThread.put("title", rs.getString("title"));
 				jThread.put("username", rs.getString("username"));
+				jThread.put("userid", rs.getString("user_id"));
 				jThread.put("body", rs.getString("body"));
 				jThread.put("timestamp", rs.getTimestamp("created_at")
 						.toString());
@@ -465,6 +466,7 @@ public class ThreadsDTO {
 				while (rs.next()) {
 					jReply = new JSONObject();
 					jReply.put("username", rs.getString("username"));
+					jReply.put("userid", rs.getString("user_id"));
 					jReply.put("body", rs.getString("body"));
 					jReply.put("timestamp", rs.getTimestamp("created_at")
 							.toString());
@@ -739,6 +741,64 @@ public class ThreadsDTO {
 		}
 
 		return jResp == null ? null : jResp.toString();
+	}		
+		
+	public static long deleteReply(String sessionID, long reply_id)
+	                 throws UnauthorizedException {
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		ResultSet rs;
+		int result;
+		long userid;
+		CSC301User user;
+		long deleted;
+		
+		try {
+			userid = SessionDTO.getUserIDFromSessionID(sessionID);
+			user=UserDTO.fetchUserByID(userid);
+			if(!user.isAdmin()){
+				throw new UnauthorizedException(
+						        "User is not admin and cannot delete reply.");
+			}
+			
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+			
+			ps  = conn.prepareStatement(
+					           "delete r from reply where r.id = ?");
+			
+			ps.setLong(1, reply_id);
+			
+			result = ps.executeUpdate();
+			
+			if (result ==1){
+				deleted=1;
+			}else {
+				deleted=-1;
+			}
+			
+			ps.close();
+			
+		}catch(UnauthorizedException e){
+			e.printStackTrace();
+			throw e;
+		}catch (SQLException se){
+			se.printStackTrace();
+			if (se.getSQLState().equals("23000")){
+				throw new UnauthorizedException("Incalid reply ID");
+			}else {
+				throw new UnauthorizedException("An error has occured");
+			}
+		}finally{
+			try{
+				if (conn!=null)
+					conn.close();
+				} catch (SQLException e){
+					e.printStackTrace();
+				}
+		}
+		return deleted;
+		
 	}
 	
 	public static long deleteThread(String sessionID, long thread_id)
