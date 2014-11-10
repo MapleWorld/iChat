@@ -421,6 +421,7 @@ public class ThreadsDTO {
 			if (rs.next()) {
 				jThread.put("title", rs.getString("title"));
 				jThread.put("username", rs.getString("username"));
+				jThread.put("userid", rs.getString("user_id"));
 				jThread.put("body", rs.getString("body"));
 				jThread.put("timestamp", rs.getTimestamp("created_at")
 						.toString());
@@ -465,6 +466,7 @@ public class ThreadsDTO {
 				while (rs.next()) {
 					jReply = new JSONObject();
 					jReply.put("username", rs.getString("username"));
+					jReply.put("userid", rs.getString("user_id"));
 					jReply.put("body", rs.getString("body"));
 					jReply.put("timestamp", rs.getTimestamp("created_at")
 							.toString());
@@ -798,5 +800,72 @@ public class ThreadsDTO {
 		return deleted;
 		
 	}
+	
+	public static long deleteThread(String sessionID, long thread_id)
+			throws UnauthorizedException {
+
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		ResultSet rs;
+		int result;
+		long userid;
+		CSC301User user;
+		long deleted;
+
+		try {
+			userid = SessionDTO.getUserIDFromSessionID(sessionID);
+			user = UserDTO.fetchUserByID(userid);
+			if (!user.isAdmin()) {
+				throw new UnauthorizedException(
+						"User is not admin and cannot delete thread.");
+			}
+
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+
+			ps = conn.prepareStatement(
+					"delete t from thread where t.id = ?");
+			ps.setLong(1, thread_id);
+
+			result = ps.executeUpdate();
+
+
+			if (result == 1) {
+				deleted = 1;
+			} else {
+				deleted = -1;
+			}
+			ps.close();
+			ps = conn.prepareStatement("select id from reply where reply.thread_id = ?");
+			ps.setLong(1, thread_id);
+			rs = ps.executeQuery();
+			while(rs.next()){
+				deleteReply(sessionID, rs.getLong("id"));
+			}
+
+		} catch (UnauthorizedException e) {
+			//Provided session ID was not valid
+			e.printStackTrace();
+			throw e;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			if (se.getSQLState().equals("23000")) {
+				// This is likely a foreign key integrity violation due to
+				// an invalid thread_id provided
+				throw new UnauthorizedException("Invalid thread ID");
+			} else {
+				throw new UnauthorizedException("An error has occurred");
+			}
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return deleted;
+	}
+	
 	
 }

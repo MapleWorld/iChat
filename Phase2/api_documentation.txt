@@ -313,7 +313,8 @@ NOTES:
 		{"pages":5,
 		"this_page":1,
 		"title":"This is a title", 
-		"username":"user1", 
+		"username":"user1",
+		"userid":1, 
 		"body":"Body of original post", 
 		"timestamp":"2014-01-01 00:00:00",
 		"topics": [
@@ -321,9 +322,9 @@ NOTES:
 			{"name":"topic2", "id":64}
 			],
 		"replies":[
-			{"username":"user_r1", "body":"body of a reply", "timestamp":"2014-01-02 00:01:01"},
-			{"username":"user_r2", "body":"body of a reply", "timestamp":"2014-01-03 00:01:01"},
-			{"username":"user_r1", "body":"body of a reply", "timestamp":"2014-01-03 00:13:01"}
+			{"username":"user_r1", "userid":20, "body":"body of a reply", "timestamp":"2014-01-02 00:01:01"},
+			{"username":"user_r2", "userid":50, "body":"body of a reply", "timestamp":"2014-01-03 00:01:01"},
+			{"username":"user_r1", "userid":20, "body":"body of a reply", "timestamp":"2014-01-03 00:13:01"}
 			]
 		}
 
@@ -333,7 +334,8 @@ NOTES:
 		{"pages":5,
 		"this_page":3,
 		"title":"This is a title", 
-		"username":null, 
+		"username":null,
+		"userid":0, 
 		"body":null, 
 		"timestamp":null,
 		"topics": [
@@ -341,9 +343,9 @@ NOTES:
 			{"name":"topic2", "id":64}
 			],
 		"replies": [
-			{"username":"user_r1", "body":"body of a reply", "timestamp":"2014-01-02 00:01:01"},
-			{"username":"user_r2", "body":"body of a reply", "timestamp":"2014-01-03 00:01:01"},
-			{"username":"user_r1", "body":"body of a reply", "timestamp":"2014-01-03 00:13:01"}
+			{"username":"user_r1", "userid":20, "body":"body of a reply", "timestamp":"2014-01-02 00:01:01"},
+			{"username":"user_r2", "userid":50, "body":"body of a reply", "timestamp":"2014-01-03 00:01:01"},
+			{"username":"user_r1", "userid":20, "body":"body of a reply", "timestamp":"2014-01-03 00:13:01"}
 			]
 		}
 
