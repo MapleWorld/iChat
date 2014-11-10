@@ -46,5 +46,6 @@
     <string name="title_activity_view_toic_list">ViewToicListActivity</string>
     <string name="title_activity_view_topic_list">ViewTopicListActivity</string>
     <string name="title_activity_view_topic_list_by_category">ViewTopicListByCategoryActivity</string>
+    <string name="title_activity_ban_user">BanUserActivity</string>
 
 </resources>

@@ -66,4 +66,15 @@
         android:onClick="logoutUser"
         android:text="@string/user_logout" />
 
+    <LinearLayout
+        android:id="@+id/admin_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button5"
+        android:layout_below="@+id/button3"
+        android:layout_marginTop="85dp"
+        android:orientation="vertical" >
+
+    </LinearLayout>
+
 </RelativeLayout>

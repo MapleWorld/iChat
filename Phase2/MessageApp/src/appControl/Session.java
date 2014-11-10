@@ -34,6 +34,8 @@ public class Session {
 
 	// Email address (make variable public to access from outside)
 	public static final String KEY_SESSION = "session";
+	
+	public static final String KEY_ADMIN = "isAdmin";
 
 	// Constructor
 	public Session(Context context) {
@@ -45,7 +47,7 @@ public class Session {
 	/**
 	 * Create login session
 	 * */
-	public void createLoginSession(String name, String sessionID) {
+	public void createLoginSession(String name, String sessionID, boolean isAdmin) {
 		// Storing login value as TRUE
 		editor.putBoolean(IS_LOGIN, true);
 
@@ -54,6 +56,8 @@ public class Session {
 
 		// Storing email in preference
 		editor.putString(KEY_SESSION, sessionID);
+		
+		editor.putBoolean(KEY_ADMIN, isAdmin);
 
 		// commit changes
 		editor.commit();
@@ -115,6 +119,10 @@ public class Session {
 		_context.startActivity(i);
 	}
 
+	public boolean isAdmin() {
+		return pref.getBoolean(KEY_ADMIN, false);
+	}
+	
 	public boolean isLoggedIn() {
 		return pref.getBoolean(IS_LOGIN, false);
 	}

@@ -77,7 +77,7 @@ public class LoginActivity extends Activity {
 
 		if (result.get("success").equals(true)) {
 			Intent intent = new Intent(this, MainActivity.class);
-			session.createLoginSession(userName, result.getString("SESSIONID"));
+			session.createLoginSession(userName, result.getString("SESSIONID"), result.optBoolean("admin"));
 			startActivity(intent);
 		} else {
 			// Clear the form and display a notification if the user failed to login
