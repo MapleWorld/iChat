@@ -32,8 +32,6 @@ public class FindThreadActivity extends Activity {
 		Intent intent = new Intent(this, ViewThreadActivity.class);
 		intent.putExtra("threadID", inputID);
 		startActivity(intent);
-
-
 	}
 
 	public void findThreadByCategoryID(View v) throws Exception {

@@ -7,10 +7,15 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
-public class ViewListThreadActivity extends Activity {
+public class ViewListThreadActivity extends Activity implements
+		OnItemClickListener {
 
 	private ListView listview;
 
@@ -26,10 +31,29 @@ public class ViewListThreadActivity extends Activity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		listview.setOnItemClickListener(this);
 	}
-	
+
+	public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+		ListView allItems = (ListView) findViewById(R.id.threadListView);
+		
+		String itemContent = allItems.getItemAtPosition(position).toString();
+		String[] itemID = itemContent.split(":");
+
+		if (itemID.length > 0) {
+			Intent intent = new Intent(this, ViewThreadActivity.class);
+			intent.putExtra("threadID", itemID[0]);
+			startActivity(intent);
+		} else {
+			Toast msg = Toast.makeText(this, "Failed For Some Reason",
+					Toast.LENGTH_LONG);
+			msg.show();
+		}
+	}
+
 	/**
-	 * Display the list of threads. 
+	 * Display the list of threads.
 	 */
 	public void displayThreadList() throws Exception {
 		Intent intentN = getIntent();
@@ -42,7 +66,7 @@ public class ViewListThreadActivity extends Activity {
 
 		for (int i = 0; i < result.length(); i++) {
 			JSONObject o = result.getJSONObject(i);
-			list.add(o.getString("title"));
+			list.add(o.getString("id") + ":" + o.getString("title"));
 		}
 
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
