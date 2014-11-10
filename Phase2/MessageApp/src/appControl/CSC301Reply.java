@@ -5,12 +5,14 @@ public class CSC301Reply {
 	private long userid;
 	private String timestamp;
 	private String body;
+	private long replyID;
 	
-	public CSC301Reply(String setUsername, long setUserid, String setTimestamp, String setBody) {
+	public CSC301Reply(String setUsername, long setUserid, String setTimestamp, String setBody, long setReplyID) {
 		username  = setUsername;
 		userid    = setUserid;
 		timestamp = setTimestamp;
 		body      = setBody;
+		replyID   = setReplyID;
 	}
 	
 	public String getUsername() {
@@ -27,5 +29,9 @@ public class CSC301Reply {
 	
 	public String getBody() {
 		return body;
+	}
+	
+	public long getReplyID() {
+		return replyID;
 	}
 }

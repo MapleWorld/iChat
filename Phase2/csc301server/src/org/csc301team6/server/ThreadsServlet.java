@@ -201,6 +201,7 @@ public class ThreadsServlet extends HttpServlet {
 				response.getWriter().println(jResp.toString());
 				return;
 			}
+
 		}else if (deleteReplyMatcher.find()){
 			try {
 				param = Long.parseLong(deleteReplyMatcher.group(1));
@@ -227,8 +228,6 @@ public class ThreadsServlet extends HttpServlet {
 				response.getWriter().println(jResp.toString());
 				return;
 			}
-
-		}else {
 
 			//Since the request did not match any pattern, it is invalid
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -582,6 +581,7 @@ public class ThreadsServlet extends HttpServlet {
 	}
 	
 
+
 	private void doDeleteThread(HttpServletRequest request,
 			HttpServletResponse response, long thread_id) throws IOException, UnauthorizedException{
 		String sessionID;
@@ -626,9 +626,6 @@ public class ThreadsServlet extends HttpServlet {
 	}
 	
 
-	
-
-
 	private void doDeleteReply(HttpServletRequest request,
 			HttpServletResponse response, long reply_id) throws IOException, UnauthorizedException{
 
@@ -656,7 +653,6 @@ public class ThreadsServlet extends HttpServlet {
 
 			try {
 				jo = new JSONObject(jsonInput);
-
 
 				reply_id = jo.getLong("reply_id");
 				long success_deleted = 0;
