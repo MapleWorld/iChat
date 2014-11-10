@@ -36,6 +36,8 @@ public class Session {
 	public static final String KEY_SESSION = "session";
 	
 	public static final String KEY_ADMIN = "isAdmin";
+	
+	public static final String KEY_USERID = "userID";
 
 	// Constructor
 	public Session(Context context) {
@@ -47,7 +49,7 @@ public class Session {
 	/**
 	 * Create login session
 	 * */
-	public void createLoginSession(String name, String sessionID, boolean isAdmin) {
+	public void createLoginSession(String name, String sessionID, boolean isAdmin, long userID) {
 		// Storing login value as TRUE
 		editor.putBoolean(IS_LOGIN, true);
 
@@ -58,6 +60,8 @@ public class Session {
 		editor.putString(KEY_SESSION, sessionID);
 		
 		editor.putBoolean(KEY_ADMIN, isAdmin);
+		
+		editor.putLong(KEY_USERID, userID);
 
 		// commit changes
 		editor.commit();
