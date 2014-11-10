@@ -22,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/thread_create_button"
+        android:layout_alignRight="@+id/admin_buttons"
         android:layout_below="@+id/thread_create_button"
         android:onClick="createTopic"
         android:text="@string/create_topic" />
@@ -56,16 +57,16 @@
         android:onClick="viewTopic"
         android:text="@string/topic_list" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="58dp"
-        android:onClick="logoutUser"
-        android:text="@string/user_logout" />
-
+	<Button
+	    android:id="@+id/button1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/button4"
+	    android:layout_alignRight="@+id/button4"
+	    android:layout_below="@+id/button4"
+	    android:onClick="viewAllThreads"
+	    android:text="@string/viewAllThreads" />
+        
     <LinearLayout
         android:id="@+id/admin_buttons"
         android:layout_width="wrap_content"
@@ -76,5 +77,16 @@
         android:orientation="vertical" >
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignLeft="@+id/button5"
+        android:layout_alignRight="@+id/button5"
+        android:layout_below="@+id/button4"
+        android:onClick="logoutUser"
+        android:text="@string/user_logout" />
 
 </RelativeLayout>

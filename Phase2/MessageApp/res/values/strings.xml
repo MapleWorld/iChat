@@ -18,6 +18,7 @@
     <string name="create_topic">Create Topic</string>
     <string name="action_settings">Settings</string>
     <string name="submitNewPatientData">Submit</string>
+    <string name="viewAllThreads">View All Threads</string>
     <string name="day">day</string>
     <string name="list">List</string>
     <string name="save">Save</string>
