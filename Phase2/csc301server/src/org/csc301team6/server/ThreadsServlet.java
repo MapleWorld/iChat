@@ -545,10 +545,7 @@ public class ThreadsServlet extends HttpServlet {
 	
 	private void doDeleteThread(HttpServletRequest request,
 			HttpServletResponse response, long thread_id) throws IOException, UnauthorizedException{
-		String line;
-		String jsonInput = "";
-		JSONObject jo;
-		BufferedReader br = request.getReader();
+	
 		String sessionID;
 		JSONObject jResp;
 
@@ -563,16 +560,11 @@ public class ThreadsServlet extends HttpServlet {
 			jResp.put("success", false);
 			jResp.put("message", "No session token provided");
 		} else {
-			while ((line = br.readLine()) != null) {
-				jsonInput += line;
-			}
-
+			
 			try {
-				jo = new JSONObject(jsonInput);
-				thread_id = jo.getLong("thread_id");
 				long success_deleted = 0;
-
 				success_deleted = ThreadsDTO.deleteThread(sessionID, thread_id);
+				
 				
 
 				if (success_deleted == 0) {
@@ -585,10 +577,6 @@ public class ThreadsServlet extends HttpServlet {
 						jResp.put("message", "Thread deleted");
 				}
 			
-			} catch (JSONException e) {
-				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				jResp.put("success", false);
-				jResp.put("message", "Error parsing request");
 			} catch (UnauthorizedException ue) {
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				jResp.put("success", false);
