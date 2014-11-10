@@ -102,6 +102,7 @@ public class LoginServlet extends HttpServlet {
 				jResp.put("success", true);
 				jResp.put("SESSIONID", sessionID);
 				jResp.put("message", "Authenticated");
+				jResp.put("userid", user.getID());
 				
 			} catch (UnauthorizedException e) {
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
