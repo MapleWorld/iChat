@@ -9,6 +9,17 @@ import android.util.Log;
 
 public class DAO {
 
+	
+	public JSONObject timeOut(JSONObject result) throws JSONException{
+		if(result == null){
+			JSONObject timeOut = new JSONObject();
+			timeOut.put("success", false);
+			timeOut.put("message", "Connection Timed Out");
+			return timeOut;
+		}else{
+			return result;
+		}
+	}
 	/**
 	 * Login the user if the given username and password is a match with the
 	 * data source.
@@ -22,7 +33,8 @@ public class DAO {
 
 		JSONObject result = server.new sendPOSTRequest().execute("/login",
 				account.toString()).get();
-		return result;
+		
+		return timeOut(result);
 	}
 
 	/**
@@ -37,7 +49,8 @@ public class DAO {
 
 		JSONObject result = server.new sendPOSTRequest().execute("/register",
 				account.toString()).get();
-		return result;
+	
+		return timeOut(result);
 
 	}
 
@@ -53,7 +66,8 @@ public class DAO {
 
 		JSONObject result = server.new sendPOSTRequest().execute(
 				"/topics/create", topic.toString(), sessionID).get();
-		return result;
+		
+		return timeOut(result);
 	}
 
 	/**
@@ -91,7 +105,7 @@ public class DAO {
 				+ threadBody + "\",\"topic_ids\":[" + topicID + "]}");
 		JSONObject result = server.new sendPOSTRequest().execute(
 				"/threads/new", threadPOST.toString(), sessionID).get();
-		return result;
+		return timeOut(result);
 	}
 	
 	/**
@@ -107,7 +121,7 @@ public class DAO {
 				+ threadBody + "\",\"topic_ids\":[" + topicID + "]}");
 		JSONObject result = server.new sendPOSTRequest().execute(
 				"/threads/edit", threadPOST.toString(), sessionID).get();
-		return result;
+		return timeOut(result);
 	}
 	
 	public boolean editReply(String newBody, long replyID, String sessionID) {
@@ -137,18 +151,19 @@ public class DAO {
 		Server server = new Server();
 		JSONObject result = server.new sendPOSTRequest().execute("/logout",
 				"logout", sessionID).get();
-		return result;
+		return timeOut(result);
 	}
 
 	/**
 	 * Helper method to get the server response JSON object for a given URL.
+	 * @throws JSONException 
 	 */
 	public JSONObject getServerResponseContent(String uri)
-			throws InterruptedException, ExecutionException {
+			throws InterruptedException, ExecutionException, JSONException {
 		Server server = new Server();
 		JSONObject result = server.new downloadUrl().execute(uri).get();
 
-		return result;
+		return timeOut(result);
 	}
 	
 }

@@ -46,8 +46,8 @@ public class Server {
 			try {
 				HttpURLConnection conn = (HttpURLConnection) connMgr
 						.getServerConnection(params[0]);
-				conn.setReadTimeout(10000); /* milliseconds */
-				conn.setConnectTimeout(15000); /* milliseconds */
+				conn.setReadTimeout(1000); /* milliseconds */
+				conn.setConnectTimeout(1500); /* milliseconds */
 				conn.setRequestMethod("GET");
 				conn.setDoInput(true);
 
@@ -65,7 +65,9 @@ public class Server {
 				JSONObject jObject = new JSONObject(inputData);
 
 				return jObject;
-
+				
+			}catch (java.net.SocketTimeoutException e) {
+				return null;
 			} catch (JSONException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -106,7 +108,8 @@ public class Server {
 				if (params.length == 3) {
 					con.addRequestProperty("SESSIONID", params[2]);
 				}
-
+				con.setReadTimeout(1000); /* milliseconds */
+				con.setConnectTimeout(1500); /* milliseconds */
 				con.setRequestMethod("POST");
 				con.setDoOutput(true);
 
@@ -142,7 +145,9 @@ public class Server {
 				br.close();
 
 				return jObject;
-
+				
+			}catch (java.net.SocketTimeoutException e) {
+				return null;
 			} catch (IOException e) {
 				Log.e("com.example.messageapp",
 						"IOException in sendPOSTRequest");
