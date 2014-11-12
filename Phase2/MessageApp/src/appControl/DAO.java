@@ -187,4 +187,15 @@ public class DAO {
 		return timeOut(result);
 	}
 	
+	public JSONObject createCategory(String categoryName, String sessionID) throws Exception {
+		Server server = new Server();
+		
+		JSONObject category = new JSONObject("{\"name\":\"" + categoryName + "\"}");
+
+		JSONObject result = server.new sendPOSTRequest().execute(
+				"/category/create", category.toString(), sessionID).get();
+		
+		return timeOut(result);
+	}
+	
 }

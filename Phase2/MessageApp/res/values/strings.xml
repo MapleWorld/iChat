@@ -51,5 +51,6 @@
     <string name="title_activity_edit_reply">EditReplyActivity</string>
     <string name="editReplyBodyTag">something</string>
     <string name="editReplyIDTag">something</string>
+    <string name="title_activity_create_category">CreateCategoryActivity</string>
 
 </resources>

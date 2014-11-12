@@ -80,6 +80,10 @@
             android:name=".EditReplyActivity"
             android:label="@string/title_activity_edit_reply" >
         </activity>
+        <activity
+            android:name=".CreateCategoryActivity"
+            android:label="@string/title_activity_create_category" >
+        </activity>
     </application>
 
 </manifest>
