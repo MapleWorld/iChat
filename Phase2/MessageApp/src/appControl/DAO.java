@@ -124,6 +124,27 @@ public class DAO {
 		return timeOut(result);
 	}
 	
+	public boolean deleteReply(long replyID, String sessionID) {
+		boolean success;
+		Server server = new Server();
+		JSONObject result;
+		
+		try {
+			result = server.new sendPOSTRequest().execute("/threads/reply/delete/"+replyID,
+															"",
+															sessionID).get();
+			success = result.getBoolean("success");
+			if(result.optString("message") != null){
+				Log.e("com.example.messageapp", result.optString("message"));
+			}
+		} catch (Exception e) {
+			success = false;
+			Log.e("com.example.messageapp", "", e);
+		}
+		
+		return success;
+	}
+	
 	public boolean editReply(String newBody, long replyID, String sessionID) {
 		JSONObject replyReq = new JSONObject();
 		JSONObject result;

@@ -104,12 +104,27 @@ public class ViewThreadActivity extends Activity {
 					
 					if(session.isAdmin()) {
 						btn = new Button(this);
+						btn.setTag(Long.toString(replyData[idx].getReplyID()));
 						
 						btn.setText("^ Delete ^");
 						btn.setOnClickListener(new View.OnClickListener() {
 							@Override
 							public void onClick(View v) {
-								Toast.makeText(getApplicationContext(), "Not implemented", Toast.LENGTH_LONG).show();
+								boolean success = 
+										(new DAO()).deleteReply(Long.parseLong((String)v.getTag()), 
+																session.getSessionID());
+								if(success) {
+									Toast.makeText(getApplicationContext(), 
+											"Reply deleted successfully", 
+											Toast.LENGTH_LONG).show();
+									finish();
+									startActivity(getIntent());
+									
+								} else {
+									Toast.makeText(getApplicationContext(), 
+													"Error deleting reply", 
+													Toast.LENGTH_LONG).show();
+								}
 							}
 						});
 						singleReplyLayout.addView(btn);
