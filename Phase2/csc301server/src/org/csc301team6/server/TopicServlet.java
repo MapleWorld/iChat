@@ -18,7 +18,11 @@ public class TopicServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		Pattern topicPattern = Pattern.compile("^\\/topics\\/list\\/(\\d+)$");
+		Pattern topicBySubPattern = Pattern.compile("^\\/topics\\/subscriptions$");
+		
 		Matcher topicMatcher = topicPattern.matcher(request.getRequestURI());
+		Matcher topicBySubMatcher = topicBySubPattern.matcher(request.getRequestURI());
+
 		JSONObject jResp;
 		long param;
 
@@ -36,6 +40,12 @@ public class TopicServlet extends HttpServlet {
 			}
 
 			doListTopicsByCategory(request, response, param);
+		} else if (topicBySubMatcher.find()) {
+			try {
+				doListTopicsBySubscription(request, response);
+			} catch (UnauthorizedException e) {
+				e.printStackTrace();
+			}
 		} else {
 			jResp = new JSONObject();
 			jResp.put("message", "Illegal request");
@@ -59,7 +69,36 @@ public class TopicServlet extends HttpServlet {
 			response.getWriter().println(jResp.toString());
 		}
 	}
-
+	
+	private void doListTopicsBySubscription(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, UnauthorizedException {
+		String sessionID;
+		String jsonRespStr;
+		JSONObject jsonError;
+		
+		sessionID = request.getHeader("SESSIONID");
+		if (sessionID == null) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			jsonError = new JSONObject();
+			jsonError.put("success", false);
+			jsonError.put("message", "No session token provided");
+			response.getWriter().println(jsonError);
+		} else {
+			jsonRespStr = TopicDTO.listTopicsBySubAsJSONString(sessionID);
+			
+			if (jsonRespStr != null) {
+				response.setStatus(HttpServletResponse.SC_OK);
+				response.getWriter().println(jsonRespStr);
+			} else {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				jsonError = new JSONObject();
+				jsonError.put("success", false);
+				jsonError.put("message", "An error has occurred");
+				response.getWriter().println(jsonError);
+			}
+		}
+	}
+			
 	private void doListTopicsByCategory(HttpServletRequest request,
 			HttpServletResponse response, long cat_id) throws IOException {
 		String jsonRespStr;

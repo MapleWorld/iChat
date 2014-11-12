@@ -75,6 +75,57 @@ public class TopicDTO {
 		return thread_id;
 	}
 
+	public static String listTopicsBySubAsJSONString(String sessionID)
+			throws UnauthorizedException {
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		ResultSet rs;
+		JSONObject jResp;
+		JSONArray jTopics;
+		JSONObject jTopicHeading;
+		long userid;
+		
+		jResp = new JSONObject();
+		jTopics = new JSONArray();
+		
+		try {
+			userid = SessionDTO.getUserIDFromSessionID(sessionID);
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+			ps = conn.prepareStatement("select t.* from topic t, subscription s "
+								+ " where s.user_id = ? and t.id = s.topic_id");
+			ps.setLong(1, userid);
+			
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				jTopicHeading = new JSONObject();
+				jTopicHeading.put("id", rs.getLong("id"));
+				jTopicHeading.put("name", rs.getString("name"));
+				jTopics.put(jTopicHeading);
+
+			}
+			
+			jResp.put("topics", jTopics);
+
+			rs.close();
+			ps.close();
+
+		} catch (SQLException e) {
+			jResp = null;
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		
+		return jResp == null ? null : jResp.toString();
+	}
+	
 	public static String listTopicsByCategoryAsJSONString(long category_id) {
 		ConfigManager mgr = ConfigManager.getInstance();
 		Connection conn = null;
