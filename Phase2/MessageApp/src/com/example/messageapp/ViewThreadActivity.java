@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -159,5 +160,28 @@ public class ViewThreadActivity extends Activity {
 		}
 
 	}
+	
+	public void deleteThread() throws Exception{
+		Intent intentN = getIntent();
+		String threadString = intentN.getStringExtra("threadID");
+
+		DAO serverDAO = new DAO();
+		// Perform POST request to delete a thread and handle successes
+		// and failures from the response
+		JSONObject result = serverDAO.deleteThread(threadString, 
+				session.getUserDetails().get("session"));
+
+		String message = (String) result.get("message");
+
+		if (result.get("success").equals(true)) {
+			Intent intent = new Intent(this, ViewListThreadActivity.class);
+			startActivity(intent);
+		}else{
+			Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
+			msg.show();
+		}
+	}
+	
+	
 
 }

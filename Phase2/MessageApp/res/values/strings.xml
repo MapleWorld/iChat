@@ -14,6 +14,7 @@
     <string name="category_name">Category</string>
     <string name="topic_name">Topic</string>
     <string name="view_thread">View Thread</string>
+    <string name="delete_thread">Delete Thread</string>
     <string name="view_categories">View Categories</string>
     <string name="create_topic">Create Topic</string>
     <string name="action_settings">Settings</string>
