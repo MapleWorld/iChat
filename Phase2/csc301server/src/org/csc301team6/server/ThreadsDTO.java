@@ -810,7 +810,8 @@ public class ThreadsDTO {
 		Connection conn = null;
 		PreparedStatement ps;
 		ResultSet rs;
-		int result;
+		int result, result2;
+		int replyCount = 0;
 		long userid;
 		CSC301User user;
 		boolean deleted;
@@ -824,26 +825,43 @@ public class ThreadsDTO {
 			}
 
 			conn = DriverManager.getConnection(mgr.getJDBCURL());
-
+			
 			ps = conn.prepareStatement(
-					"delete t from thread where t.id = ?");
+					"select count(*) numReplies from reply where thread_id = ?");
+			ps.setLong(1, thread_id);
+
+			rs = ps.executeQuery();
+			
+			if(rs.next()){
+				replyCount = rs.getInt("numReplies");
+			}
+			
+			ps = conn.prepareStatement(
+					"delete from reply where thread_id = ?");
 			ps.setLong(1, thread_id);
 
 			result = ps.executeUpdate();
 
 
-			if (result == 1) {
+			if (result == replyCount) {
 				deleted = true;
 			} else {
 				deleted = false;
 			}
-			ps.close();
-			ps = conn.prepareStatement("select id from reply where reply.thread_id = ?");
+			
+			
+			ps = conn.prepareStatement(
+					"delete from thread where id = ?");
 			ps.setLong(1, thread_id);
-			rs = ps.executeQuery();
-			while(rs.next()){
-				deleteReply(sessionID, rs.getLong("id"));
+			result2 = ps.executeUpdate();
+			
+			if (result2 == 1){
+				deleted = true;
+			}else{
+				deleted = false;
 			}
+			ps.close();
+			rs.close();
 
 		} catch (UnauthorizedException e) {
 			//Provided session ID was not valid

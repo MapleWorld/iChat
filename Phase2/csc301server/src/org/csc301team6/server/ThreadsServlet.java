@@ -606,7 +606,7 @@ public class ThreadsServlet extends HttpServlet {
 				
 				
 
-				if (success_deleted) {
+				if (!success_deleted) {
 						response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 						jResp.put("success", false);
 						jResp.put("message", "Error deleting thread");
