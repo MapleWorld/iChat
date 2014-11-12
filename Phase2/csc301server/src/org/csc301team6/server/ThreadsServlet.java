@@ -228,13 +228,14 @@ public class ThreadsServlet extends HttpServlet {
 				response.getWriter().println(jResp.toString());
 				return;
 			}
-
-			//Since the request did not match any pattern, it is invalid
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			jResp = new JSONObject();
-			jResp.put("message", "Illegal request");
-			response.getWriter().println(jResp.toString());
-		}
+			
+		} else {
+				//Since the request did not match any pattern, it is invalid
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				jResp = new JSONObject();
+				jResp.put("message", "Illegal request");
+				response.getWriter().println(jResp.toString());
+			}
 	}
 
 
@@ -600,12 +601,12 @@ public class ThreadsServlet extends HttpServlet {
 		} else {
 			
 			try {
-				long success_deleted = 0;
-				success_deleted = ThreadsDTO.deleteThread(sessionID, thread_id);
+				
+				boolean success_deleted = ThreadsDTO.deleteThread(sessionID, thread_id);
 				
 				
 
-				if (success_deleted == 0) {
+				if (success_deleted) {
 						response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 						jResp.put("success", false);
 						jResp.put("message", "Error deleting thread");
@@ -629,10 +630,6 @@ public class ThreadsServlet extends HttpServlet {
 	private void doDeleteReply(HttpServletRequest request,
 			HttpServletResponse response, long reply_id) throws IOException, UnauthorizedException{
 
-		String line;
-		String jsonInput = "";
-		JSONObject jo;
-		BufferedReader br = request.getReader();
 		String sessionID;
 		JSONObject jResp;
 
@@ -647,21 +644,16 @@ public class ThreadsServlet extends HttpServlet {
 			jResp.put("success", false);
 			jResp.put("message", "No session token provided");
 		} else {
-			while ((line = br.readLine()) != null) {
-				jsonInput += line;
-			}
 
 			try {
-				jo = new JSONObject(jsonInput);
 
-				reply_id = jo.getLong("reply_id");
-				long success_deleted = 0;
+				boolean success_deleted = false;
 
 				success_deleted = ThreadsDTO.deleteReply(sessionID, reply_id);
 
 				
 
-				if (success_deleted == 0) {
+				if (!success_deleted) {
 						response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 						jResp.put("success", false);
 						jResp.put("message", "Error deleting thread");

@@ -745,7 +745,7 @@ public class ThreadsDTO {
 		return jResp == null ? null : jResp.toString();
 	}		
 		
-	public static long deleteReply(String sessionID, long reply_id)
+	public static boolean deleteReply(String sessionID, long reply_id)
 	                 throws UnauthorizedException {
 		ConfigManager mgr = ConfigManager.getInstance();
 		Connection conn = null;
@@ -754,7 +754,7 @@ public class ThreadsDTO {
 		int result;
 		long userid;
 		CSC301User user;
-		long deleted;
+		boolean deleted;
 		
 		try {
 			userid = SessionDTO.getUserIDFromSessionID(sessionID);
@@ -767,16 +767,16 @@ public class ThreadsDTO {
 			conn = DriverManager.getConnection(mgr.getJDBCURL());
 			
 			ps  = conn.prepareStatement(
-					           "delete r from reply where r.id = ?");
+					           "delete from reply where id = ?");
 			
 			ps.setLong(1, reply_id);
 			
 			result = ps.executeUpdate();
 			
 			if (result ==1){
-				deleted=1;
+				deleted = true;
 			}else {
-				deleted=-1;
+				deleted = false;
 			}
 			
 			ps.close();
@@ -787,7 +787,7 @@ public class ThreadsDTO {
 		}catch (SQLException se){
 			se.printStackTrace();
 			if (se.getSQLState().equals("23000")){
-				throw new UnauthorizedException("Incalid reply ID");
+				throw new UnauthorizedException("Invalid reply ID");
 			}else {
 				throw new UnauthorizedException("An error has occured");
 			}
@@ -803,7 +803,7 @@ public class ThreadsDTO {
 		
 	}
 	
-	public static long deleteThread(String sessionID, long thread_id)
+	public static boolean deleteThread(String sessionID, long thread_id)
 			throws UnauthorizedException {
 
 		ConfigManager mgr = ConfigManager.getInstance();
@@ -813,7 +813,7 @@ public class ThreadsDTO {
 		int result;
 		long userid;
 		CSC301User user;
-		long deleted;
+		boolean deleted;
 
 		try {
 			userid = SessionDTO.getUserIDFromSessionID(sessionID);
@@ -833,9 +833,9 @@ public class ThreadsDTO {
 
 
 			if (result == 1) {
-				deleted = 1;
+				deleted = true;
 			} else {
-				deleted = -1;
+				deleted = false;
 			}
 			ps.close();
 			ps = conn.prepareStatement("select id from reply where reply.thread_id = ?");
