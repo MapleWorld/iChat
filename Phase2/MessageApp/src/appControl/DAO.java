@@ -9,17 +9,17 @@ import android.util.Log;
 
 public class DAO {
 
-	
-	public JSONObject timeOut(JSONObject result) throws JSONException{
-		if(result == null){
+	public JSONObject timeOut(JSONObject result) throws JSONException {
+		if (result == null) {
 			JSONObject timeOut = new JSONObject();
 			timeOut.put("success", false);
 			timeOut.put("message", "Connection Timed Out");
 			return timeOut;
-		}else{
+		} else {
 			return result;
 		}
 	}
+
 	/**
 	 * Login the user if the given username and password is a match with the
 	 * data source.
@@ -28,28 +28,31 @@ public class DAO {
 			throws InterruptedException, ExecutionException, JSONException {
 
 		Server server = new Server();
-		JSONObject account = new JSONObject("{\"username\":\"" + username
-				+ "\",\"password\":\"" + password + "\"}");
+		JSONObject account = new JSONObject();
+		account.put("username", username);
+		account.put("password", password);
 
 		JSONObject result = server.new sendPOSTRequest().execute("/login",
 				account.toString()).get();
-		
+
+		System.out.println(result.toString());
 		return timeOut(result);
 	}
 
 	/**
-	 * Given an username and password, create a new user.
+	 * Given an user name and password, create a new user.
 	 */
 	public JSONObject createUser(String username, String password)
 			throws Exception {
 
 		Server server = new Server();
-		JSONObject account = new JSONObject("{\"username\":\"" + username
-				+ "\",\"password\":\"" + password + "\"}");
+		JSONObject account = new JSONObject();
+		account.put("username", username);
+		account.put("password", password);
 
 		JSONObject result = server.new sendPOSTRequest().execute("/register",
 				account.toString()).get();
-	
+
 		return timeOut(result);
 
 	}
@@ -61,17 +64,19 @@ public class DAO {
 	public JSONObject createTopic(String categoryID, String topicName,
 			String sessionID) throws Exception {
 		Server server = new Server();
-		JSONObject topic = new JSONObject("{\"category\":\"" + categoryID
-				+ "\",\"name\":\"" + topicName + "\"}");
+		JSONObject topic = new JSONObject();
+		topic.put("category", categoryID);
+		topic.put("name", topicName);
 
 		JSONObject result = server.new sendPOSTRequest().execute(
 				"/topics/create", topic.toString(), sessionID).get();
-		
+
 		return timeOut(result);
 	}
 
 	/**
 	 * Ban a user
+	 * 
 	 * @param userID
 	 * @return
 	 */
@@ -79,19 +84,18 @@ public class DAO {
 		Server server = new Server();
 		JSONObject result;
 		boolean success = false;
-		
+
 		try {
-			result = server.new sendPOSTRequest().execute("/users/ban/" + userID,
-															"",
-															sessionID).get();
+			result = server.new sendPOSTRequest().execute(
+					"/users/ban/" + userID, "", sessionID).get();
 			success = result.getBoolean("success");
-		} catch (Exception e){
+		} catch (Exception e) {
 			success = false;
 		}
-		
+
 		return success;
 	}
-	
+
 	/**
 	 * Create a new thread with the given category and topic id, and thread name
 	 * and body.
@@ -107,10 +111,10 @@ public class DAO {
 				"/threads/new", threadPOST.toString(), sessionID).get();
 		return timeOut(result);
 	}
-	
+
 	/**
-	 * Edit an existing thread with the given category and topic id, and thread name
-	 * and body.
+	 * Edit an existing thread with the given category and topic id, and thread
+	 * name and body.
 	 */
 	public JSONObject editThread(String categoryID, String topicID,
 			String threadName, String threadBody, String sessionID)
@@ -123,61 +127,61 @@ public class DAO {
 				"/threads/edit", threadPOST.toString(), sessionID).get();
 		return timeOut(result);
 	}
-	
-	public JSONObject replyThread(String replyBody, String threadID, String sessionID) throws Exception {
+
+	public JSONObject replyThread(String replyBody, String threadID,
+			String sessionID) throws Exception {
 		Server server = new Server();
 		JSONObject replyReq = new JSONObject();
-		
+
 		replyReq.put("thread_id", threadID);
 		replyReq.put("body", replyBody);
-		
-		JSONObject result = server.new sendPOSTRequest().execute("/threads/reply",
-				replyReq.toString(), sessionID).get();
-		
+
+		JSONObject result = server.new sendPOSTRequest().execute(
+				"/threads/reply", replyReq.toString(), sessionID).get();
+
 		return timeOut(result);
 	}
-	
+
 	public boolean deleteReply(long replyID, String sessionID) {
 		boolean success;
 		Server server = new Server();
 		JSONObject result;
-		
+
 		try {
-			result = server.new sendPOSTRequest().execute("/threads/reply/delete/"+replyID,
-															"",
-															sessionID).get();
+			result = server.new sendPOSTRequest().execute(
+					"/threads/reply/delete/" + replyID, "", sessionID).get();
 			success = result.getBoolean("success");
-			if(result.optString("message") != null){
+			if (result.optString("message") != null) {
 				Log.e("com.example.messageapp", result.optString("message"));
 			}
 		} catch (Exception e) {
 			success = false;
 			Log.e("com.example.messageapp", "", e);
 		}
-		
+
 		return success;
 	}
-	
+
 	public boolean editReply(String newBody, long replyID, String sessionID) {
 		JSONObject replyReq = new JSONObject();
 		JSONObject result;
 		Server server = new Server();
 		boolean success;
-		
+
 		try {
 			replyReq.put("body", newBody);
-			result = server.new sendPOSTRequest().execute("/threads/reply/edit/"+replyID,
-														replyReq.toString(),
-														sessionID).get();
+			result = server.new sendPOSTRequest().execute(
+					"/threads/reply/edit/" + replyID, replyReq.toString(),
+					sessionID).get();
 			success = result.getBoolean("success");
 		} catch (Exception e) {
 			success = false;
 			Log.e("com.example.messageapp", "exception", e);
 		}
-		
+
 		return success;
 	}
-	
+
 	/**
 	 * Given an user's session ID, log out the user.
 	 */
@@ -190,7 +194,8 @@ public class DAO {
 
 	/**
 	 * Helper method to get the server response JSON object for a given URL.
-	 * @throws JSONException 
+	 * 
+	 * @throws JSONException
 	 */
 	public JSONObject getServerResponseContent(String uri)
 			throws InterruptedException, ExecutionException, JSONException {
@@ -199,26 +204,30 @@ public class DAO {
 
 		return timeOut(result);
 	}
-	
-	public JSONObject createCategory(String categoryName, String sessionID) throws Exception {
+
+	public JSONObject createCategory(String categoryName, String sessionID)
+			throws Exception {
 		Server server = new Server();
-		
-		JSONObject category = new JSONObject("{\"name\":\"" + categoryName + "\"}");
+
+		JSONObject category = new JSONObject();
+		category.put("name", categoryName);
 
 		JSONObject result = server.new sendPOSTRequest().execute(
 				"/categories/create/", category.toString(), sessionID).get();
-		
+
 		return timeOut(result);
 	}
-	
-	public JSONObject deleteThread(String threadID, String sessionID) throws Exception {
+
+	public JSONObject deleteThread(String threadID, String sessionID)
+			throws Exception {
 		Server server = new Server();
 		JSONObject category = new JSONObject("{}");
 
 		JSONObject result = server.new sendPOSTRequest().execute(
-				"/threads/delete/" + threadID, category.toString(), sessionID).get();
-		
+				"/threads/delete/" + threadID, category.toString(), sessionID)
+				.get();
+
 		return timeOut(result);
 	}
-	
+
 }
