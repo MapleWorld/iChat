@@ -50,6 +50,19 @@ public class MainActivity extends Activity {
 			
 			//setContentView(layout);
 			
+			Button createCatButton = new Button(this);
+			
+			createCatButton.setText("Create Category");
+			createCatButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(v.getContext(), CreateCategoryActivity.class);
+					startActivity(intent);
+				}
+			});
+			
+			layout.addView(createCatButton);
+			
 		}
 	}
 
