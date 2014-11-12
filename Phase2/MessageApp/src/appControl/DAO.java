@@ -193,7 +193,7 @@ public class DAO {
 		JSONObject category = new JSONObject("{\"name\":\"" + categoryName + "\"}");
 
 		JSONObject result = server.new sendPOSTRequest().execute(
-				"/category/create", category.toString(), sessionID).get();
+				"/categories/create/", category.toString(), sessionID).get();
 		
 		return timeOut(result);
 	}
@@ -203,7 +203,7 @@ public class DAO {
 		JSONObject category = new JSONObject("{}");
 
 		JSONObject result = server.new sendPOSTRequest().execute(
-				"/threads/create/" + threadID, category.toString(), sessionID).get();
+				"/threads/delete/" + threadID, category.toString(), sessionID).get();
 		
 		return timeOut(result);
 	}

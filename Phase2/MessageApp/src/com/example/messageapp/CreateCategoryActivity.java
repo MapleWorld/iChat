@@ -33,7 +33,7 @@ public class CreateCategoryActivity extends Activity {
 	}
 	
 	public void createCategory(View v) throws Exception{
-		EditText categoryText = (EditText) findViewById(R.id.category_name);
+		EditText categoryText = (EditText) findViewById(R.id.category_name_new);
 
 		String categoryName = categoryText.getText().toString();
 		DAO serverDAO = new DAO();

@@ -40,7 +40,7 @@ public final class R {
         public static final int button6=0x7f090016;
         public static final int category_name=0x7f09000a;
         public static final int category_name2=0x7f090023;
-        public static final int cateory_name=0x7f090003;
+        public static final int category_name_new=0x7f090003;
         public static final int create_button=0x7f09000c;
         public static final int create_category_button=0x7f090004;
         public static final int delete_thread=0x7f09001e;

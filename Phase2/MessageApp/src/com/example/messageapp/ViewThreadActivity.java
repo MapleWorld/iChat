@@ -161,7 +161,7 @@ public class ViewThreadActivity extends Activity {
 
 	}
 	
-	public void deleteThread() throws Exception{
+	public void deleteThread(View v) throws Exception{
 		Intent intentN = getIntent();
 		String threadString = intentN.getStringExtra("threadID");
 
@@ -174,7 +174,7 @@ public class ViewThreadActivity extends Activity {
 		String message = (String) result.get("message");
 
 		if (result.get("success").equals(true)) {
-			Intent intent = new Intent(this, ViewListThreadActivity.class);
+			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
 		}else{
 			Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
