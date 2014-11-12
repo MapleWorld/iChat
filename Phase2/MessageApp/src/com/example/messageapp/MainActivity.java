@@ -130,9 +130,7 @@ public class MainActivity extends Activity {
 				JSONObject singleThread = resultSingleCategoryThreads
 						.getJSONObject(k);
 				allThreads.put(singleThread);
-				System.out.println(allThreads.toString());
 			}
-
 		}
 
 		JSONObject result = new JSONObject();

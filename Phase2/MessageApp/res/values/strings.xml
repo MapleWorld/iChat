@@ -11,7 +11,7 @@
     <string name="user_logout">Logout</string>
     <string name="thread_name">Thread</string>
     <string name="create_thread">Create Thread</string>
-    <string name="category_name">Category</string>
+    <string name="category_name">Category Name</string>
     <string name="topic_name">Topic</string>
     <string name="view_thread">View Thread</string>
     <string name="delete_thread">Delete Thread</string>
@@ -42,6 +42,7 @@
     <string name="find_thread">Find Thread</string>
     <string name="find_thread_threadID">Find Thread By Thread ID</string>
     <string name="find_thread_categoryID">Find Thread By Category ID</string>
+    <string name="find_thread_categoryName">Find Thread By Category Name</string>
     <string name="find_thread_topicID">Find Thread By Topic ID</string>
     <string name="title_activity_find_thread">FindThreadActivity</string>
     <string name="title_activity_view_list_thread">ViewListThreadActivity</string>

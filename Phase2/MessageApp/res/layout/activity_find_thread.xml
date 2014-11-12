@@ -23,33 +23,41 @@
     </EditText>
 
     <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/thread_create_button"
+        android:layout_centerHorizontal="true"
+        android:onClick="findThreadByTopicID"
+        android:text="@string/find_thread_topicID" />
+
+    <Button
         android:id="@+id/thread_create_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
+        android:layout_below="@+id/input_id"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="14dp"
         android:onClick="findThreadByThreadID"
         android:text="@string/find_thread_threadID" />
+
+    <EditText
+        android:id="@+id/input_category_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/thread_create_button"
+        android:layout_below="@+id/button3"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:hint="@string/category_name" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/input_category_name"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:onClick="findThreadByCategoryID"
-        android:text="@string/find_thread_categoryID" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:onClick="findThreadByTopicID"
-        android:text="@string/find_thread_topicID" />
-
+        android:layout_marginTop="29dp"
+        android:onClick="findThreadByCategoryName"
+        android:text="@string/find_thread_categoryName" />
 
 </RelativeLayout>
