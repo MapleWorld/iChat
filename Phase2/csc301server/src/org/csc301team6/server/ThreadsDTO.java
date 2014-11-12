@@ -812,6 +812,7 @@ public class ThreadsDTO {
 		ResultSet rs;
 		int result, result2;
 		int replyCount = 0;
+		int topicCount = 0;
 		long userid;
 		CSC301User user;
 		boolean deleted;
@@ -825,17 +826,20 @@ public class ThreadsDTO {
 			}
 
 			conn = DriverManager.getConnection(mgr.getJDBCURL());
+			conn.setAutoCommit(false);
 			
+			//Counts number of replies related to the thread.
 			ps = conn.prepareStatement(
 					"select count(*) numReplies from reply where thread_id = ?");
 			ps.setLong(1, thread_id);
 
 			rs = ps.executeQuery();
 			
+			
 			if(rs.next()){
 				replyCount = rs.getInt("numReplies");
 			}
-			
+		
 			ps = conn.prepareStatement(
 					"delete from reply where thread_id = ?");
 			ps.setLong(1, thread_id);
@@ -847,8 +851,31 @@ public class ThreadsDTO {
 				deleted = true;
 			} else {
 				deleted = false;
+			}	
+			
+			//Counts number of topic related to the thread.
+			ps = conn.prepareStatement(
+					"select count(*) numTopic from thread_topics where thread_id = ?");
+			ps.setLong(1, thread_id);
+
+			rs = ps.executeQuery();
+			
+			if(rs.next()){
+				topicCount = rs.getInt("numTopic");
 			}
 			
+			ps = conn.prepareStatement(
+					"delete from thread_topics where thread_id = ?");
+			ps.setLong(1, thread_id);
+
+			result = ps.executeUpdate();
+
+
+			if (result == topicCount) {
+				deleted = true;
+			} else {
+				deleted = false;
+			}	
 			
 			ps = conn.prepareStatement(
 					"delete from thread where id = ?");
@@ -862,12 +889,22 @@ public class ThreadsDTO {
 			}
 			ps.close();
 			rs.close();
+			try{
+				conn.commit();
+			}catch(SQLException se3){
+				se3.printStackTrace();			
+			}
 
 		} catch (UnauthorizedException e) {
 			//Provided session ID was not valid
 			e.printStackTrace();
 			throw e;
 		} catch (SQLException se) {
+			try{
+				conn.rollback();
+			}catch(SQLException se2){
+				se2.printStackTrace();
+			}
 			se.printStackTrace();
 			if (se.getSQLState().equals("23000")) {
 				// This is likely a foreign key integrity violation due to
@@ -877,6 +914,7 @@ public class ThreadsDTO {
 				throw new UnauthorizedException("An error has occurred");
 			}
 		} finally {
+			
 			try {
 				if (conn != null)
 					conn.close();
