@@ -73,7 +73,16 @@ public class DAO {
 
 		return timeOut(result);
 	}
+	
+	public JSONObject deleteTopic(String topicID, String sessionID) throws Exception {
+		Server server = new Server();
 
+		JSONObject result = server.new sendPOSTRequest().execute(
+				"/topics/delete/" + topicID, (new JSONObject("{}")).toString(), sessionID).get();
+		
+		return timeOut(result);
+	}
+	
 	/**
 	 * Ban a user
 	 * 
