@@ -124,6 +124,19 @@ public class DAO {
 		return timeOut(result);
 	}
 	
+	public JSONObject replyThread(String replyBody, String threadID, String sessionID) throws Exception {
+		Server server = new Server();
+		JSONObject replyReq = new JSONObject();
+		
+		replyReq.put("thread_id", threadID);
+		replyReq.put("body", replyBody);
+		
+		JSONObject result = server.new sendPOSTRequest().execute("/threads/reply",
+				replyReq.toString(), sessionID).get();
+		
+		return timeOut(result);
+	}
+	
 	public boolean deleteReply(long replyID, String sessionID) {
 		boolean success;
 		Server server = new Server();

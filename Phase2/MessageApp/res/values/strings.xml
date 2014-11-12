@@ -50,8 +50,10 @@
     <string name="title_activity_view_topic_list_by_category">ViewTopicListByCategoryActivity</string>
     <string name="title_activity_ban_user">BanUserActivity</string>
     <string name="title_activity_edit_reply">EditReplyActivity</string>
+    <string name="title_activity_reply_thread">ReplyThreadActivity</string>
     <string name="editReplyBodyTag">something</string>
     <string name="editReplyIDTag">something</string>
     <string name="title_activity_create_category">CreateCategoryActivity</string>
-
+	<string name="reply">Reply</string>
+	<string name="new_reply_body">Enter reply</string>
 </resources>

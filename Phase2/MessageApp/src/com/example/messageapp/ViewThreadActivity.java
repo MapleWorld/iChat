@@ -1,6 +1,7 @@
 package com.example.messageapp;
 
 import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -182,6 +183,11 @@ public class ViewThreadActivity extends Activity {
 		}
 	}
 	
-	
+	public void replyThread(View v) throws Exception {
+		Intent currentIntent = getIntent();
+		Intent intent = new Intent(this, ReplyThreadActivity.class);
+		intent.putExtra("threadID", currentIntent.getStringExtra("threadID"));
+		startActivity(intent);
+	}
 
 }
