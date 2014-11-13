@@ -32,10 +32,10 @@ You can see all of my comments by searching for issues with the label _code-revi
 
 ## MapleWorld : gabrielluong
 
- * I found server minors bugs in server.java file and tried to fix it in [commit] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/6638f4c70e35d6bc6be4da2b78d886b9074c3320), [commit] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/6e92fbf140a03872643fd7d607e27880a8edadae), and [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/e33fd90412810c7943dfb4ce32b30e40b1bd762c) for [#29] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/issues/29). There are duplicate code in the server.java file for createThread and downloadUrl, which I recommend to split it into smaller methods.
- * Another bug that I found and fixed was in [commit] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/b95b49bc447cf42eeee6152d95ebb098a22c70cf) DAO.java file and was mentioned in [#41](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/issues/41).
- * Regarding about [#62] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/issues/62), I find there are too much code in onCreate method and should be breaking down into smaller methods for readability and extensibility. 
- * I thought that the implementation of [#60](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/issues/60) was very elegant. There is no duplicate code between the method and really compact, making it really easy to follow and understand.
+ * I found server minors bugs in server.java file and tried to fix it in commit 6638f4c70e35d6bc6be4da2b78d886b9074c3320, 6e92fbf140a03872643fd7d607e27880a8edadae, and e33fd90412810c7943dfb4ce32b30e40b1bd762c for #29 And commit bc3100ea0564f2c7d216cba6665a2ebb9b91ec29, also, there are duplicate code in the server.java file for createThread and downloadUrl, which I recommend to split it into smaller methods.
+ * Another bug that I found fixed was in commit bc3100ea0564f2c7d216cba6665a2ebb9b91ec29 DAO.java file and was mentioned in #41.
+ * Regarding about #62 ViewTopicListByCategoryActivity.java, I find there are too much code in onCreate method and should be break down into smaller methods for readability and extensibility. 
+ * I thought that the implementation of #60 (_6083920d3433eafbf7f10b4714927d235d9529e7_) was very elegant. There is no duplicate code between the method and really compact, making it really easy to follow and understand.
 
 -----
 
@@ -45,13 +45,14 @@ You can see all of my comments by searching for issues with the label _code-revi
 
 ## fdlv : MapleWorld
 
+ * I found a potential problem with (_0bc503156831c6731e155dcc71e5d4bff20499b3_), the timeout is set to 1 second which may cause problems with clients that have a bad connection. This will be addressed in the next phase.
+ * I thought that the implementation of (_a60b852f17039c2c0723d44f9061517436cb26b7_) was very elegant. The choices for variable names were very good and allowed the others to easily understand what was going on. There were no redundant code and the spacing allowed for readability.
+
+## Reviewer : GitHub username 5
+
 -----
 
-## nbxieyu : FrancesYu
-
------
-
-## sccdmaomao : fdlv
+## Reviewer : GitHub username 6
 
 -----
 
