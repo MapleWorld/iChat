@@ -43,16 +43,15 @@ You can see all of my comments by searching for issues with the label _code-revi
 
 -----
 
-| fdlv |  MapleWorld |
-## Reviewer : GitHub username 4
+## fdlv : MapleWorld
 
 -----
 
-## Reviewer : GitHub username 5
+## nbxieyu : FrancesYu
 
 -----
 
-## Reviewer : GitHub username 6
+## sccdmaomao : fdlv
 
 -----
 
