@@ -33,7 +33,7 @@ implement Server-admin can delete reply(#46).
 ## MapleWorld : gabrielluong
 
 * I found server minors bugs in server.java file and tried to fix it in [commit] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/6638f4c70e35d6bc6be4da2b78d886b9074c3320), [commit] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/6e92fbf140a03872643fd7d607e27880a8edadae), and [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/e33fd90412810c7943dfb4ce32b30e40b1bd762c) for [#29] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/issues/29). There are duplicate code in the server.java file for createThread and downloadUrl, which I recommend to split it into smaller methods.
-* Other bugs that I found and fixed was in [commit], also, noticed there is a problem with the login [#79] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/issues/79) (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/b95b49bc447cf42eeee6152d95ebb098a22c70cf) DAO.java file and was mentioned in [#41](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/issues/41).
+* Other bugs that I found and fixed was in [commit], also, noticed there is a problem with the login [#79] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/b95b49bc447cf42eeee6152d95ebb098a22c70cf) DAO.java file and was mentioned in [#41](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/issues/41).
 * Regarding about [#62] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/issues/62), I find there are too much code in onCreate method and should be breaking down into smaller methods for readability and extensibility. 
 * I thought that the implementation of [#60](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/issues/60) was very elegant. There is no duplicate code between the method and really compact, making it really easy to follow and understand.
 
@@ -47,15 +47,15 @@ implement Server-admin can delete reply(#46).
 
 ## fdlv : MapleWorld
 
- * I found a potential problem with (_0bc503156831c6731e155dcc71e5d4bff20499b3_), the timeout is set to 1 second which may cause problems with clients that have a bad connection. This problem is addressed in the commit (_0453fe57e53f534e21d363825b8da775cc202f4c_).
- * I thought that the implementation of (_a60b852f17039c2c0723d44f9061517436cb26b7_) was very elegant. The choices for variable names were very good and allowed the others to easily understand what was going on. There were no redundant code and the spacing allowed for readability.
+ * I found a potential problem with [commit] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/0bc503156831c6731e155dcc71e5d4bff20499b3), the timeout is set to 1 second which may cause problems with clients that have a bad connection. This problem is addressed in the commit [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/0453fe57e53f534e21d363825b8da775cc202f4c).
+ * I thought that the implementation of [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/a60b852f17039c2c0723d44f9061517436cb26b7) was very elegant. The choices for variable names were very good and allowed the others to easily understand what was going on. There were no redundant code and the spacing allowed for readability.
 
 ## FrancesYu : nbxieyu
 
- * I found that the merge commit (_fc8c298378ab504ee3ad47873aa183c9a730eb2a_), deleted the doDeleteThread function in ThreadsServlet.java. Fix in commit (_d067480c6d2dbf320cd64d1c59fc5ef332da8568_).
- * I thought that the implementation of commit (_9acca297461cfd87f3d3e6796ebb2afbcbcdcd2f_) of ThreadsServlet.java was very elegant, can easily understand. And using try and catch block to get the exceptions. 
- * I found that the implementation of commit (_9acca297461cfd87f3d3e6796ebb2afbcbcdcd2f_) of ThreadsDTO.java can change the deleted variable into boolean in line 753.
- * I found that the commit (_844c7aaedc617cf1be447d371458fd28f4420e51_), need to remove all the lines that were comment out.
+ * I found that the merge commit [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/fc8c298378ab504ee3ad47873aa183c9a730eb2a), deleted the doDeleteThread function in ThreadsServlet.java. Fix in commit [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/d067480c6d2dbf320cd64d1c59fc5ef332da8568).
+ * I thought that the implementation of commit [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/9acca297461cfd87f3d3e6796ebb2afbcbcdcd2f) of ThreadsServlet.java was very elegant, can easily understand. And using try and catch block to get the exceptions. 
+ * I found that the implementation of commit [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/9acca297461cfd87f3d3e6796ebb2afbcbcdcd2f) of ThreadsDTO.java can change the deleted variable into boolean in line 753.
+ * I found that the commit [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/844c7aaedc617cf1be447d371458fd28f4420e51), need to remove all the lines that were comment out.
 
 -----
 
