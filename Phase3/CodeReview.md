@@ -39,7 +39,7 @@ implement Server-admin can delete reply[#46](https://github.com/csc301-fall2014/
 ## Gabriel Luong (gabrielluong) : Russell Self (g3rs-cdf)
 
  * In Russell's commit for adding admin delete reply to the client [e64032aa](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/e64032aa2cfaadbca0ce5f00c5ff39f1f771dc1e#diff-4b5d83ff78209d2d18f1831d3c540886R142), I noted several code styling nits, which could be improved. In addition, there were some instances where better logging can be done to improve the user experience by providing meaningful success or error messages. I thought that the implementation was fairly simple and easy to understand ignoring the issues described before. I learned a bit more about the JSONObject API with Russell's usage of getBoolean() and optString(), which fetches the data type associated with a key. Some of these issues were fixed in [ecb428](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/ecb42871d6b4747c6ffbbc0644a01b5782da233d)
-
+ * In the commit to add the ability to edit replies to a thread [4a7cef49](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/4a7cef4966c666115ad0059ac6216166c1509abb#diff-de9134b500122ac4185561038fab4474R120), I noted a request for additional code comments due to how complex it was to generate the button controls in the thread view. There were some issues where code could be better formatted and could be refactored, which were addressed in commit [6a6943](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/6a69433eb1b4c3df84a9b5c08417ad2e410d494c).
 -----
 
 ## fdlv : MapleWorld
