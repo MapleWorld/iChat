@@ -88,6 +88,14 @@
             android:name=".ReplyThreadActivity"
             android:label="@string/title_activity_reply_thread" >
         </activity>
+        <activity
+            android:name=".SubscriptionsActivity"
+            android:label="@string/title_activity_subscriptions" >
+        </activity>
+        <activity
+            android:name=".ViewSubscriptionsActivity"
+            android:label="@string/title_activity_view_subscriptions" >
+        </activity>
     </application>
 
 </manifest>
