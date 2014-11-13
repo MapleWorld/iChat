@@ -5,7 +5,7 @@ The table below indicates which team member reviewed which other team member's c
 | Reviewer | Coder |
 | -------- | ----- |
 | nbxieyu |  FrancesYu |
-| GitHub username 2 |  GitHub username 3 |
+| MapleWorld |  gabrielluong |
 | GitHub username 3 |  GitHub username 4 |
 | GitHub username 4 |  GitHub username 5 |
 | GitHub username 5 |  GitHub username 6 |
@@ -29,7 +29,12 @@ You can see all of my comments by searching for issues with the label _code-revi
 
 -----
 
-## Reviewer : GitHub username 2
+## MapleWorld : gabrielluong
+
+ * I found server minors bugs in server.java file and tried to fix it in commit 6638f4c70e35d6bc6be4da2b78d886b9074c3320, 6e92fbf140a03872643fd7d607e27880a8edadae, and e33fd90412810c7943dfb4ce32b30e40b1bd762c for #29 And commit bc3100ea0564f2c7d216cba6665a2ebb9b91ec29, also, there are duplicate code in the server.java file for createThread and downloadUrl, which I recommend to split it into smaller methods.
+ * Another bug that I found fixed was in commit bc3100ea0564f2c7d216cba6665a2ebb9b91ec29 DAO.java file and was mentioned in #41.
+ * Regarding about #62 ViewTopicListByCategoryActivity.java, I find there are too much code in onCreate method and should be break down into smaller methods for readability and extensibility. 
+ * I thought that the implementation of #60 (_6083920d3433eafbf7f10b4714927d235d9529e7_) was very elegant. There is no duplicate code between the method and really compact, making it really easy to follow and understand.
 
 -----
 
