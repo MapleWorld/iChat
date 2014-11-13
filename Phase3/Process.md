@@ -1,6 +1,7 @@
 Kanban process:
 
 If a task appears in the different same day, then we did it all in one day.
+When the task is in done state, it will be remove from the back log state
 
 Nov 02 2014
 
