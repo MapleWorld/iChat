@@ -111,3 +111,7 @@ Back log | server | | client | | testing | | done |
 7. reply to thread		|	|	 |	 |	|	|7 issue #60	|				
 8. admin delete topic	| 	|	 |  |	|	|8 issue #62	|					8 issue #62
 9.		|	|	   |	|	|	|	 |				9 issue #73
+
+Using GitHub
+-----
+We used GitHub to manage our backlog of tasks to be completed. We noted which tasks should be completed for phase 3 by using GitHub's (milestone manager)[https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/milestones/phase3]. Team members would assign themselves to bugs that they were interested in working on. During phase 3, we realized there were too many tasks to be completed in the given timeframe for phase 3. A comment that a task has been pushed to phase 4 would be added while the phase 3 tasks were labelled appropriately. In addition, we used labels such as "bug" to tag tasks so that it would be easy to differentiate the issue from features to be implemented.
