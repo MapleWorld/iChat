@@ -6,7 +6,7 @@ The table below indicates which team member reviewed which other team member's c
 | -------- | ----- |
 | nbxieyu |  FrancesYu |
 | sccdmaomao |  fdlv |
-| GitHub username 3 |  GitHub username 4 |
+| Gabriel Luong (gabrielluong) |  Russell Self (g3rs-cdf) |
 | GitHub username 4 |  GitHub username 5 |
 | GitHub username 5 |  GitHub username 6 |
 | GitHub username 6 |  GitHub username 7 |
@@ -33,7 +33,7 @@ You can see all of my comments by searching for issues with the label _code-revi
 
 -----
 
-## Reviewer : GitHub username 3
+## Gabriel Luong (gabrielluong) : Russell Self (g3rs-cdf)
 
 -----
 
