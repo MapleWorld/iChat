@@ -54,6 +54,9 @@
     <string name="editReplyBodyTag">something</string>
     <string name="editReplyIDTag">something</string>
     <string name="title_activity_create_category">CreateCategoryActivity</string>
-	<string name="reply">Reply</string>
-	<string name="new_reply_body">Enter reply</string>
+    <string name="reply">Reply</string>
+    <string name="new_reply_body">Enter reply</string>
+    <string name="title_activity_subscriptions">SubscriptionsActivity</string>
+    <string name="title_activity_view_subscriptions">ViewSubscriptionsActivity</string>
+
 </resources>

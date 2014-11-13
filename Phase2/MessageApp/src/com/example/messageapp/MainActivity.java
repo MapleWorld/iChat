@@ -97,7 +97,11 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(this, FindThreadActivity.class);
 		startActivity(intent);
 	}
-
+	
+	public void subscriptions(View v) {
+		Intent intent = new Intent(this, SubscriptionsActivity.class);
+		startActivity(intent);
+	}
 
 	public void viewAllThreads(View v) throws InterruptedException,
 			ExecutionException, JSONException {
