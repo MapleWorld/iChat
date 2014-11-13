@@ -55,7 +55,7 @@ implement Server-admin can delete reply[#46](https://github.com/csc301-fall2014/
  * I found that the implementation of commit [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/9acca297461cfd87f3d3e6796ebb2afbcbcdcd2f) of ThreadsDTO.java can change the deleted variable into boolean in line 753.
  * I found that the commit [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/844c7aaedc617cf1be447d371458fd28f4420e51), need to remove all the lines that were comment out.
 
-## FrancesYu : nbxieyu
+## sccdmaomao : fdlv
 
   * I thought some comments would help others to understand easier to commit (_8db010c807ed2d7786dfbc4845cf08d71f077a03_)  
   * The code does good job handling exceptions, any invalid responds from server would result in a proper error message returned to user. (_c4ab6dd873a74976ca2e652e7ff1cb13a58e7d25_)
