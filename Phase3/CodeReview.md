@@ -17,15 +17,15 @@ The table below indicates which team member reviewed which other team member's c
 -----
 
 ## nbxieyu : FrancesYu
-* I suggested an improvement to the Client-admin create category(#65)(47feee433290f52080f76485e2e9d39f00734def)
+* I suggested an improvement to the Client-admin create category[#65](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/47feee433290f52080f76485e2e9d39f00734def)
   I think the the comment is necessary for  readability.
 
-* I thought that  the implement of Client-admin delete thread(#63)(3ffa8ad4aeeea6a5b5562d8fa4842c10eff00095) is 
+* I thought that  the implement of Client-admin delete thread[#63](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/3ffa8ad4aeeea6a5b5562d8fa4842c10eff00095) is 
 helpful for the other cilent implements like Client-admin delete replies and etc. 
 
-* I thought that the implement of Server-admin can delete a thread(#45)(42f3333ccfacfbe462385e80775d48b6e835c17a)  
+* I thought that the implement of Server-admin can delete a thread[#45](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/42f3333ccfacfbe462385e80775d48b6e835c17a)  
 was really elegant, it is really easy to follow and understand. Moreover, this implement is helpful for the 
-implement Server-admin can delete reply(#46).
+implement Server-admin can delete reply[#46](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/issues/46).
 
 
 -----
