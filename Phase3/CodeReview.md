@@ -9,7 +9,7 @@ The table below indicates which team member reviewed which other team member's c
 | sccdmaomao |  fdlv |
 | Gabriel Luong (gabrielluong) |  Russell Self (g3rs-cdf) |
 | fdlv |  MapleWorld |
-| GitHub username 5 |  GitHub username 6 |
+| FrancesYu |  nbxieyu |
 | GitHub username 6 |  GitHub username 7 |
 | GitHub username 7 |  GitHub username 1 |
 
@@ -46,11 +46,16 @@ implement Server-admin can delete reply(#46).
 -----
 
 ## fdlv : MapleWorld
- * I suggest that the indentation in (_8e76ef374329090a0780f5fafaea067375c156fe_) be improved, some lines are up to 140 columns which is not very easy to read. Created issue #78 to address this issue.
+
  * I found a potential problem with (_0bc503156831c6731e155dcc71e5d4bff20499b3_), the timeout is set to 1 second which may cause problems with clients that have a bad connection. This problem is addressed in the commit (_0453fe57e53f534e21d363825b8da775cc202f4c_).
  * I thought that the implementation of (_a60b852f17039c2c0723d44f9061517436cb26b7_) was very elegant. The choices for variable names were very good and allowed the others to easily understand what was going on. There were no redundant code and the spacing allowed for readability.
 
-## Reviewer : GitHub username 5
+## FrancesYu : nbxieyu
+
+ * I found that the merge commit (_fc8c298378ab504ee3ad47873aa183c9a730eb2a_), deleted the doDeleteThread function in ThreadsServlet.java. Fix in commit (_d067480c6d2dbf320cd64d1c59fc5ef332da8568_).
+ * I thought that the implementation of commit (_9acca297461cfd87f3d3e6796ebb2afbcbcdcd2f_) of ThreadsServlet.java was very elegant, can easily understand. And using try and catch block to get the exceptions. 
+ * I found that the implementation of commit (_9acca297461cfd87f3d3e6796ebb2afbcbcdcd2f_) of ThreadsDTO.java can change the deleted variable into boolean in line 753.
+ * I found that the commit (_844c7aaedc617cf1be447d371458fd28f4420e51_), need to remove all the lines that were comment out.
 
 -----
 
