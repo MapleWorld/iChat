@@ -7,7 +7,7 @@ The table below indicates which team member reviewed which other team member's c
 | nbxieyu |  FrancesYu |
 | sccdmaomao |  fdlv |
 | Gabriel Luong (gabrielluong) |  Russell Self (g3rs-cdf) |
-| GitHub username 4 |  GitHub username 5 |
+| fdlv |  MapleWorld |
 | GitHub username 5 |  GitHub username 6 |
 | GitHub username 6 |  GitHub username 7 |
 | GitHub username 7 |  GitHub username 1 |
