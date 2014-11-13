@@ -46,7 +46,7 @@ implement Server-admin can delete reply(#46).
 -----
 
 ## fdlv : MapleWorld
-
+ * I suggest that the indentation in (_8e76ef374329090a0780f5fafaea067375c156fe_) be improved, some lines are up to 140 columns which is not very easy to read. Created issue #78 to address this issue.
  * I found a potential problem with (_0bc503156831c6731e155dcc71e5d4bff20499b3_), the timeout is set to 1 second which may cause problems with clients that have a bad connection. This problem is addressed in the commit (_0453fe57e53f534e21d363825b8da775cc202f4c_).
  * I thought that the implementation of (_a60b852f17039c2c0723d44f9061517436cb26b7_) was very elegant. The choices for variable names were very good and allowed the others to easily understand what was going on. There were no redundant code and the spacing allowed for readability.
 
