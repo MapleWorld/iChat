@@ -8,58 +8,51 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.messageapp.EditThreadActivity" >
 
-    <EditText
-        android:id="@+id/thread_category_name"
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp"
-        android:hint="@string/category_name"
-        android:ems="10" >
+        android:layout_height="wrap_content" >
 
-        <requestFocus />
-    </EditText>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/thread_body"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/new_thread_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:hint="@string/thread_info"
-        android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/thread_topic_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:ems="10"
+                android:hint="@string/topic_name" >
 
-    <Button
-        android:id="@+id/thread_create_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="43dp"
-        android:onClick="editThread"
-        android:text="Edit thread" />
+                <requestFocus />
+            </EditText>
 
-    <EditText
-        android:id="@+id/thread_topic_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/thread_category_name"
-        android:layout_below="@+id/thread_category_name"
-        android:layout_marginTop="25dp"
-        android:ems="10"
-        android:hint="@string/topic_name" />
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="editThreadTopics"
+                android:text="Edit thread topic" />
 
-    <EditText
-        android:id="@+id/new_thread_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/thread_topic_name"
-        android:layout_below="@+id/thread_topic_name"
-        android:layout_marginTop="22dp"
-        android:ems="10"
-        android:hint="@string/thread_name" />
+            <EditText
+                android:id="@+id/thread_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:ems="10"
+                android:hint="Thread body"
+                android:inputType="textMultiLine" />
+
+            <Button
+                android:id="@+id/thread_create_button"
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:onClick="editThreadBody"
+                android:text="Edit thread body" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

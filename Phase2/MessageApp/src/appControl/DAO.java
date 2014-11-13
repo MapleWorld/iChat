@@ -2,6 +2,7 @@ package appControl;
 
 import java.util.concurrent.ExecutionException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -121,20 +122,50 @@ public class DAO {
 		return timeOut(result);
 	}
 
-	/**
-	 * Edit an existing thread with the given category and topic id, and thread
-	 * name and body.
-	 */
-	public JSONObject editThread(String categoryID, String topicID,
-			String threadName, String threadBody, String sessionID)
-			throws Exception {
+	
+	public JSONObject editThreadBody(long threadID, String newBody,
+									String sessionID){
+		JSONObject result;
+		JSONObject editData;
 		Server server = new Server();
-		JSONObject threadPOST = new JSONObject("{\"category\":\"" + categoryID
-				+ "\",\"title\":\"" + threadName + "\",\"body\":\""
-				+ threadBody + "\",\"topic_ids\":[" + topicID + "]}");
-		JSONObject result = server.new sendPOSTRequest().execute(
-				"/threads/edit", threadPOST.toString(), sessionID).get();
-		return timeOut(result);
+		
+		try {
+			editData = new JSONObject();
+			editData.put("body", newBody);
+			
+			result = server.new sendPOSTRequest().execute("/threads/edit/"+threadID,
+															editData.toString(),
+															sessionID).get();
+		} catch (Exception e) {
+			result = null;
+		}
+			
+		return result;
+	}
+	
+	public JSONObject editThreadTopics(long threadID, long[] topics, String sessionID) {
+		JSONObject result;
+		JSONObject editData;
+		JSONArray editArray;
+		Server server = new Server();
+		
+		try {
+			editArray = new JSONArray();
+			for(int idx = 0; idx < topics.length; idx ++) {
+				editArray.put(topics[idx]);
+			}
+			
+			editData = new JSONObject();
+			editData.put("topic_ids", editArray);
+			
+			result = server.new sendPOSTRequest().execute("/threads/edit/"+threadID,
+															editData.toString(),
+															sessionID).get();
+		} catch (Exception e) {
+			result = null;
+		}
+			
+		return result;
 	}
 
 	public JSONObject replyThread(String replyBody, String threadID,

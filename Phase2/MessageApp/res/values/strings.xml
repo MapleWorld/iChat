@@ -59,5 +59,7 @@
     <string name="new_reply_body">Enter reply</string>
     <string name="title_activity_subscriptions">SubscriptionsActivity</string>
     <string name="title_activity_view_subscriptions">ViewSubscriptionsActivity</string>
+    <string name="editThreadButtonID"> </string>
+    <string name="editThreadBodyTag"> </string>
 
 </resources>

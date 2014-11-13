@@ -33,6 +33,7 @@ public class ViewThreadActivity extends Activity {
 		super.onResume();
 		session = new Session(getApplicationContext());
 		
+		((LinearLayout) findViewById(R.id.editThreadButtonHolder)).removeAllViews();
 		((LinearLayout) findViewById(R.id.viewThreadReplyLayout)).removeAllViews();
 		
 		displayThread();
@@ -57,6 +58,7 @@ public class ViewThreadActivity extends Activity {
 		CSC301Reply[] replyData;
 		LinearLayout repliesLayout;
 		LinearLayout singleReplyLayout;
+		LinearLayout buttonHolderLayout;
 		TextView replyAuthor;
 		TextView replyBody;
 		TextView replyTimestamp;
@@ -86,6 +88,25 @@ public class ViewThreadActivity extends Activity {
 				((TextView) findViewById(R.id.viewThreadUsernameText)).setText("Posted by: "+jo.getString("username"));
 				((TextView) findViewById(R.id.viewThreadTimestampText)).setText("Posted at: "+jo.getString("timestamp"));
 				((TextView) findViewById(R.id.viewThreadBodyText)).setText(jo.getString("body"));
+				
+				if(jo.getLong("userid") == session.getUserID()) {
+					buttonHolderLayout = (LinearLayout) findViewById(R.id.editThreadButtonHolder);
+					Button editThreadButton = new Button(this);
+					editThreadButton.setTag(R.string.editThreadButtonID, threadString);
+					editThreadButton.setTag(R.string.editThreadBodyTag, jo.get("body"));
+					editThreadButton.setText("Edit thread");
+					editThreadButton.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent intent = new Intent(getApplicationContext(), EditThreadActivity.class);
+							intent.putExtra("threadID", (String) v.getTag(R.string.editThreadButtonID));
+							intent.putExtra("bodyText", (String)v.getTag(R.string.editThreadBodyTag));
+							startActivity(intent);
+						}
+					});
+					buttonHolderLayout.addView(editThreadButton);
+				}
+				
 				
 				for(int idx = 0; idx < replyData.length; idx++) {
 					singleReplyLayout = new LinearLayout(this);

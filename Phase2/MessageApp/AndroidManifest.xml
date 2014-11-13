@@ -85,6 +85,10 @@
             android:label="@string/title_activity_create_category" >
         </activity>
         <activity
+            android:name=".EditThreadActivity"
+            android:label="EditThreadActivity" >
+        </activity>
+        <activity
             android:name=".ReplyThreadActivity"
             android:label="@string/title_activity_reply_thread" >
         </activity>

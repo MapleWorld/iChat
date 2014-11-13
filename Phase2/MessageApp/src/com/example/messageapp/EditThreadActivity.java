@@ -1,11 +1,15 @@
 package com.example.messageapp;
 
+import java.util.concurrent.ExecutionException;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -16,12 +20,19 @@ import appControl.Session;
 public class EditThreadActivity extends Activity {
 
 	Session session;
+	long threadID;
+	String bodyText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_thread);
 		session = new Session(getApplicationContext());
+		
+		threadID = Long.parseLong(getIntent().getStringExtra("threadID"));
+		bodyText = getIntent().getStringExtra("bodyText");
+		
+		((EditText) findViewById(R.id.thread_body)).setText(bodyText);
 	}
 
 	@Override
@@ -30,80 +41,37 @@ public class EditThreadActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-/*
-	// Create a new thread
-	public void editThread(View V) throws Exception {
-		EditText categoryText = (EditText) findViewById(R.id.thread_category_name);
-		EditText topicText = (EditText) findViewById(R.id.thread_topic_name);
-		EditText threadText = (EditText) findViewById(R.id.new_thread_name);
+	
+	public void editThreadBody(View v) {
 		EditText threadBodyText = (EditText) findViewById(R.id.thread_body);
-
-		String categoryName = categoryText.getText().toString();
-		String topicName = topicText.getText().toString();
-		String threadName = threadText.getText().toString();
 		String threadBody = threadBodyText.getText().toString();
+		
+		DAO dao = new DAO();
+		
+		JSONObject resp = new JSONObject();
+		
+		resp = dao.editThreadBody(threadID, threadBody, session.getSessionID());
+		
+		if (resp != null) {
+			try {
+				if(resp.getBoolean("success")) {
+					Toast.makeText(this, "Thread body edited successfully", Toast.LENGTH_LONG).show();
+					finish();
 
-		Integer categoryID = null;
-		String topicID = "";
-
-		DAO serverDAO = new DAO();
-
-		JSONObject categoryResponse = serverDAO
-				.getServerResponseContent("/categories");
-		JSONArray categories = categoryResponse.getJSONArray("categories");
-
-		// Get the category ID that matches the given category
-		for (int i = 0; i < categories.length(); i++) {
-			JSONObject o = categories.getJSONObject(i);
-			if (o.getString("name").equals(categoryName)) {
-				categoryID = o.getInt("id");
-				break;
-			}
-		}
-
-		// Get the topic ID that matches the given topic
-		if (topicName != null && categoryID != null) {
-			JSONObject topicResponse = serverDAO
-					.getServerResponseContent("/topics/list/"
-							+ categoryID.toString());
-			JSONArray topics = topicResponse.getJSONArray("topics");
-
-			for (int i = 0; i < topics.length(); i++) {
-				JSONObject o = topics.getJSONObject(i);
-				if (o.getString("name").equals(topicName)) {
-					Integer id = o.getInt("id");
-					topicID = id.toString();
-					break;
+				} else {
+					Toast.makeText(this, "Error editing thread body", Toast.LENGTH_LONG).show();
 				}
-			}
-		}
+			} catch (JSONException e) {
+				Toast.makeText(this, "Error communicating with server", Toast.LENGTH_LONG).show();
 
-		// Perform POST request to create a new thread and handle successes
-		// and failures from the response
-		if (categoryID != null) {
-			JSONObject threadResponse = serverDAO.editThread(
-					categoryID.toString(), topicID, threadName, threadBody,
-					session.getUserDetails().get("session"));
-
-			String message = (String) threadResponse.get("message");
-			Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
-			msg.show();
-
-			if (threadResponse.get("success").equals(true)) {
-				Intent intent = new Intent(this, MainActivity.class);
-				startActivity(intent);
-			} else {
-				// Clear the form
-				categoryText.setText("");
-				topicText.setText("");
-				threadText.setText("");
-				threadBodyText.setText("");
 			}
 		} else {
-			Toast msg = Toast.makeText(this, "category not exist",
-					Toast.LENGTH_LONG);
-			msg.show();
+			Toast.makeText(this, "Error communicating with server", Toast.LENGTH_LONG).show();
 		}
 	}
-*/
+	
+	public void editThreadTopics(View v){
+		Toast.makeText(this, "Not implemented for this phase", Toast.LENGTH_LONG).show();
+	}
+
 }
