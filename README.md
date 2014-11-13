@@ -7,3 +7,8 @@
  * [Phase 2 Release Source Code](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/releases/tag/Phase2)
 
 #### Phase 3
+ * [Phase 3 Milestone](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/milestones/phase3)
+ * [Phase 3 Release Plan](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase3/ReleasePlan.md)
+ * [Phase 3 Process](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase3/Process.md)
+ * [Phase 3 Code Review](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase3/CodeReview.md)
+ * [Phase 3 Release Source Code]()
