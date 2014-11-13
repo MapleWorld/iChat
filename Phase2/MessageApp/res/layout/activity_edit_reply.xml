@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit reply body" />
+            android:text="@string/new_reply_body" />
 
         <EditText
             android:id="@+id/editReplyBodyText"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="76dp"
             android:onClick="onSubmitEdit"
-            android:text="Submit" />
+            android:text="@string/submitNewPatientData" />
 
     </LinearLayout>
 

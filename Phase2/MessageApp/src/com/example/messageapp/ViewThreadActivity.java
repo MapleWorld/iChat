@@ -61,14 +61,13 @@ public class ViewThreadActivity extends Activity {
 		TextView replyBody;
 		TextView replyTimestamp;
 		Button btn;
-		JSONObject result;
+		JSONObject result = null;
 		
 		DAO dao = new DAO();
 		
 		try {
 			result = dao.getServerResponseContent("/threads/view/"+ threadString + "/1");
 		} catch(Exception e) {
-			result = null;
 			Toast.makeText(this, "Error connecting to server", Toast.LENGTH_LONG).show();
 		}
 
