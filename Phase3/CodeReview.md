@@ -5,7 +5,7 @@ The table below indicates which team member reviewed which other team member's c
 | Reviewer | Coder |
 | -------- | ----- |
 | nbxieyu |  FrancesYu |
-| GitHub username 2 |  GitHub username 3 |
+| sccdmaomao |  fdlv |
 | GitHub username 3 |  GitHub username 4 |
 | GitHub username 4 |  GitHub username 5 |
 | GitHub username 5 |  GitHub username 6 |
