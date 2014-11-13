@@ -1,6 +1,6 @@
 Kanban process:
 
-if a task appears in the different same day, then we did it all in one day.
+If a task appears in the different same day, then we did it all in one day.
 
 Nov 02 2014
 
