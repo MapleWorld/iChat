@@ -60,3 +60,31 @@ implement Server-admin can delete reply[#46](https://github.com/csc301-fall2014/
   * I thought some comments would help others to understand easier to commit [commit ](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/8db010c807ed2d7786dfbc4845cf08d71f077a03)  
   * The code does good job handling exceptions, any invalid responds from server would result in a proper error message returned to user. [commit] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/c4ab6dd873a74976ca2e652e7ff1cb13a58e7d25#diff-55ac6d6f38dab242728c03f92608224eR39)
   * I found the above two commits have similar code, there could be potential benefits using abstract interface
+
+## g3rs-cdf : sccdmaomao
+
+Code review
+EditThreadActivity, implementation by sccdmaomao
+
+The code originally had not been implemented properly. The client was not configured to send the correct data to the server, and the actual functions for editing the thread contents were not called anywhere in the code, so it was also never used.
+
+
+Original implementation in commit: 
+58107de7f389500bbd91967a488b737ae682d232
+
+
+I provided fixes to the code in EditThreadActivity.java, DAO.java and ViewThreadActivity.java.
+
+
+DAO.java contains the logic for communicating with the server. I added code for sending the correct request to edit the thread, with exception handling so that if there are communication errors it will not crash the entire application like in the original implementation.
+
+
+EditThreadActivity includes revisions to pass the correct data to the functions in DAO.java.
+
+
+ViewThreadActivity was modified to insert a GUI button onto one of the existing screens which opens up EditThreadActivity, allowing users to access the functionality which was previously not available.
+
+
+Fixes implemented in commit:
+ 
+1427c003f67b3341defd7cc8dfbbca89e3e23705
