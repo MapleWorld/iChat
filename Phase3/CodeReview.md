@@ -71,7 +71,7 @@ The code originally had not been implemented properly. The client was not config
 
 
 Original implementation in commit: 
-58107de7f389500bbd91967a488b737ae682d232
+[58107de7f389500bbd91967a488b737ae682d232](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/58107de7f389500bbd91967a488b737ae682d232)
 
 
 I provided fixes to the code in EditThreadActivity.java, DAO.java and ViewThreadActivity.java.
@@ -88,4 +88,6 @@ ViewThreadActivity was modified to insert a GUI button onto one of the existing 
 
 Fixes implemented in commit:
  
-1427c003f67b3341defd7cc8dfbbca89e3e23705
+[1427c003f67b3341defd7cc8dfbbca89e3e23705](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/1427c003f67b3341defd7cc8dfbbca89e3e23705)
+
+Fixes tracked with issue: [Issue link](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/issues/77)
