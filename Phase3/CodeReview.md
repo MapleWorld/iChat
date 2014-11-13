@@ -57,6 +57,6 @@ implement Server-admin can delete reply[#46](https://github.com/csc301-fall2014/
 
 ## sccdmaomao : fdlv
 
-  * I thought some comments would help others to understand easier to commit (_8db010c807ed2d7786dfbc4845cf08d71f077a03_)  
-  * The code does good job handling exceptions, any invalid responds from server would result in a proper error message returned to user. (_c4ab6dd873a74976ca2e652e7ff1cb13a58e7d25_)
+  * I thought some comments would help others to understand easier to commit [commit ](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/8db010c807ed2d7786dfbc4845cf08d71f077a03)  
+  * The code does good job handling exceptions, any invalid responds from server would result in a proper error message returned to user. [commit] (https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/c4ab6dd873a74976ca2e652e7ff1cb13a58e7d25#diff-55ac6d6f38dab242728c03f92608224eR39)
   * I found the above two commits have similar code, there could be potential benefits using abstract interface
