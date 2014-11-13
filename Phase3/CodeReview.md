@@ -10,6 +10,7 @@ The table below indicates which team member reviewed which other team member's c
 | Gabriel Luong (gabrielluong) |  Russell Self (g3rs-cdf) |
 | fdlv |  MapleWorld |
 | FrancesYu |  nbxieyu |
+| g3rs-cdf | sccdmaomao|
 
 -----
 
