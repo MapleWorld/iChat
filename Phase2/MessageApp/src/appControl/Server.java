@@ -45,8 +45,8 @@ public class Server {
 			try {
 				HttpURLConnection conn = (HttpURLConnection) connMgr
 						.getServerConnection(params[0]);
-				conn.setReadTimeout(1000); /* milliseconds */
-				conn.setConnectTimeout(1500); /* milliseconds */
+				conn.setReadTimeout(5000); /* milliseconds */
+				conn.setConnectTimeout(5500); /* milliseconds */
 				conn.setRequestMethod("GET");
 				conn.setDoInput(true);
 
@@ -107,8 +107,8 @@ public class Server {
 				if (params.length == 3) {
 					con.addRequestProperty("SESSIONID", params[2]);
 				}
-				con.setReadTimeout(1000); /* milliseconds */
-				con.setConnectTimeout(1500); /* milliseconds */
+				con.setReadTimeout(5000); /* milliseconds */
+				con.setConnectTimeout(5500); /* milliseconds */
 				con.setRequestMethod("POST");
 				con.setDoOutput(true);
 

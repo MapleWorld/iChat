@@ -13,9 +13,9 @@ import appControl.Session;
 
 public class EditReplyActivity extends Activity {
 
-	Session session;
-	String replyBody;
-	long replyID;
+	private Session session;
+	private String replyBody;
+	private long replyID;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
