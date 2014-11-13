@@ -152,7 +152,7 @@ public class DAO {
 	}
 
 	public boolean deleteReply(long replyID, String sessionID) {
-		boolean success;
+		boolean success = false;
 		Server server = new Server();
 		JSONObject result;
 
@@ -164,7 +164,6 @@ public class DAO {
 				Log.e("com.example.messageapp", result.optString("message"));
 			}
 		} catch (Exception e) {
-			success = false;
 			Log.e("com.example.messageapp", "", e);
 		}
 

@@ -119,9 +119,7 @@ public class ViewThreadActivity extends Activity {
 									Toast.makeText(getApplicationContext(), 
 											"Reply deleted successfully", 
 											Toast.LENGTH_LONG).show();
-									finish();
-									startActivity(getIntent());
-									
+									startActivity(getIntent());									
 								} else {
 									Toast.makeText(getApplicationContext(), 
 													"Error deleting reply", 
