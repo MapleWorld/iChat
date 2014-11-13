@@ -1,3 +1,10 @@
+Phase 3 Process
+------
+
+ * [Kanban Process](#kanban-process)
+ * [Using GitHub](#using-github)
+ * [Using Kanban](#using-kanban)
+
 Kanban Process
 ------
 * If a task appears in the different states same day means we did it all in one day.
