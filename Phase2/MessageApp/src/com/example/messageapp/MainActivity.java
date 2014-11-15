@@ -1,11 +1,8 @@
 package com.example.messageapp;
 
 import java.util.concurrent.ExecutionException;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -106,42 +103,12 @@ public class MainActivity extends Activity {
 	public void viewAllThreads(View v) throws InterruptedException,
 			ExecutionException, JSONException {
 		// Authenticate the user account with the server
-		DAO findAllCategory = new DAO();
-		JSONObject categoryResponse = findAllCategory
-				.getServerResponseContent("/categories");
-		JSONArray categories = categoryResponse.getJSONArray("categories");
-		String[] categoryIDs = new String[categories.length()];
-
-		for (int i = 0; i < categories.length(); i++) {
-			JSONObject o = categories.getJSONObject(i);
-			categoryIDs[i] = o.getString("id");
-		}
-
-		JSONObject singleCategoryThreads;
-		JSONArray allThreads = new JSONArray();
 		DAO thread = new DAO();
-
-		for (int i = 0; i < categories.length(); i++) {
-
-			singleCategoryThreads = thread
-					.getServerResponseContent("/threads/by_category/"
-							+ categoryIDs[i] + "/1");
-
-			JSONArray resultSingleCategoryThreads = singleCategoryThreads
-					.getJSONArray("threads");
-
-			for (int k = 0; k < resultSingleCategoryThreads.length(); k++) {
-				JSONObject singleThread = resultSingleCategoryThreads
-						.getJSONObject(k);
-				allThreads.put(singleThread);
-			}
-		}
-
-		JSONObject result = new JSONObject();
-		result.put("threads", allThreads);
+		JSONObject allThreads = null;
+		allThreads = thread.getAllThreads();
 
 		Intent intent = new Intent(this, ViewListThreadActivity.class);
-		intent.putExtra("thread", result.toString());
+		intent.putExtra("thread", allThreads.toString());
 		startActivity(intent);
 	}
 	

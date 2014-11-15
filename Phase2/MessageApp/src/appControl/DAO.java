@@ -74,16 +74,18 @@ public class DAO {
 
 		return timeOut(result);
 	}
-	
-	public JSONObject deleteTopic(String topicID, String sessionID) throws Exception {
+
+	public JSONObject deleteTopic(String topicID, String sessionID)
+			throws Exception {
 		Server server = new Server();
 
 		JSONObject result = server.new sendPOSTRequest().execute(
-				"/topics/delete/" + topicID, (new JSONObject("{}")).toString(), sessionID).get();
-		
+				"/topics/delete/" + topicID, (new JSONObject("{}")).toString(),
+				sessionID).get();
+
 		return timeOut(result);
 	}
-	
+
 	/**
 	 * Ban a user
 	 * 
@@ -122,49 +124,49 @@ public class DAO {
 		return timeOut(result);
 	}
 
-	
 	public JSONObject editThreadBody(long threadID, String newBody,
-									String sessionID){
+			String sessionID) {
 		JSONObject result;
 		JSONObject editData;
 		Server server = new Server();
-		
+
 		try {
 			editData = new JSONObject();
 			editData.put("body", newBody);
-			
-			result = server.new sendPOSTRequest().execute("/threads/edit/"+threadID,
-															editData.toString(),
-															sessionID).get();
+
+			result = server.new sendPOSTRequest()
+					.execute("/threads/edit/" + threadID, editData.toString(),
+							sessionID).get();
 		} catch (Exception e) {
 			result = null;
 		}
-			
+
 		return result;
 	}
-	
-	public JSONObject editThreadTopics(long threadID, long[] topics, String sessionID) {
+
+	public JSONObject editThreadTopics(long threadID, long[] topics,
+			String sessionID) {
 		JSONObject result;
 		JSONObject editData;
 		JSONArray editArray;
 		Server server = new Server();
-		
+
 		try {
 			editArray = new JSONArray();
-			for(int idx = 0; idx < topics.length; idx ++) {
+			for (int idx = 0; idx < topics.length; idx++) {
 				editArray.put(topics[idx]);
 			}
-			
+
 			editData = new JSONObject();
 			editData.put("topic_ids", editArray);
-			
-			result = server.new sendPOSTRequest().execute("/threads/edit/"+threadID,
-															editData.toString(),
-															sessionID).get();
+
+			result = server.new sendPOSTRequest()
+					.execute("/threads/edit/" + threadID, editData.toString(),
+							sessionID).get();
 		} catch (Exception e) {
 			result = null;
 		}
-			
+
 		return result;
 	}
 
@@ -267,6 +269,95 @@ public class DAO {
 				.get();
 
 		return timeOut(result);
+	}
+
+	// Given Category Name, return a json array of all the categories
+	public JSONArray getCategories() throws InterruptedException,
+			ExecutionException, JSONException {
+		JSONObject categoryResponse = this
+				.getServerResponseContent("/categories");
+		JSONArray categories = categoryResponse.getJSONArray("categories");
+		return categories;
+	}
+
+	public JSONObject getThreadsByCategoryName(String categoryName)
+			throws InterruptedException, ExecutionException, JSONException {
+
+		JSONArray categoriesArray = getCategories();
+		String[] categoryID = findCategoryID(categoriesArray, categoryName);
+		JSONObject threads = getThreadsByCategoryID(categoryID, categoriesArray);
+		return threads;
+	}
+	
+
+	// Given Category Name, find its ID.
+	public JSONObject getAllThreads() throws InterruptedException,
+			ExecutionException, JSONException {
+
+		JSONArray categoriesArray = getCategories();
+		String[] categoryIDs = getAllCategoriesIDs(categoriesArray);
+		JSONObject threads = getThreadsByCategoryID(categoryIDs,
+				categoriesArray);
+
+		return threads;
+	}
+
+	// Given category id, return all threads belongs to that category
+	public JSONObject getThreadsByCategoryID(String[] categoryIDs,
+			JSONArray categoriesArray) throws JSONException,
+			InterruptedException, ExecutionException {
+		
+		JSONObject CategoryThreads;
+		JSONArray allThreads = new JSONArray();
+
+		for (int i = 0; i < categoryIDs.length; i++) {
+			CategoryThreads = this
+					.getServerResponseContent("/threads/by_category/"
+							+ categoryIDs[i] + "/1");
+
+			JSONArray resultCategoryThreads = CategoryThreads
+					.getJSONArray("threads");
+
+			for (int k = 0; k < resultCategoryThreads.length(); k++) {
+				JSONObject singleThread = resultCategoryThreads
+						.getJSONObject(k);
+				allThreads.put(singleThread);
+			}
+		}
+
+		JSONObject result = new JSONObject();
+		result.put("threads", allThreads);
+
+		return result;
+
+	}
+
+	// Given Category Name, find its ID.
+	public String[] findCategoryID(JSONArray categoryArray, String categoryName)
+			throws JSONException {
+		String[] categoryIDs = new String[1];
+		for (int i = 0; i < categoryArray.length(); i++) {
+			JSONObject o = categoryArray.getJSONObject(i);
+			if (o.getString("name").equals(categoryName)) {
+				categoryIDs[0] = o.getString("id");
+				break;
+			}
+		}
+		return categoryIDs;
+	}
+
+	public String[] getAllCategoriesIDs(JSONArray categoriesArray)
+			throws JSONException {
+
+		String[] categoryIDs = new String[categoriesArray.length()];
+
+		for (int i = 0; i < categoriesArray.length(); i++) {
+			JSONObject o = categoriesArray.getJSONObject(i);
+			categoryIDs[i] = o.getString("id");
+		}
+
+		return categoryIDs;
+
 	}
 
 }

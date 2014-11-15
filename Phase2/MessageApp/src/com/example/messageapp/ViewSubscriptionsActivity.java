@@ -1,17 +1,12 @@
 package com.example.messageapp;
 
 import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import appControl.DAO;
 
 public class ViewSubscriptionsActivity extends Activity {

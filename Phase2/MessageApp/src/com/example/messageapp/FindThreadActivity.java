@@ -1,6 +1,5 @@
 package com.example.messageapp;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import android.os.Bundle;
 import android.app.Activity;
@@ -41,42 +40,14 @@ public class FindThreadActivity extends Activity {
 
 		// Perform a POST request to get a list of threads for the given
 		// category ID and display the list of threads
-		DAO findAllCategory = new DAO();
-		JSONObject categoryResponse = findAllCategory
-				.getServerResponseContent("/categories");
-		JSONArray categories = categoryResponse.getJSONArray("categories");
+		DAO findAllThreadsInThisCategory = new DAO();
 
-		int categoryID = 0;
-
-		for (int i = 0; i < categories.length(); i++) {
-			JSONObject o = categories.getJSONObject(i);
-			if (o.getString("name").equals(categoryName)) {
-				categoryID = o.getInt("id");
-				break;
-			}
-		}
-		JSONObject singleCategoryThreads;
-		DAO thread = new DAO();
-		JSONArray allThreads = new JSONArray();
-
-		singleCategoryThreads = thread
-				.getServerResponseContent("/threads/by_category/" + categoryID
-						+ "/1");
-
-		JSONArray resultSingleCategoryThreads = singleCategoryThreads
-				.getJSONArray("threads");
-
-		for (int k = 0; k < resultSingleCategoryThreads.length(); k++) {
-			JSONObject singleThread = resultSingleCategoryThreads
-					.getJSONObject(k);
-			allThreads.put(singleThread);
-		}
-
-		JSONObject result = new JSONObject();
-		result.put("threads", allThreads);
+		JSONObject threads = new JSONObject();
+		threads = findAllThreadsInThisCategory
+				.getThreadsByCategoryName(categoryName);
 
 		Intent intent = new Intent(this, ViewListThreadActivity.class);
-		intent.putExtra("thread", result.toString());
+		intent.putExtra("thread", threads.toString());
 		startActivity(intent);
 
 	}
