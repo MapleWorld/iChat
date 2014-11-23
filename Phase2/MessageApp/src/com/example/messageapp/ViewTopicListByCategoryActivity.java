@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,74 +40,78 @@ public class ViewTopicListByCategoryActivity extends Activity {
 			e.printStackTrace();
 		}
 		
-		listview.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				final String topicName = ((TextView) view).getText().toString();
-				
-				// Build delete dialog
-				AlertDialog.Builder deleteDialogBuilder = new AlertDialog.Builder(ViewTopicListByCategoryActivity.this);
-				deleteDialogBuilder.setTitle("Delete Topic");
-				deleteDialogBuilder.setMessage("Delete " + topicName + "?");
-				deleteDialogBuilder.setCancelable(false);
-                
-				deleteDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int position) {
-						try {
-							// Get the topic ID that matches the selected topic
-							DAO serverDAO = new DAO();
-							String topicID = "";
-							JSONObject topicResponse = serverDAO
-									.getServerResponseContent("/topics/list/"
-											+ categoryID);
-							JSONArray topics = topicResponse.getJSONArray("topics");
-
-							for (int i = 0; i < topics.length(); i++) {
-								JSONObject o = topics.getJSONObject(i);
-								if (o.getString("name").equals(topicName)) {
-									Integer id = o.getInt("id");
-									topicID = id.toString();
-									break;
+		if(session.isAdmin()) {
+			listview.setOnItemLongClickListener(new OnItemLongClickListener() {
+	
+				@Override
+				public boolean onItemLongClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					final String topicName = ((TextView) view).getText().toString();
+					
+					// Build delete dialog
+					AlertDialog.Builder deleteDialogBuilder = new AlertDialog.Builder(ViewTopicListByCategoryActivity.this);
+					deleteDialogBuilder.setTitle("Delete Topic");
+					deleteDialogBuilder.setMessage("Delete " + topicName + "?");
+					deleteDialogBuilder.setCancelable(false);
+	                
+					deleteDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int position) {
+							try {
+								// Get the topic ID that matches the selected topic
+								DAO serverDAO = new DAO();
+								String topicID = "";
+								JSONObject topicResponse = serverDAO
+										.getServerResponseContent("/topics/list/"
+												+ categoryID);
+								JSONArray topics = topicResponse.getJSONArray("topics");
+	
+								for (int i = 0; i < topics.length(); i++) {
+									JSONObject o = topics.getJSONObject(i);
+									if (o.getString("name").equals(topicName)) {
+										Integer id = o.getInt("id");
+										topicID = id.toString();
+										break;
+									}
 								}
-							}
-							
-							JSONObject result = serverDAO.deleteTopic(topicID, session.getUserDetails().get("session"));
-							String message = (String) result.get("message");
-							
-							if (result.get("success").equals(true)) {
-								itemsList.remove(position);
-								arrayAdapter.notifyDataSetChanged();
 								
-								Toast msg = Toast.makeText(getApplicationContext(), topicName + " deleted successfully", Toast.LENGTH_LONG);
-								msg.show();
-							} else {
-								Toast msg = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
+								JSONObject result = serverDAO.deleteTopic(topicID, session.getUserDetails().get("session"));
+								String message = (String) result.get("message");
+								
+								if (result.get("success").equals(true)) {
+									itemsList.remove(position);
+									arrayAdapter.notifyDataSetChanged();
+									
+									Toast msg = Toast.makeText(getApplicationContext(), topicName + " deleted successfully", Toast.LENGTH_LONG);
+									msg.show();
+								} else {
+									Toast msg = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
+									msg.show();
+								}
+							} catch (Exception e) {
+								Toast msg = Toast.makeText(getApplicationContext(), "Failed to delete topic",
+										Toast.LENGTH_LONG);
 								msg.show();
 							}
-						} catch (Exception e) {
-							Toast msg = Toast.makeText(getApplicationContext(), "Failed to delete topic",
-									Toast.LENGTH_LONG);
-							msg.show();
 						}
-					}
-				});
-                
-				deleteDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.cancel();
-					}
-				});
+	
+					});
+	                
+					deleteDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
+					
+					// Create and display the deletion prompt
+					AlertDialog deleteDialog = deleteDialogBuilder.create();
+					deleteDialog.show();
+					return true;
+				}
 				
-				// Create and display the deletion prompt
-				AlertDialog deleteDialog = deleteDialogBuilder.create();
-				deleteDialog.show();
-			}
-			
-		});
+			});
+		}
 	}
 
 	@Override
