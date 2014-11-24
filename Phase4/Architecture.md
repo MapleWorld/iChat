@@ -9,3 +9,7 @@ The server uses the Java Servlet API for handling HTTP. The Jetty servlet contai
 The database used by the server is an external MySQL instance, for which the connection parameters are configurable. Each request to the server will open potentially one or multiple connections to the database in order to complete the desired operation. Login sessions are tracked in the database, as well as all other data. The client does not store any data locally, except for connection prefrences and any in-memory data required to render the screens. We evaluated using an embedded database engine such as Derby or SQLite, but chose a full external RDBMS server since we needed better support for concurrent access to the DB. In addition, it allows for a more flexible architecture where the DB service is not required to run on the same system as the application server.
 
 The client uses only the Android libraries in order to run the user interface. In the background, it loads data via HTTP and parses it using the same JSON library we used for the server. This data is used to populate the fields on the user interface.
+
+## Architecture Diagram
+
+![Architecture Diagram](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase4/architecture_diagram.png)
