@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import appControl.CSC301ListViewItem;
 import appControl.DAO;
 import appControl.Session;
 
@@ -24,8 +25,8 @@ public class ViewTopicListByCategoryActivity extends Activity {
 	private ListView listview;
 	private String categoryID;
 	private Session session;
-	private ArrayAdapter<String> arrayAdapter;
-	private ArrayList<String> itemsList;
+	private ArrayAdapter<CSC301ListViewItem	> arrayAdapter;
+	private ArrayList<CSC301ListViewItem> itemsList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +113,37 @@ public class ViewTopicListByCategoryActivity extends Activity {
 				
 			});
 		}
+		
+		listview.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				
+				long topicID;
+				JSONObject jThreadData;
+				
+				try {
+					topicID = ((CSC301ListViewItem) listview.getItemAtPosition(position)).getID();
+					
+					jThreadData = (new DAO()).getThreadsByTopicID(topicID, 1);
+					
+					if(jThreadData != null) {
+						Intent intent = new Intent(getApplicationContext(), ViewListThreadActivity.class);
+						intent.putExtra("thread", jThreadData.toString());
+						startActivity(intent);
+					} else {
+						Toast.makeText(getApplicationContext(), 
+								"Error loading threads", 
+								Toast.LENGTH_LONG).show();
+					}
+				} catch (Exception e) {
+					Toast.makeText(getApplicationContext(), 
+							"Error loading threads", 
+							Toast.LENGTH_LONG).show();
+				}
+				
+			}
+		});
 	}
 
 	@Override
@@ -124,27 +156,32 @@ public class ViewTopicListByCategoryActivity extends Activity {
 	/**
 	 * Display a list of topics for a given category
 	 */
-	public void displayTopicList() throws Exception {
-		Intent intent = getIntent();
-		categoryID = intent.getStringExtra("catID");
+	public void displayTopicList() {
 		
-		// Perform a POST request to get the list of topics for the given category
-		// and display it
-		DAO response = new DAO();
-		JSONObject result = response.getServerResponseContent("/topics/list/"
-				+ categoryID);
-		JSONArray results = result.getJSONArray("topics");
-		itemsList = new ArrayList<String>();
-
-		for (int i = 0; i < results.length(); i++) {
-			JSONObject o = results.getJSONObject(i);
-			itemsList.add(o.getString("name"));
+		try {
+			Intent intent = getIntent();
+			categoryID = intent.getStringExtra("catID");
+			
+			// Perform a POST request to get the list of topics for the given category
+			// and display it
+			DAO response = new DAO();
+			JSONObject result = response.getServerResponseContent("/topics/list/"
+					+ categoryID);
+			JSONArray results = result.getJSONArray("topics");
+			itemsList = new ArrayList<CSC301ListViewItem>();
+	
+			for (int i = 0; i < results.length(); i++) {
+				JSONObject o = results.getJSONObject(i);
+				itemsList.add(new CSC301ListViewItem(o.getLong("id"), o.getString("name")));
+			}
+	
+			arrayAdapter = new ArrayAdapter<CSC301ListViewItem>(this,
+					android.R.layout.simple_list_item_1, itemsList);
+	
+			listview.setAdapter(arrayAdapter);
+		} catch (Exception e) {
+			Toast.makeText(this, "Error loading topics", Toast.LENGTH_LONG).show();
 		}
-
-		arrayAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, itemsList);
-
-		listview.setAdapter(arrayAdapter);
 	}
 
 }

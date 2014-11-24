@@ -302,6 +302,18 @@ public class DAO {
 		return threads;
 	}
 
+	public JSONObject getThreadsByTopicID(long topicID, long pageNum) {
+		JSONObject jResp;
+		
+		try {
+			jResp = this.getServerResponseContent("/threads/by_topic/"+topicID+"/"+pageNum);
+		} catch (Exception e) {
+			jResp = null;
+		}
+		
+		return jResp;
+	}
+	
 	// Given category id, return all threads belongs to that category
 	public JSONObject getThreadsByCategoryID(String[] categoryIDs,
 			JSONArray categoriesArray) throws JSONException,
