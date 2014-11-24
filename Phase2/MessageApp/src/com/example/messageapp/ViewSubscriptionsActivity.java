@@ -18,7 +18,7 @@ public class ViewSubscriptionsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_subscriptions);
 		
-		listview = (ListView) findViewById(R.id.listView1);
+		listview = (ListView) findViewById(R.id.categoryListForTopics);
 		
 		try {
 			getResponse();
