@@ -174,4 +174,53 @@ public class TopicDTO {
 		
 		return jResp == null ? null : jResp.toString();
 	}
+	
+	public static boolean topicSub(String sessionID, long topic_id) throws UnauthorizedException {
+		ConfigManager mgr = ConfigManager.getInstance();
+		Connection conn = null;
+		PreparedStatement ps;
+		int result;
+		long userid;
+		CSC301User user;
+		boolean success = false;
+		try {
+			userid = SessionDTO.getUserIDFromSessionID(sessionID);
+			user = UserDTO.fetchUserByID(userid);
+			if (user.getBanned()) {
+				throw new UnauthorizedException(
+						"User is banned and cannot post.");
+			}
+
+			conn = DriverManager.getConnection(mgr.getJDBCURL());
+
+			ps = conn.prepareStatement(
+					"insert into subscription (user_id, topic_id) "
+							+ "values (?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			ps.setLong(1, userid);
+			ps.setLong(2, topic_id);
+
+			result = ps.executeUpdate();
+			if(result == 1){
+				success = true;
+			}else{
+				success = false;
+			}
+
+			ps.close();
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return success;
+		
+	}
 }
