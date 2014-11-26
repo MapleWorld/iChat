@@ -2,7 +2,7 @@
 
 This system uses a classic client-server architecture. There are two codebases, one for the client, and one for the server.
 
-Communication between the client and server is done using the HTTP protocol. HTTPS with encryption is optionally supported. All data is sent as text strings, serialized using the JSON format. Upon receipt at either end, the data is parsed using an open source JSON library that we included.
+Communication between the client and server is done using the HTTP protocol. HTTPS with encryption is optionally supported. All data is sent as text strings and serialized using the JSON format. Upon receipt at either end, the data is parsed using an open source JSON library that we included.
 
 The server uses the Java Servlet API for handling HTTP. The Jetty servlet container is being used in an embedded configuration; this allows for miminal effort for configuring the server to run on any desired system. We are able to build a single JAR file containing all of the resources required to run the server, and it will be able to run on any system which has a compatible JRE, without needing to install any other dependencies. The server does not maintain any state between requests, all state is stored in the database. There are two separate categories that the server code falls in to; request handling (Servlets) and data access logic. The servlets directly process HTTP requests and are invoked by the servlet container. Each servlet will call on data access functions in order to process and respond to the request. In turn, the data access functions will enforce business logic and communicate with the persistent storage (MySQL).
 
