@@ -23,8 +23,11 @@ We would like you to be concise yet informative.
 
 ----
 
-## Ou Ye (g3lonely)
-* My most significant contribution was the implementation of the basic user functions and design for the android client, which we use all the time to test the functionality of the methods and the server. This is where we laid out the core functionality for handling HTTP requests, parsing JSON, and displaying the content to the user. Most of this was implemented in this [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/165abba4db65cee383214b1c936a099520a396d9).
-* While I was working on this project, I had to implement and establish the server connection through HTTPS on the Android client. This involved the use of external MySQL jar and running the server request in the background, through the process, I learned the technique of handling HTTP request and the use of AsyncTask. This was implemented in [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/65996b6a8d7146f10fa77e12cee4d8130405a5c8).
-* My strength as a team member was in testing and implementing the functionality for the android client, and maintaining the quality of the code by ensuring that there is no duplicate code.
-* My main weakness as a team member is perhaps the lack of consistency, I do most of my work at mid night and sleep during the day, and I tended to commit everything at once, making it hard for other team member to follow up. I could improve it by spreading the commit at different time interval.
+## Felix Lu (g3luding)
+
+ * My most significant contrubution was the design and implementation of the Android client side data display which was used in most of the client side to allow users to view data. I used an adapter to populate the Android ListView with the JSON objects. [32145dc77026a01428825bae98fa6997b401d8b7](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/32145dc77026a01428825bae98fa6997b401d8b7)
+ * Through working on this Android application I learned a lot about how Java servlets are used. We can easily match the request URL and send a response to the user through servlets. [ThreadServlet](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase2/csc301server/src/org/csc301team6/server/ThreadsServlet.java)
+ * I try to fill in the gaps when people need help. During group meetings I give suggestions on how we can solve the problems. I never make negative contributions to the team such as never commiting code with bugs into the repository so others will not have to fix it.
+ * I could try to be more active in the Facebook group conversation that we had. When someone needed help I could have probably spent some more time trying to answer them. I could have also tried to ask the people that implemented some parts of the code to explain the code to me so that I didn't have to spend a lot of time reading over it and start coding earlier.
+
+----
