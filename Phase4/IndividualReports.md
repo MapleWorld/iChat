@@ -39,3 +39,11 @@ We would like you to be concise yet informative.
 * My main weakness as a team member is perhaps the lack of consistency, I do most of my work at mid night and sleep during the day, and I tended to commit everything at once, making it hard for other team member to follow up. I could improve it by spreading the commit at different time interval.
 
 ----
+
+## Guohao Yan (sccdmaomao)
+* My contributions were implementing edit thread function that sends request to server on the android client. [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/3311d9ce95dfb6b4317d305e828b72aba6163291)
+* There are a lot of new tecnical concepts I learned while working on this Messaging project, I learned how to handle HTTPS request on servers as well as some experience connecting to MySQL. [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/60a0d7b8f0f3a9bec92d32ae5239eea939a13615)
+* My main strength as a team member was implementing android front-end parts of the code, mostly on button functionalities, android activities. I also test android client to make sure they work correctly as we expect.
+* As a team member I really should've improve on server side of the project, I implemented android side functions that send requests to server, but I had no idea how server is accepting the request and respond at the time.
+
+----
