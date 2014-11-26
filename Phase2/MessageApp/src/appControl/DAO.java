@@ -383,15 +383,10 @@ public class DAO {
 			JSONObject o;
 			try {
 				o = Topics.getJSONObject(i);
-		
-				System.out.println(o.toString());
-				
 				JSONObject req = new JSONObject();
 				req.put("topic_id", o.get("id"));			
 				result = server.new sendPOSTRequest().execute(
 						"/topics/subscribe",req.toString(), sessionID).get();
-				System.out.println(result.toString());
-				
 			}catch(Exception e){
 				Log.e("com.example.messageapp", "exception", e);
 			}
