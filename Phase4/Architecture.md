@@ -1,4 +1,4 @@
-## System Architecture
+# Phase 4 - Architecture
 
 This system uses a classic client-server architecture. There are two codebases, one for the client, and one for the server.
 

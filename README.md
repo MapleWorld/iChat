@@ -17,5 +17,6 @@
  * [Phase 4 Product](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase4/Product.md)
  * [Phase 4 Process](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase4/Process.md)
  * [Phase 4 Architecture](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase4/Architecture.md)
+ * [Phase 4 Architecture Diagram](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase4/architecture_diagram.png)
  * [Phase 4 Individual Reports](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/blob/master/Phase4/IndividualReports.md)
  * [Phase 4 Release Source Code]()
