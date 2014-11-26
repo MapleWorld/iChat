@@ -1,128 +1,258 @@
 package com.example.messageapp;
 
-import java.util.concurrent.ExecutionException;
-import org.json.JSONException;
+import java.util.ArrayList;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.LinearLayout;
+import android.widget.AdapterView.OnItemClickListener;
 import appControl.DAO;
 import appControl.Session;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnItemClickListener {
+	private Session session;
 
-	// Session Manager Class
-	Session session;
+	private DrawerLayout mDrawerLayout;
+	private ListView mDrawerList;
+	private ActionBarDrawerToggle mDrawerToggle;
+	private ListView mListView;
+
+	private CharSequence mDrawerTitle;
+	private CharSequence mTitle;
+	private String[] mDrawerItems;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-	
 
-		// Session class instance
 		session = new Session(getApplicationContext());
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		
-		//If this is an admin user, load the admin controls
-		if(session.isAdmin()) {
-			LinearLayout layout = (LinearLayout) findViewById(R.id.admin_buttons);
-			
-			Button banUserButton = new Button(this);
-			
-			banUserButton.setText("Ban user");
-			banUserButton.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent(v.getContext(), BanUserActivity.class);
-					startActivity(intent);
-				}
-			});
-			
-			layout.addView(banUserButton);
-			
-			//setContentView(layout);
-			
-			Button createCatButton = new Button(this);
-			
-			createCatButton.setText("Create Category");
-			createCatButton.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent(v.getContext(), CreateCategoryActivity.class);
-					startActivity(intent);
-				}
-			});
-			
-			layout.addView(createCatButton);
-			
+		// If this is an admin user, load the admin controls
+		if (session.isAdmin()) {
+			mDrawerItems = getResources().getStringArray(R.array.admin_drawer_array);
+		} else {
+			mDrawerItems = getResources().getStringArray(R.array.drawer_array);
 		}
+		
+		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
+				GravityCompat.START);
+		// set up the drawer's list view with items and click listener
+		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+				R.layout.drawer_list_item, mDrawerItems));
+		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		mDrawerList.setItemChecked(0, true);
+		
+		// enable ActionBar app icon to behave as action to toggle nav drawer
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+
+		// ActionBarDrawerToggle ties together the the proper interactions
+		// between the sliding drawer and the action bar app icon
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+				R.drawable.ic_drawer, R.string.drawer_open,
+				R.string.drawer_close) {
+			public void onDrawerClosed(View view) {
+				getActionBar().setTitle(mTitle);
+				invalidateOptionsMenu();
+			}
+
+			public void onDrawerOpened(View drawerView) {
+				getActionBar().setTitle(mDrawerTitle);
+				invalidateOptionsMenu();
+			}
+		};
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+		
+		// Display the list of categories.
+		mListView = (ListView) findViewById(R.id.main_list_view);
+		
+		try {
+			DAO response = new DAO();
+			JSONObject result = response.getServerResponseContent("/categories");
+			JSONArray results = result.getJSONArray("categories");
+			ArrayList<String> list = new ArrayList<String>();
+
+			for (int i = 0; i < results.length(); i++) {
+				JSONObject o = results.getJSONObject(i);
+				list.add(o.getString("name"));
+			}
+
+			ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+					android.R.layout.simple_list_item_1, list);
+
+			mListView.setAdapter(arrayAdapter);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		mListView.setOnItemClickListener(this);
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		ListView allItems = (ListView) findViewById(R.id.main_list_view);
+		String categoryName = allItems.getItemAtPosition(position).toString();
+		DAO findThreads = new DAO();
+		JSONObject threads = null;
+		
+		try {
+			threads = findThreads.getThreadsByCategoryName(categoryName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (threads != null) {
+			Intent intent = new Intent(this, ViewListThreadActivity.class);
+			intent.putExtra("thread", threads.toString());
+			startActivity(intent);
+		} else {
+			Toast msg = Toast.makeText(this, "Failed For Some Reason",
+					Toast.LENGTH_LONG);
+			msg.show();
+		}
 	}
 
-	public void viewCategories(View v) {
-		Intent intent = new Intent(this, ViewCategoriesActivity.class);
-		startActivity(intent);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+         // The action bar home/up action should open or close the drawer.
+         // ActionBarDrawerToggle will take care of this.
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        
+        // Handle action buttons
+        switch(item.getItemId()) {
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+    
+	/**
+	 *  The click listener for ListView in the navigation drawer
+	 */
+	private class DrawerItemClickListener implements
+			ListView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			selectItem(position);
+		}
 	}
 
-	public void createTopic(View v) {
-		Intent intent = new Intent(this, CreateTopicActivity.class);
-		startActivity(intent);
+	private void selectItem(int position) {
+		mDrawerList.setItemChecked(0, true);
+		mDrawerLayout.closeDrawer(mDrawerList);
+
+		Intent intent = null;
+
+		switch (mDrawerItems[position]) {
+		case "Subscriptions":
+			intent = new Intent(this, SubscriptionsActivity.class);
+			break;
+		case "Topics":
+			intent = new Intent(this, ViewTopicListActivity.class);
+			break;
+		case "Threads":
+			// Authenticate the user account with the server
+			DAO thread = new DAO();
+			JSONObject allThreads = null;
+
+			try {
+				allThreads = thread.getAllThreads();
+				intent = new Intent(this, ViewListThreadActivity.class);
+				intent.putExtra("thread", allThreads.toString());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			break;
+		case "New Category":
+			intent = new Intent(this, CreateCategoryActivity.class);
+			break;
+		case "New Thread":
+			intent = new Intent(this, CreateThreadActivity.class);
+			break;
+		case "New Topic":
+			intent = new Intent(this, CreateTopicActivity.class);
+			break;
+		case "Find Thread":
+			intent = new Intent(this, FindThreadActivity.class);
+			break;
+		case "Ban User":
+			intent = new Intent(this, BanUserActivity.class);
+			break;
+		case "Logout":
+			DAO logout = new DAO();
+			JSONObject result;
+
+			try {
+				result = logout.logoutUser(session.getUserDetails().get(
+						"session"));
+
+				String message = result.getString("message");
+				Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
+				msg.show();
+
+				session.logoutUser();
+				intent = new Intent(this, LoginActivity.class);
+				startActivity(intent);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			break;
+		}
+		
+		if (intent != null) {
+			startActivity(intent);
+		}
 	}
 
-	public void viewTopic(View v) {
-		Intent intent = new Intent(this, ViewTopicListActivity.class);
-		startActivity(intent);
+	/**
+	 * When using the ActionBarDrawerToggle, you must call it during
+	 * onPostCreate() and onConfigurationChanged()...
+	 */
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		// Sync the toggle state after onRestoreInstanceState has occurred.
+		mDrawerToggle.syncState();
 	}
 
-	public void createThread(View v) {
-		Intent intent = new Intent(this, CreateThreadActivity.class);
-		startActivity(intent);
-	}
-
-	public void findThread(View v) {
-		Intent intent = new Intent(this, FindThreadActivity.class);
-		startActivity(intent);
-	}
-	
-	public void subscriptions(View v) {
-		Intent intent = new Intent(this, SubscriptionsActivity.class);
-		startActivity(intent);
-	}
-
-	public void viewAllThreads(View v) throws InterruptedException,
-			ExecutionException, JSONException {
-		// Authenticate the user account with the server
-		DAO thread = new DAO();
-		JSONObject allThreads = null;
-		allThreads = thread.getAllThreads();
-
-		Intent intent = new Intent(this, ViewListThreadActivity.class);
-		intent.putExtra("thread", allThreads.toString());
-		startActivity(intent);
-	}
-	
-	public void logoutUser(View v) throws Exception {
-		DAO logout = new DAO();
-		JSONObject result = logout.logoutUser(session.getUserDetails().get(
-				"session"));
-
-		String message = result.getString("message");
-		Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
-		msg.show();
-
-		session.logoutUser();
-		Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 }

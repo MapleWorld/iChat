@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">MessageApp</string>
     <string name="patient_name">Name</string>
     <string name="login_button">Login</string>
@@ -62,5 +61,29 @@
     <string name="title_activity_view_subscriptions">ViewSubscriptionsActivity</string>
     <string name="editThreadButtonID"> </string>
     <string name="editThreadBodyTag"> </string>
-
+	<string-array name="drawer_array">
+        <item>Categories</item>
+        <item>Subscriptions</item>
+        <item>Topics</item>
+        <item>Threads</item>
+        <item>New Thread</item>
+        <item>New Topic</item>
+        <item>Find Thread</item>
+        <item>Logout</item>
+    </string-array>
+    <string-array name="admin_drawer_array">
+        <item>Categories</item>
+        <item>Subscriptions</item>
+        <item>Topics</item>
+        <item>Threads</item>
+        <item>New Thread</item>
+        <item>New Category</item>
+        <item>New Topic</item>
+        <item>Find Thread</item>
+        <item>Ban User</item>
+        <item>Logout</item>
+    </string-array>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_search">Search</string>
 </resources>
