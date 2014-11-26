@@ -25,6 +25,7 @@
     <string name="save">Save</string>
     <string name="back">Back</string>
     <string name="id">ID</string>
+    <string name="sub">subscribe</string>
     <string name="view">View</string>
     <string name="topic_list">Topic List</string>
     <string name="thread_info">Thread Information</string>

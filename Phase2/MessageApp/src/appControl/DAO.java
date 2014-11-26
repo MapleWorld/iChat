@@ -1,5 +1,6 @@
 package appControl;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
@@ -370,6 +371,24 @@ public class DAO {
 
 		return categoryIDs;
 
+	}
+	
+	public JSONObject subTopic(String threadID, JSONArray Topics, String sessionID)
+			throws Exception {
+		Server server = new Server();
+		ArrayList<String> list = new ArrayList<String>();
+		JSONObject result = null;
+		for (int i = 0; i < Topics.length(); i++) {
+			JSONObject o = Topics.getJSONObject(i);
+			list.add(o.getString("id"));
+		}
+		for (int i = 0; i < list.size(); i++) {
+			result = server.new sendPOSTRequest().execute(
+					"/topics/subscribe/" + list.get(i), sessionID).get();
+		}
+		
+
+		return timeOut(result);
 	}
 
 }

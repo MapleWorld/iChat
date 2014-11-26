@@ -25,15 +25,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/subButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sub" 
+                        android:onClick="subTopicsInThread"/>
                     
                     <Button
-				        android:id="@+id/delete_thread"
-				        android:layout_width="wrap_content"
-				        android:layout_height="wrap_content"
-				        android:layout_alignParentRight="true"
-				        android:layout_alignParentTop="true"
-				        android:onClick="deleteThread"
-				        android:text="@string/delete_thread" />
+                        android:id="@+id/delete_thread"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:onClick="deleteThread"
+                        android:text="@string/delete_thread" />
 
                     <TextView
                         android:id="@+id/viewThreadTitleText"
