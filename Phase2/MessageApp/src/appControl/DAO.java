@@ -374,21 +374,37 @@ public class DAO {
 	}
 	
 	public JSONObject subTopic(String threadID, JSONArray Topics, String sessionID)
-			throws Exception {
+			 throws Exception{
 		Server server = new Server();
-		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<Long> list = new ArrayList<Long>();
 		JSONObject result = null;
 		for (int i = 0; i < Topics.length(); i++) {
-			JSONObject o = Topics.getJSONObject(i);
-			list.add(o.getString("id"));
-		}
-		for (int i = 0; i < list.size(); i++) {
-			result = server.new sendPOSTRequest().execute(
-					"/topics/subscribe/" + list.get(i), sessionID).get();
+			
+			JSONObject o;
+			try {
+				o = Topics.getJSONObject(i);
+		
+				System.out.println(o.toString());
+				
+				JSONObject req = new JSONObject();
+				req.put("topic_id", o.get("id"));			
+				result = server.new sendPOSTRequest().execute(
+						"/topics/subscribe",req.toString(), sessionID).get();
+				System.out.println(result.toString());
+				
+			}catch(Exception e){
+				Log.e("com.example.messageapp", "exception", e);
+			}
+			
+			
+			
 		}
 		
+		return result;
+		
+		
 
-		return timeOut(result);
+		
 	}
 
 }

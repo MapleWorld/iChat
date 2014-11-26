@@ -162,6 +162,7 @@ public class TopicServlet extends HttpServlet {
 				if(success){
 					response.setStatus(HttpServletResponse.SC_OK);
 					jResp.put("success", true);
+					jResp.put("message", "Subscribe Success");
 				}else{
 					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					jResp.put("success", false);

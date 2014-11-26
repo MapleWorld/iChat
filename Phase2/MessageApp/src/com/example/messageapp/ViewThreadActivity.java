@@ -218,8 +218,6 @@ public class ViewThreadActivity extends Activity {
 		JSONArray results = result.getJSONArray("topics");
 		
 		DAO serverDAO = new DAO();
-		// Perform POST request to delete a thread and handle successes
-		// and failures from the response
 		JSONObject result1 = serverDAO.subTopic(threadString, results, 
 				session.getUserDetails().get("session"));
 
