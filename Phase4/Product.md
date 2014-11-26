@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+#### Product Description/Highlights
+
 *how to use the product:
 
 *User can register an account with at least 8 digits long password, and login. Or login with exist account.
@@ -22,8 +23,3 @@
 * Administer can create new category.
 
 *features:
-
-
-=======
-#### Product Description/Highlights
->>>>>>> 95afce660e96f2d6a6da084d6fa3880aee492eff
