@@ -57,10 +57,13 @@ public class TopicServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		Pattern newTopicPattern = Pattern.compile("^\\/topics\\/create$");
 		Pattern topicSubPattern = Pattern.compile("^\\/topics\\/subscribe$");
+		Pattern topicunSubPattern = Pattern.compile("^\\/topics\\/unsubscribe$");
+
 
 		Matcher newThreadMatcher = newTopicPattern.matcher(request
 				.getRequestURI());
 		Matcher topicSubMatcher = topicSubPattern.matcher(request.getRequestURI());
+		Matcher topicunSubMatcher = topicunSubPattern.matcher(request.getRequestURI());
 
 		JSONObject jResp;
 
@@ -69,6 +72,12 @@ public class TopicServlet extends HttpServlet {
 		}else if (topicSubMatcher.find()){
 			try{
 				doTopicSubscribe(request, response);
+			} catch(Exception e1){
+				e1.printStackTrace();
+			}
+		}else if (topicunSubMatcher.find()){
+			try{
+				doTopicunSubscribe(request, response);
 			} catch(Exception e1){
 				e1.printStackTrace();
 			}
@@ -182,6 +191,61 @@ public class TopicServlet extends HttpServlet {
 
 		response.getWriter().println(jResp.toString());
 	}
+	
+	private void doTopicunSubscribe(HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+		String line;
+		String jsonInput = "";
+		JSONObject jo;
+		BufferedReader br = request.getReader();
+		long topic_id;
+		String sessionID;
+		JSONObject jResp;
+		boolean success;
+
+		jResp = new JSONObject();
+
+		response.setContentType("application/json");
+
+		sessionID = request.getHeader("SESSIONID");
+
+		if (sessionID == null) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			jResp.put("success", false);
+			jResp.put("message", "No session token provided");
+		} else {
+			while ((line = br.readLine()) != null) {
+				jsonInput += line;
+			}
+			try {
+				jo = new JSONObject(jsonInput);
+				topic_id = jo.getLong("topic_id");
+			
+				success = TopicDTO.topicunSub(sessionID, topic_id);
+				if(success){
+					response.setStatus(HttpServletResponse.SC_OK);
+					jResp.put("success", true);
+					jResp.put("message", "unSubscribe Success");
+				}else{
+					response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+					jResp.put("success", false);
+					jResp.put("message", "Error parsing request");
+				}
+			} catch (JSONException e) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				jResp.put("success", false);
+				jResp.put("message", "Error parsing request");
+			} catch (UnauthorizedException ue) {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				jResp.put("success", false);
+				jResp.put("message", ue.getMessage());
+			}
+		}
+		
+
+		response.getWriter().println(jResp.toString());
+	}
+
 		
  
 	private HttpServletResponse doNewTopic(HttpServletRequest request,

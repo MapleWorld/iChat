@@ -376,7 +376,6 @@ public class DAO {
 	public JSONObject subTopic(String threadID, JSONArray Topics, String sessionID)
 			 throws Exception{
 		Server server = new Server();
-		ArrayList<Long> list = new ArrayList<Long>();
 		JSONObject result = null;
 		for (int i = 0; i < Topics.length(); i++) {
 			
@@ -398,7 +397,31 @@ public class DAO {
 		return result;
 		
 		
-
+	}
+	
+	public JSONObject unsubTopic(String threadID, JSONArray Topics, String sessionID)
+			 throws Exception{
+		Server server = new Server();
+		JSONObject result = null;
+		for (int i = 0; i < Topics.length(); i++) {
+			
+			JSONObject o;
+			try {
+				o = Topics.getJSONObject(i);
+				JSONObject req = new JSONObject();
+				req.put("topic_id", o.get("id"));			
+				result = server.new sendPOSTRequest().execute(
+						"/topics/unsubscribe",req.toString(), sessionID).get();
+			}catch(Exception e){
+				Log.e("com.example.messageapp", "exception", e);
+			}
+			
+			
+			
+		}
+		
+		return result;
+		
 		
 	}
 

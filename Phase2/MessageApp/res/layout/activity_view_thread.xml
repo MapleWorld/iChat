@@ -27,6 +27,13 @@
                     android:orientation="vertical" >
 
                     <Button
+                        android:id="@+id/unSubButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/unsub" 
+                        android:onClick="unsubTopicsInThread"/>
+
+                    <Button
                         android:id="@+id/subButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

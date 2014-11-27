@@ -232,5 +232,29 @@ public class ViewThreadActivity extends Activity {
 		}
 		
 	}
+	
+	public void unsubTopicsInThread(View v) throws Exception {
+		Intent intentN = getIntent();
+		String threadString = intentN.getStringExtra("threadID");
+		
+		DAO response = new DAO();
+		JSONObject result = response.getServerResponseContent("/threads/view/" + threadString + "/1");
+		JSONArray results = result.getJSONArray("topics");
+		
+		DAO serverDAO = new DAO();
+		JSONObject result1 = serverDAO.unsubTopic(threadString, results, 
+				session.getUserDetails().get("session"));
+
+		String message = (String) result1.get("message");
+
+		if (result1.get("success").equals(true)) {
+			Intent intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
+		}else{
+			Toast msg = Toast.makeText(this, message, Toast.LENGTH_LONG);
+			msg.show();
+		}
+		
+	}
 
 }
