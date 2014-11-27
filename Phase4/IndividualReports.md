@@ -56,3 +56,22 @@ We would like you to be concise yet informative.
 * I have committed some code without testing, which I should never do that. That gives my team member a hard time. Also I always make many typos.
 
 ----
+
+----
+## Yu Xie(nbxieyu)
+
+*My most significant contribution was the implementation of admin can delete the reply, which is 
+ only for the administrator. This implementation allows the administrator to delete the reply which
+ may be improper.This implementation was in the commit 9acca297461cfd87f3d3e6796ebb2afbcbcdcd2f.
+*I have to understand the impelemntation of the basic server design,which can help me to do 
+ work on server part of this project. This impelmentation is related to hnadling HTTP requests,
+ communicating with MySQL,processing JSON,and reading config from a file, which are  in commit
+ 70a1c72b9675af10e8147cb1babfced896e8b669
+*My strength as a team member was that i always consider other implementations that are related to
+ my work.Some impelemntations from other teammates may be elegant and helpful, so i can try to 
+ improve and optimize my work. 
+*One thing i could improve as a team member would be doing more work for client part and documents.
+ i mainly work on server part,which may let me have less understanding of client part and design 
+ process.
+
+---
