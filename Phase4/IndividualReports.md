@@ -1,19 +1,5 @@
 # Phase 4 - Individual Reports
 
------
-
-## Name (GitHub username)
-
-Here is an example of a fake report, just to give you an idea of the format we are expecting.
-We would like you to be concise yet informative.
-
- * My most significant contrubution was the design and implementation of Component X (links to relevant and interesting source-files/commits/issues).
- * While working on our Android app (and then later in class), I learned about adapters (links to relevant and interesting source-files/commits/issues).
- * I am always helping my teammates - I am the most experienced coder on the team, and I helped other teammates set up their development environment, and get up to speed with the tools we've used (give examples of specific tools).
- * I could keep people more informed of what I am doing - I made a few large commits that conflicted with everybody else's code, and merging everything wasted a lot of our time.
-
-----
-
 ## Russell Self (g3rs-cdf)
 
 * My most significant contribution was the implementation of the basic server design, which we re-used for much of the server functionality as it was expanded. This is where we laid out the core functionality for handling HTTP requests, communicating with MySQL, processing JSON, and reading config from a file. Most of this was implemented in commit (note this commit also includes the JSON library that we used, which is from a third-party): [70a1c72b9675af10e8147cb1babfced896e8b669](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/70a1c72b9675af10e8147cb1babfced896e8b669)
