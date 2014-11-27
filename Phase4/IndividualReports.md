@@ -47,3 +47,12 @@ We would like you to be concise yet informative.
 * As a team member I really should've improved on server side of the project, I implemented android side functions that send requests to server, but I had no idea how server is accepting the request and respond at the time.
 
 ----
+
+## Fangzhou Yu(FrancesYu)
+
+* My most significant individual contribution was implementation the administer can delete a thread and create a new category. Both of them parse the JSONObject to string and send to server and update the server side data. 47feee433290f52080f76485e2e9d39f00734def, 3ffa8ad4aeeea6a5b5562d8fa4842c10eff00095. Also I implemented the subscribe to topic, when users view the threads they can choose to subscribe the related topics.  
+* I have learned a lot from this project. The most important part is how to use server and send the HTTP request. Also how to use JDBC connect to the mySQL server. 
+* My strength is I am a team player. Also I am a harder working person and I also happy to share my ideas to the team. I can finish the work that assigned on time, so I never doing changes in the last miniutes before the dealine. 
+* I have committed some code without testing, which I should never do that. That gives my team member a hard time. Also I always make many typos.
+
+----
