@@ -31,9 +31,6 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private ListView mListView;
-
-	private CharSequence mDrawerTitle;
-	private CharSequence mTitle;
 	private String[] mDrawerItems;
 
 	@Override
@@ -69,12 +66,10 @@ public class MainActivity extends Activity implements OnItemClickListener {
 				R.drawable.ic_drawer, R.string.drawer_open,
 				R.string.drawer_close) {
 			public void onDrawerClosed(View view) {
-				getActionBar().setTitle(mTitle);
 				invalidateOptionsMenu();
 			}
 
 			public void onDrawerOpened(View drawerView) {
-				getActionBar().setTitle(mDrawerTitle);
 				invalidateOptionsMenu();
 			}
 		};

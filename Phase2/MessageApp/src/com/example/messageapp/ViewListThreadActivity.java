@@ -17,14 +17,14 @@ import android.widget.Toast;
 public class ViewListThreadActivity extends Activity implements
 		OnItemClickListener {
 
-	private ListView listview;
+	private ListView mListView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_list_thread);
 
-		listview = (ListView) findViewById(R.id.threadListView);
+		mListView = (ListView) findViewById(R.id.threadListView);
 
 		try {
 			displayThreadList();
@@ -32,7 +32,7 @@ public class ViewListThreadActivity extends Activity implements
 			e.printStackTrace();
 		}
 
-		listview.setOnItemClickListener(this);
+		mListView.setOnItemClickListener(this);
 	}
 
 	public void onItemClick(AdapterView<?> l, View v, int position, long id) {
@@ -58,7 +58,7 @@ public class ViewListThreadActivity extends Activity implements
 	public void displayThreadList() throws Exception {
 		Intent intentN = getIntent();
 		String threadListString = intentN.getStringExtra("thread");
-
+		
 		JSONObject JSONString = new JSONObject(threadListString);
 
 		JSONArray result = JSONString.getJSONArray("threads");
@@ -72,7 +72,7 @@ public class ViewListThreadActivity extends Activity implements
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, list);
 
-		listview.setAdapter(arrayAdapter);
+		mListView.setAdapter(arrayAdapter);
 	}
 
 	@Override

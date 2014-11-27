@@ -89,6 +89,8 @@ public class ViewThreadActivity extends Activity {
 				((TextView) findViewById(R.id.viewThreadTimestampText)).setText("Posted at: "+jo.getString("timestamp"));
 				((TextView) findViewById(R.id.viewThreadBodyText)).setText(jo.getString("body"));
 				
+				getActionBar().setTitle(jo.getString("title"));
+				
 				if(jo.getLong("userid") == session.getUserID()) {
 					buttonHolderLayout = (LinearLayout) findViewById(R.id.editThreadButtonHolder);
 					Button editThreadButton = new Button(this);
