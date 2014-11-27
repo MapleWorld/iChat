@@ -66,7 +66,7 @@ may be improper.This implementation was in the commit https://github.com/csc301-
 * I have to understand the impelemntation of the basic server design,which can help me to do 
 work on server part of this project. This impelmentation is related to hnadling HTTP requests,
 communicating with MySQL,processing JSON,and reading config from a file, which are  in commit
-70a1c72b9675af10e8147cb1babfced896e8b669
+https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/70a1c72b9675af10e8147cb1babfced896e8b669
 * My strength as a team member was that i always consider other implementations that are related to
 my work.Some impelemntations from other teammates may be elegant and helpful, so i can try to 
 improve and optimize my work. 
