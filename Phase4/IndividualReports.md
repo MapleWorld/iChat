@@ -57,12 +57,12 @@ We would like you to be concise yet informative.
 
 ----
 
-----
 ## Yu Xie(nbxieyu)
 
 * My most significant contribution was the implementation of admin can delete the reply, which is 
 only for the administrator. This implementation allows the administrator to delete the reply which
-may be improper.This implementation was in the commit https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/9acca297461cfd87f3d3e6796ebb2afbcbcdcd2f
+may be improper.This implementation was in the commit
+https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/9acca297461cfd87f3d3e6796ebb2afbcbcdcd2f
 * I have to understand the impelemntation of the basic server design,which can help me to do 
 work on server part of this project. This impelmentation is related to hnadling HTTP requests,
 communicating with MySQL,processing JSON,and reading config from a file, which are  in commit
