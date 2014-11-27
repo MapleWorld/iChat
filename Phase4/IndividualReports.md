@@ -9,6 +9,15 @@
 
 ----
 
+## Gabriel Luong ([gabrielluong](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commits?author=gabrielluong))
+
+ * My most significant contribution was the implementation of a new main screen client UI in phase 4 [af620980](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/af620980cb7f6cb1bc656e0f8df6ab409a55c70e). This helped improve the initial impression and user interaction upon loginning onto the application. The main screen was revamped to display a list of all the categories which helps user immediately navigate for threads aligned with their interests, and all the action buttons were moved to a drawer menu that can slide in and out.
+ * Initially, I learned how to create new Android activities, which allowed for user inputs to be sent to a server, and displaying an user notification of the results ((70de7b)[https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/70de7b1051fa7e7812d81a72ce8203e838484e7b], (bc3100e)[https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/bc3100ea0564f2c7d216cba6665a2ebb9b91ec29], (6083920)[https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/6083920d3433eafbf7f10b4714927d235d9529e7]). In Phase 3, I learned about Android Builders and Adapters from implementing a delete dialog prompt ((b3ccaf)[https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/b3ccaf03378ac0b1228afe2daffd1f8c27f6204f]). Finally, I learned how to implement a navigation drawer in Phase 4 ((af62098)[https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/af620980cb7f6cb1bc656e0f8df6ab409a55c70e]).
+ * My main strengths as a team member were implementing features on the Android client and reviewing all the work for the final deliverable in each of the phases.
+ * I should have taken more of a role to help keep my team organize, and suggested a new process where commits are peer reviewed through a pull request process prior to merging to master. I should've also deliver features on time instead of close to the due date.
+
+----
+
 ## Felix Lu (g3luding)
 
  * My most significant contrubution was the design and implementation of the Android client side data display which was used in most of the client side to allow users to view data. I used an adapter to populate the Android ListView with the JSON objects. [32145dc77026a01428825bae98fa6997b401d8b7](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/32145dc77026a01428825bae98fa6997b401d8b7)
@@ -36,28 +45,28 @@
 
 ## Fangzhou Yu(FrancesYu)
 
-* My most significant individual contribution was implementation the administrator can delete a thread and create a new category. Both of them parse the JSONObject to string and send to server and update the server side data. [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/47feee433290f52080f76485e2e9d39f00734def), [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/3ffa8ad4aeeea6a5b5562d8fa4842c10eff00095). Also I implemented the subscribe to topic, when users view the threads they can choose to subscribe the related topics.  
-* I have learned a lot from this project. The most important part is how to use server and send the HTTP request. Also how to use JDBC connect to the mySQL server. 
-* My strength is I am a team player. Also I am a harder working person and I also happy to share my ideas to the team. I can finish the work that assigned on time, so I never doing changes in the last miniutes before the dealine. 
+* My most significant individual contribution was implementation the administrator can delete a thread and create a new category. Both of them parse the JSONObject to string and send to server and update the server side data. [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/47feee433290f52080f76485e2e9d39f00734def), [commit](https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/3ffa8ad4aeeea6a5b5562d8fa4842c10eff00095). Also I implemented the subscribe to topic, when users view the threads they can choose to subscribe the related topics.
+* I have learned a lot from this project. The most important part is how to use server and send the HTTP request. Also how to use JDBC connect to the mySQL server.
+* My strength is I am a team player. Also I am a harder working person and I also happy to share my ideas to the team. I can finish the work that assigned on time, so I never doing changes in the last miniutes before the dealine.
 * I have committed some code without testing, which I should never do that. That gives my team member a hard time. Also I always make many typos.
 
 ----
 
 ## Yu Xie(nbxieyu)
 
-* My most significant contribution was the implementation of admin can delete the reply, which is 
+* My most significant contribution was the implementation of admin can delete the reply, which is
 only for the administrator. This implementation allows the administrator to delete the reply which
 may be improper.This implementation was in the commit
 https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/9acca297461cfd87f3d3e6796ebb2afbcbcdcd2f
-* I have to understand the impelemntation of the basic server design,which can help me to do 
+* I have to understand the impelemntation of the basic server design,which can help me to do
 work on server part of this project. This impelmentation is related to hnadling HTTP requests,
 communicating with MySQL,processing JSON,and reading config from a file, which are  in commit
 https://github.com/csc301-fall2014/Proj-Evening-Team6-repo/commit/70a1c72b9675af10e8147cb1babfced896e8b669
 * My strength as a team member was that i always consider other implementations that are related to
-my work.Some impelemntations from other teammates may be elegant and helpful, so i can try to 
-improve and optimize my work. 
+my work.Some impelemntations from other teammates may be elegant and helpful, so i can try to
+improve and optimize my work.
 * One thing i could improve as a team member would be doing more work for client part and documents.
-i mainly work on server part,which may let me have less understanding of client part and design 
+i mainly work on server part,which may let me have less understanding of client part and design
 process.
 
 ---
