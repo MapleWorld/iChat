@@ -2,7 +2,9 @@
 
 Our product is an android messaging application targeted at university users. We have a basic user authentication system to allow users to identify themselves and keep track of their own messages safely. Each user has their own account which they use to log into the system. Our application allows users to create and view categories, topics, and threads which allow for the optimial user experience. Users can filter threads based on categories and topics so they can easily identify the threads that they would like to see. When creating a thread, a user can add these categories and topics to their thread to allow other viewers to easily find their thread. Besides the user side, we also focused on the administration side of the application. We allowed some users to have administrative privileges which gave them the power to delete threads that they felt offensive and ban abusive users from the system. Once a user is finished using the application, they can easily log out of the application and have their data saved for the next time they use the application.
 
-###### Usage scenario(User):
+## Usage Scenario
+
+### User
 1. User can register an account with at least 8 digits long password, and login. Or login with exist account.
 2. User can tap the View Categories to View all the categories, and tap on category to see all the threads in that topic. Tap one thread, user can view the threads.
 3. User can tap the View all threads button to view all the threads, and tap a specific thread to view it.
@@ -12,7 +14,7 @@ Our product is an android messaging application targeted at university users. We
 7. User also can search the thread by giving the thread id, topic id or category name.
 8. User can logout when they are finished using the application to protect their identity.
 
-###### Usage scenario(Admin):
+### Admin
 1. The administrator logs in with his/her administrator account.
 2. The administrator sees some unauthorized usage and decides to do something about it.
 3. The administrator can ban a user, if a user has been banned, he cannot login. If he is current using the app, then he cannot not do anything.
