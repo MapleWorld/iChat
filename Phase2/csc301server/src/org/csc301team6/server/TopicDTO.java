@@ -242,7 +242,7 @@ public class TopicDTO {
 			conn = DriverManager.getConnection(mgr.getJDBCURL());
 
 			ps = conn.prepareStatement(
-					"insert into subscription (user_id, topic_id) "
+					"insert ignore into subscription (user_id, topic_id) "
 							+ "values (?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(1, userid);
