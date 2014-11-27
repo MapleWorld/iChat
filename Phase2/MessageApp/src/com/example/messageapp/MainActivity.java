@@ -177,7 +177,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 		switch (mDrawerItems[position]) {
 		case "Subscriptions":
-			intent = new Intent(this, SubscriptionsActivity.class);
+			intent = new Intent(this, ViewSubscriptionsActivity.class);
 			break;
 		case "Topics":
 			intent = new Intent(this, ViewTopicListActivity.class);
