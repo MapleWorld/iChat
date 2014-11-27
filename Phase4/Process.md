@@ -5,8 +5,8 @@ The software development process that worked well for our team was the Scrum-lik
 Furthermore, we found the GitHub issue management system to be an effective way to track and assign tasks for the different phases. We were able to label tasks with a given phase or a descriptive label such as "bug" or "enhancement". Team members would be able to effectively visual what tasks needed to be completed, and take on tasks that they were interested in.
 
 If we were to continue working as a team, the ideal process would be similar to Scrum:
-      * Having many cycles so we can split up large projects
-      * Frequent meetings done online
-      * Frequent status checks to keep up with the goals
-      * Utilize GitHub's issue management system to track and assignment tasks
-      * Utilize GitHub's pull request system to ensure every commit to master is peer reviewed and ensure code conflicts are rebased correctly
+ * Having many cycles so we can split up large projects
+ * Frequent meetings done online
+ * Frequent status checks to keep up with the goals
+ * Utilize GitHub's issue management system to track and assignment tasks
+ * Utilize GitHub's pull request system to ensure every commit to master is peer reviewed and ensure code conflicts are rebased correctly
